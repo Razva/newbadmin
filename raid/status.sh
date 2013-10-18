@@ -1,0 +1,1 @@
+watch -n .5 cat /proc/mdstat

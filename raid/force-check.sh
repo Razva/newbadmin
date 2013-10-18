@@ -1,0 +1,1 @@
+echo check > /sys/block/mdXXX/md/sync_action

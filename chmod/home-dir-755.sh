@@ -1,0 +1,1 @@
+find /home/*/public_html -type d -exec chmod 755 {} +

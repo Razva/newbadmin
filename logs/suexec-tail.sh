@@ -1,0 +1,1 @@
+tail -f /usr/local/apache/logs/suexec_log

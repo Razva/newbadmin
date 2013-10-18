@@ -1,0 +1,1 @@
+find /home/ '(' -name .htaccess -a -type f ')' -print0 | xargs -0 grep movingpage.cgi

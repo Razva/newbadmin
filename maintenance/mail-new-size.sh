@@ -1,0 +1,1 @@
+find /home -iwholename \*mail/new -exec du -csh {} \;

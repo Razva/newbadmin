@@ -2,6 +2,7 @@
 
 # display the commands to update an OpenVZ VPS with new disk space requirements
 # script taken from http://chrisschuld.com/2009/11/setting-vps-disk-space-with-openvz-the-easy-way/
+# and fixed with help from Botje & archon- @ #perl @ FreeNode
 
 use strict;
 

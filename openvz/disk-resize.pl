@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 
 # display the commands to update an OpenVZ VPS with new disk space requirements
-# 2009/11/15 - Chris Schuld (chris@chrisschuld.com)
 # script taken from http://chrisschuld.com/2009/11/setting-vps-disk-space-with-openvz-the-easy-way/
 
 use strict;

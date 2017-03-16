@@ -27,7 +27,6 @@ id=$(date +%Y%m%d-%H%M%S)
 # Dumping and compressing databases
 mkdir -p "$working_dir/db"
 mysql -s -r -u "$sql_user" -p"$sql_pass" -e 'show databases' | grep -Ev 'Database|mysql|information_schema|performance_schema|phpmyadmin|'"$sql_excludes" | while read db; do mysqldump -u "$sql_user" -p"$sql_pass" "$db" -r "$working_dir/db/${db}-$id.sql" && gzip "$working_dir/db/${db}-$id.sql"; done
-cd "$working_dir"
 
 # Prune function, necessary for excludes
 get_prune() {
@@ -53,9 +52,5 @@ get_prune "${exclude_dirs[@]}";
 find . "${prune[@]}" -type f -print0 | tar -czf "$working_dir/files/$filename-$id.tar.gz" --null -T -
 
 # Cleaning up
-mkdir -p "$target/$id"
-cd "$working_dir"
-mv * "$target/$id"
-cd "$target" || exit
-rm -rf "$working_dir"
-find . -type d ! -newermt "$days days ago" -delete
+mv "$working_dir" "$target/$id"
+find "$target" -type d ! -newermt "$days days ago" -delete

@@ -31,7 +31,7 @@ id=$(date +%Y%m%d-%H%M%S)
 
 # Dumping and compressing databases
 mkdir -p "$working_dir/db"
-mysql -s -r -u "$sql_user" -p"$sql_pass" -e 'show databases' | grep -Ev -e 'Database|mysql|information_schema|performance_schema|phpmyadmin' -e "$sql_excludes" | while read db; do mysqldump -u "$sql_user" -p"$sql_pass" "$db" -r "$working_dir/db/${db}-$id.sql" && gzip "$working_dir/db/${db}-$id.sql"; done
+mysql -s -r -u "$sql_user" -p"$sql_pass" -e 'show databases' | grep -Ev -e 'Database|mysql|information_schema|performance_schema|phpmyadmin' ${sql_excludes+-e "$sql_excludes"} | while read db; do mysqldump -u "$sql_user" -p"$sql_pass" "$db" -r "$working_dir/db/${db}-$id.sql" && gzip "$working_dir/db/${db}-$id.sql"; done
 
 # Prune function, necessary for excludes
 get_prune() {

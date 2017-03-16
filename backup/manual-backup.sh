@@ -14,7 +14,7 @@ exclude_dirs=(./exclude1 ./exclude2) # Directories that you want to exclude from
 # Databases
 sql_user="root" # DB username
 sql_pass="MySecurePassword" # DB pass
-sql_excludes="excluded_table|another_excluded_table" # Excluded databases, separated by pipes. Use "" for no exclusions.
+sql_excludes="excluded_database|another_excluded_database" # Excluded databases, separated by pipes. Use "" for no exclusions.
 
 # Miscellaneous
 days="7" # How many days should we keep the files.

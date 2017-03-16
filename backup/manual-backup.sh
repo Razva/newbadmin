@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Wrote with the help of greycat, _adb, phogg and other great folks from Freenode
+# Written with the help of greycat, _adb, phogg and other great folks from Freenode
 # Special thanks go to Soliton for guiding, reviewing and correcting this script
 #
 ### Configurable options ###
@@ -14,7 +14,7 @@ exclude_dirs=(./exclude1 ./exclude2) # Directories that you want to exclude from
 # Databases
 sql_user="root" # DB username
 sql_pass="MySecurePassword" # DB pass
-sql_excludes="excluded_table|another_excluded_table" # Excuded databases, separated by pipes. Use "" for no exclusions.
+sql_excludes="excluded_table|another_excluded_table" # Excluded databases, separated by pipes. Use "" for no exclusions.
 
 # Miscellaneous
 days="7" # How many days should we keep the files.
@@ -28,7 +28,7 @@ id=$(date +%Y%m%d-%H%M%S)
 
 # Dumping and compressing databases
 mkdir -p "$working_dir/db"
-mysql -s -r -u "$sql_user" -p"$sql_pass" -e 'show databases' | grep -Ev 'Database|mysql|information_schema|performance_schema|phpmyadmin|'"$sql_excludes" | while read db; do mysqldump -u "$sql_user" -p"$sql_pass" "$db" -r "$working_dir/db/${db}-$id.sql" && gzip "$working_dir/db/${db}-$id.sql"; done
+mysql -s -r -u "$sql_user" -p"$sql_pass" -e 'show databases' | grep -Ev -e 'Database|mysql|information_schema|performance_schema|phpmyadmin' -e "$sql_excludes" | while read db; do mysqldump -u "$sql_user" -p"$sql_pass" "$db" -r "$working_dir/db/${db}-$id.sql" && gzip "$working_dir/db/${db}-$id.sql"; done
 
 # Prune function, necessary for excludes
 get_prune() {

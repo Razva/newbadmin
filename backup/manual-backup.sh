@@ -5,6 +5,9 @@
 #
 ### Configurable options ###
 
+# Debugging - uncomment the following line if you would like to see what is happening
+#set -x
+
 # Directories
 working_dir="/tmp/backup" # Where will all the magic happen. Local storage is highly recommended.
 source="/home/some-dir" # What do you want to backup.

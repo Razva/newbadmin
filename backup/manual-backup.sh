@@ -6,7 +6,7 @@
 ### Configurable options ###
 
 # Directories
-working_dir="/tmp" # Where will all the magic happen. Local storage is highly recommended.
+working_dir="/tmp/backup" # Where will all the magic happen. Local storage is highly recommended.
 source="/home/some-dir" # What do you want to backup.
 target="/backup" # Where do you want to store backups.
 exclude_dirs=(./exclude1 ./exclude2) # Directories that you want to exclude from backups. These files should be inside the previously specified source. Use () for no exclusions.
@@ -32,6 +32,7 @@ mysql -s -r -u "$sql_user" -p"$sql_pass" -e 'show databases' | grep -Ev -e 'Data
 
 # Prune function, necessary for excludes
 get_prune() {
+	(($#)) || return
     prune=('(' '(')
     local arg or=()
     for arg; do

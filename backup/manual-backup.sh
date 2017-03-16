@@ -1,5 +1,6 @@
 #!/bin/bash
-# Special thanks go to geirha, Soliton, greycat, _adb, phogg and all the great folks from Freenode that guided me
+# Wrote with the help of greycat, _adb, phogg and other great folks from Freenode
+# Special thanks go to Soliton for guiding, reviewing and correcting this script
 
 ### Configurable options ###
 

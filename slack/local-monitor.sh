@@ -1,5 +1,5 @@
 #!/bin/bash
-# Special thanks to koala_man @ FreeNode. Original code was inspired from http://blog.getpostman.com/2015/12/23/stream-any-log-file-to-slack-using-curl/
+# Special thanks to koala_man and Soliton @ FreeNode. Original code was inspired from http://blog.getpostman.com/2015/12/23/stream-any-log-file-to-slack-using-curl/
 # Requirements: JQ 1.5+ should be installed. For CentOS "yum install jq", for Ubuntu "apt-get install jq".
 
 # Configuration

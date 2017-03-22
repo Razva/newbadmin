@@ -1,6 +1,6 @@
 #!/bin/bash
 # Special thanks to koala_man @ FreeNode
-# Requirements: JQ should be installed. For CentOS "yum install jq", for Ubuntu "apt-get install jq".
+# Requirements: JQ 1.5+ should be installed. For CentOS "yum install jq", for Ubuntu "apt-get install jq".
 
 # Configuration
 file="/some/file.log"

@@ -20,7 +20,7 @@ sql_pass="MySecurePassword" # DB pass
 sql_excludes="excluded_database|another_excluded_database" # Excluded databases, separated by pipes. Use "" for no exclusions.
 
 # Miscellaneous
-days="7" # How many days should we keep the files.
+copies=7 # How many copies or days should we keep. In order to choose between number of copies or days check the Cleaning Up section at the end of the script
 filename="backup" # Backup filename, it will result in a filename.tar.gz
 
 ### STOP EDITING ###
@@ -57,7 +57,7 @@ cd "$source" || exit;
 get_prune "${exclude_dirs[@]}";
 find . "${prune[@]}" -type f -print0 | tar -czf "$working_dir/files/$filename-$id.tar.gz" --null -T -
 
-# Cleaning up
+# Cleaning Up
 mv "$working_dir" "$target/$id"
-#find "$target" -type d ! -path "$target" ! -newermt "$days days ago" -prune -exec rm -rf {} \; # uncomment this if you would like to remove backups older than X days, rather than latest X backups
-backups=( "$target"/*/ ) n=${#backups[@]}; if (( n > 3 )); then echo rm -rf "${backups[@]:0:n-3}"; else printf 'Leaving all %s backups alone\n' "$n"; fi
+#find "$target" -type d ! -path "$target" ! -newermt "$copies days ago" -prune -exec rm -rf {} \; # uncomment this if you would like to remove backups older than X days, rather than latest X backups
+backups=( "$target"/*/ ) n=${#backups[@]}; if (( n > 3 )); then echo rm -rf "${backups[@]:0:n-3}"; else printf 'Leaving all %s backups alone\n' "$n"; fi # comment this line if you would like to remove backups older than X days, rather than latest X backups

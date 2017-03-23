@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Written with the help of greycat, _adb, phogg and other great folks from Freenode
+# Written with the help of greycat, _adb, phogg, geirha and other great folks from Freenode
 # Special thanks go to Soliton for guiding, reviewing and correcting this script
 #
 ### Configurable options ###
@@ -59,4 +59,4 @@ find . "${prune[@]}" -type f -print0 | tar -czf "$working_dir/files/$filename-$i
 
 # Cleaning up
 mv "$working_dir" "$target/$id"
-find "$target" -type d ! -newermt "$days days ago" -delete
+find "$target" -type d ! -path "$target" ! -newermt "$days days ago" -prune -exec rm -rf {} \;

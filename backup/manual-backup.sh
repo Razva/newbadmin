@@ -60,4 +60,4 @@ find . "${prune[@]}" -type f -print0 | tar -czf "$working_dir/files/$filename-$i
 # Cleaning Up
 mv "$working_dir" "$target/$id"
 #find "$target" -type d ! -path "$target" ! -newermt "$copies days ago" -prune -exec rm -rf {} \; # uncomment this if you would like to remove backups older than X days, rather than latest X backups
-backups=( "$target"/*/ ) n=${#backups[@]}; if (( n > $copies )); then rm -rf "${backups[@]:0:n-$copies}"; else printf 'Leaving all %s backups alone\n' "$n"; fi # comment this line if you would like to remove backups older than X days, rather than latest X backups
+backups=( "$target"/*/ ) n=${#backups[@]}; if (( n > $copies )); then rm -rf "${backups[@]:0:n-copies}"; else printf 'Leaving all %s backups alone\n' "$n"; fi # comment this line if you would like to remove backups older than X days, rather than latest X backups

@@ -1,4 +1,5 @@
 #!/usr/local/cpanel/3rdparty/bin/perl
+# should be executed with /usr/local/cpanel/3rdparty/bin/perl
 
 use Cpanel::Config::Users          ();
 use Cpanel::Config::LoadCpUserFile ();

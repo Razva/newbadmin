@@ -69,5 +69,5 @@ restorecon -R -v /home/$user/.ssh
 log 'Done!'
 
 log 'Cleanup ...'
-rm -rf setup.sh
+rm -rf centos.sh
 log 'Done!'

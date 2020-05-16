@@ -27,10 +27,21 @@ wget -O /etc/named.conf https://raw.githubusercontent.com/Razva/newbadmin/master
 chown root:named /etc/named.conf*
 log 'Done!'
 
-log 'Enabling and Starting BIND ...'
+log 'Enabling BIND ...'
 systemctl enable named
 systemctl stop named
 log 'Done!'
+
+log 'Editing BIND Config ...'
+nano -w /etc/named.conf
+log 'Done!'
+
+log 'Starting BIND ...'
+systemctl start named
+systemctl status named
+log 'Done!'
+
 log ''
-log '!!! REMEMBER TO SETUP PLESK IP AND KEY IN NAMED.CONF !!!'
+log 'BIND SUCCESSFULLY INSTALLED'
+
 rm -rf bind-setup.sh

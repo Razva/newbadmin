@@ -30,7 +30,6 @@ log 'Done!'
 log 'Enabling and Starting BIND ...'
 systemctl enable named
 systemctl stop named
-systemctl start named
 log 'Done!'
 log ''
 log '!!! REMEMBER TO SETUP PLESK IP AND KEY IN NAMED.CONF !!!'

@@ -15,7 +15,7 @@ log 'Installing BIND ...'
 yum -y install bind bind-utils &&
 log 'Done!'
 
-log 'Adding FirewallD rules ...'
+log 'Setting FirewallD ...'
 firewall-cmd --permanent --zone=public --add-port=53/tcp
 firewall-cmd --permanent --zone=public --add-port=53/udp
 firewall-cmd --permanent --zone=public --add-port=953/tcp
@@ -26,9 +26,6 @@ log 'Setting BIND ...'
 mv /etc/named.conf /etc/named.conf.orig
 wget -O /etc/named.conf https://raw.githubusercontent.com/Razva/newbadmin/master/plesk/named.conf
 chown root:named /etc/named.conf*
-log 'Done!'
-
-log 'Enabling BIND ...'
 systemctl enable named
 systemctl stop named
 log 'Done!'

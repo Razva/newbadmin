@@ -27,6 +27,10 @@ while true; do
 done
 log 'Done!'
 
+log "Setting Bucharest timezone ..."
+timedatectl set-timezone Europe/Bucharest
+log 'Done!'
+
 log 'Setting FIREWALLD Rules ...'
 read -p 'Define custom SSH Port: ' sshport;
 systemctl start firewalld

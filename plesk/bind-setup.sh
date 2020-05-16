@@ -34,3 +34,4 @@ systemctl start bind
 log 'Done!'
 log ''
 log '!!! REMEMBER TO SETUP PLESK IP AND KEY IN NAMED.CONF !!!'
+rm -rf bind-setup.sh

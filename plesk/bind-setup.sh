@@ -19,6 +19,7 @@ log 'Adding FirewallD rules ...'
 firewall-cmd --permanent --zone=public --add-port=53/tcp
 firewall-cmd --permanent --zone=public --add-port=53/udp
 firewall-cmd --permanent --zone=public --add-port=953/tcp
+firewall-cmd --reload
 log 'Done!'
 
 log 'Setting BIND ...'

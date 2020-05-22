@@ -72,22 +72,6 @@ chown -R $user:$user /home/$user/.ssh
 restorecon -R -v /home/$user/.ssh
 log 'Done!'
 
-log 'Installing NGINX ...'
-while true; do
-    read -p "Would you like to install NGINX? (y/n) " nginx
-    case $nginx in
-        [yY]* ) 
-		wget -O //etc/yum.repos.d/nginx.repo https://raw.githubusercontent.com/Razva/newbadmin/master/centos/repos/nginx.repo
-		yum install nginx
-		systemctl enable nginx
-	;;
-        [nN]* ) exit;;
-        * ) echo "Unknown answer, please select Y or N.";;
-    esac
-    break
-done
-log 'Done!'
-
 log 'Cleanup ...'
 rm -rf centos.sh
 log 'Done!'

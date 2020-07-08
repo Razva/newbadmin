@@ -55,6 +55,12 @@ log 'Restarting SSHD ...'
 systemctl restart sshd
 log 'Done!'
 
+read -r -p "Would you like to add a SUDO user? [y/n] " sudo
+case "$sudo" in
+    [yY][eE][sS]|[yY]);;
+    *) rm -rf centos.sh && log 'Done!' && exit;;
+esac
+
 log 'Setting up SUDO user ...'
 read -p 'New user: ' user;
 useradd $user

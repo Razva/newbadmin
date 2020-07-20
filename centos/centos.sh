@@ -7,6 +7,10 @@ log() {
 	printf "${green}=== %s ${normal}\n" "$1"
 }
 
+log 'Removing Cockpit ...'
+yum -y remove cockpit*
+log 'Done!'
+
 log 'Updating OS ...'
 yum -y update
 log 'Done!'
@@ -20,7 +24,7 @@ while true; do
 	read -p 'Select CentOS Version (7/8): ' os;
 	case $os in
 		7) yum -y install wget nano screen firewalld policycoreutils-python tar unzip
-         	//do 7
+		//do7
       	 	;;
 		8) dnf -y install wget nano screen firewalld policycoreutils-python-utils tar unzip
          	//do 8

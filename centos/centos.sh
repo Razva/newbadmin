@@ -47,8 +47,8 @@ log 'Adding SELINUX SSH Port Rule ...'
 semanage port -a -t ssh_port_t -p tcp $sshport
 log 'Done!'
 
-log 'Editing SSHD Config ...'
-nano -w /etc/ssh/sshd_config
+log 'Changing SSHD Port ...'
+sed -i 's/^#Port 22$/Port "${sshport}"/g' /etc/ssh/sshd_config
 log 'Done!'
 
 log 'Restarting SSHD ...'

@@ -2,9 +2,9 @@
 set -euo pipefail
 
 log() {
-  local green=$(tput setaf 2)
-  local normal=$(tput sgr0)
-  printf "${green}=== %s ${normal}\n" "$1"
+	local green=$(tput setaf 2)
+	local normal=$(tput sgr0)
+	printf "${green}=== %s ${normal}\n" "$1"
 }
 
 log 'Updating OS ...'
@@ -20,13 +20,12 @@ while true; do
 	read -p 'Select CentOS Version (7/8): ' os;
 	case $os in
 		7) yum -y install wget nano screen firewalld policycoreutils-python tar unzip
-         	//do whatever
+         	//do 7
       	 	;;
 		8) dnf -y install wget nano screen firewalld policycoreutils-python-utils tar unzip
-         	//do special things
+         	//do 8
       		;;
-	*) echo "Please choose either 7 or 8."
-      		;;
+	*) echo "Please choose either 7 or 8.";;
 		esac
 	break
 done

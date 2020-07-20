@@ -49,7 +49,7 @@ if [[ "$os" -eq 8 ]]
 	firewall-cmd --zone=public --permanent --remove-service=cockpit
 	firewall-cmd --zone=public --permanent --remove-service=dhcpv6-client
 if [[ "$os" -eq 7 ]]
-	// do only 7 stuff
+	//do 7
 fi
 firewall-cmd --zone=public --permanent --remove-service=ssh
 firewall-cmd --reload

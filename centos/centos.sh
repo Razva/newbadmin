@@ -99,3 +99,4 @@ log 'Done!'
 log 'Cleanup ...'
 rm -rf centos.sh
 log 'Done!'
+a

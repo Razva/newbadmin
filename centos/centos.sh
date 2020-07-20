@@ -41,10 +41,6 @@ systemctl start firewalld
 firewall-cmd --zone=public --permanent --add-port=$sshport/tcp
 firewall-cmd --zone=public --permanent --add-port=80/tcp
 firewall-cmd --zone=public --permanent --add-port=443/tcp
-
-firewall-cmd --zone=public --permanent --add-port=$sshport/tcp
-firewall-cmd --zone=public --permanent --add-port=80/tcp
-firewall-cmd --zone=public --permanent --add-port=443/tcp
 if [[ "$os" -eq 8 ]]
 	firewall-cmd --zone=public --permanent --remove-service=cockpit
 	firewall-cmd --zone=public --permanent --remove-service=dhcpv6-client

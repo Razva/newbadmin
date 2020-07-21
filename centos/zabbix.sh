@@ -9,9 +9,6 @@ log() {
 
 log 'Showing current server information ...'
 echo "OS: $(cat /etc/centos-release)"
-echo "Hostname: $(hostname)"
-echo ""
-read -p 'Define Zabbix hostname: ' hostname;
 echo ""
 
 while true; do

@@ -10,6 +10,7 @@ log() {
 log 'Showing current server information ...'
 echo -e "OS: \e[1m \e[91m$(cat /etc/centos-release)\e[0m"
 echo -e "Hostname: \e[1m \e[91m$(hostname)\e[0m"
+echo -e "FirewallD: \e[1m \e[91m$(systemctl status firewalld | grep Active:)\e[0m"
 echo ""
 
 while true; do
@@ -41,10 +42,13 @@ sed -i 's/^Server=127.0.0.1$/Server=zbx-client.neutralisp.com/g' /etc/zabbix/zab
 sed -i "s/^Hostname=Zabbix server$/Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agentd.conf
 log 'Done!'
 
-log 'Adding firewall rule ...'
-firewall-cmd --zone=public --permanent --add-port=10050/tcp
-firewall-cmd --reload
-log 'Done!'
+read -r -p "Would you like to add Firewalld Rules? [Y/N] " firewalld
+case "$firewalld" in
+	[yY][eE][sS]|[yY]) log 'Adding firewall rule ...'
+	firewall-cmd --zone=public --permanent --add-port=10050/tcp
+	firewall-cmd --reload
+	log 'Done!';;
+esac
 
 log 'Enabling and starting service ...'
 systemctl enable zabbix-agent

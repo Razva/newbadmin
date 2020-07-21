@@ -51,4 +51,6 @@ systemctl stop zabbix-agent
 systemctl start zabbix-agent
 log 'Done!'
 echo ""
+log "Agent IP Address: $(hostname -I)"
+echo ""
 rm -rf zabbix.sh

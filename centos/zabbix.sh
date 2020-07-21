@@ -7,8 +7,11 @@ log() {
 	printf "${green}=== %s ${normal}\n" "$1"
 }
 
-log 'Current OS version is ...'
+log 'Showing current server information ...'
 cat /etc/centos-release
+hostname
+echo ""
+read -p 'Define Zabbix hostname: ' hostname;
 echo ""
 
 while true; do
@@ -36,7 +39,8 @@ while true; do
 done
 
 log 'Patching config file ...'
-sed -i 's/^Server=127.0.0.1$/Server=zbx-client.neutralisp.com/g' /etc/ssh/sshd_config
+sed -i 's/^Server=127.0.0.1$/Server=zbx-client.neutralisp.com/g' /etc/zabbix/zabbix_agentd.conf
+sed -i 's/^Hostname=Zabbix server$/Hostname="${hostname}"/g' /etc/zabbix/zabbix_agentd.conf
 log 'Done!'
 
 log 'Adding firewall rule ...'

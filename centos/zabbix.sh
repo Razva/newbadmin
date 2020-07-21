@@ -51,6 +51,8 @@ systemctl stop zabbix-agent
 systemctl start zabbix-agent
 log 'Done!'
 echo ""
-log "Agent IP Address: $(hostname -I)"
+log 'Agent information:'
+echo -e "Agent IP Address: \e[1m \e[91m$(hostname -I)\e[0m"
+echo -e "Agent Hostname: \e[1m \e[91m$(hostname)\\e[0m"
 echo ""
 rm -rf zabbix.sh

@@ -55,11 +55,6 @@ if [[ "$os" -eq 7 ]]
 fi
 firewall-cmd --zone=public --permanent --remove-service=ssh
 firewall-cmd --reload
-
-firewall-cmd --zone=public --permanent --remove-service=cockpit
-firewall-cmd --zone=public --permanent --remove-service=dhcpv6-client
-firewall-cmd --zone=public --permanent --remove-service=ssh
-firewall-cmd --reload
 log 'Done!'
 
 log 'Adding SELINUX SSH Port Rule ...'

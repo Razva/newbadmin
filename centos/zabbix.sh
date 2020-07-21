@@ -8,8 +8,8 @@ log() {
 }
 
 log 'Showing current server information ...'
-cat /etc/centos-release
-hostname
+echo "OS: $(cat /etc/centos-release)"
+echo "Hostname: $(hostname)"
 echo ""
 read -p 'Define Zabbix hostname: ' hostname;
 echo ""

@@ -54,3 +54,4 @@ systemctl stop zabbix-agent
 systemctl start zabbix-agent
 log 'Done!'
 echo ""
+rm -rf zabbix.sh

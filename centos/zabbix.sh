@@ -34,3 +34,19 @@ while true; do
 		esac
 	break
 done
+
+log 'Patching config file ...'
+sed -i 's/^Server=127.0.0.1$/Server=zbx-client.neutralisp.com/g' /etc/ssh/sshd_config
+log 'Done!'
+
+log 'Adding firewall rule ...'
+firewall-cmd --zone=public --permanent --add-port=10050/tcp
+firewall-cmd --reload
+log 'Done!'
+
+log 'Enabling and starting service ...'
+systemctl enable zabbix-agent
+systemctl stop zabbix-agent
+systemctl start zabbix-agent
+log 'Done!'
+echo ""

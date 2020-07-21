@@ -10,7 +10,7 @@ log() {
 log 'Showing current server information ...'
 echo -e "OS: \e[1m\e[91m$(cat /etc/centos-release)\e[0m"
 echo -e "Hostname: \e[1m\e[91m$(hostname)\e[0m"
-echo -e "FirewallD: \e[1m\e[91m$(systemctl status firewalld | grep Active:)\e[0m"
+echo -e "FirewallD:\e[1m\e[91m$(systemctl status firewalld | grep Active:)\e[0m"
 echo -e "Zabbix Agent: \e[1m\e[91m$(systemctl is-active zabbix-agent)\e[0m"
 echo ""
 

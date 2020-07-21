@@ -40,7 +40,7 @@ done
 
 log 'Patching config file ...'
 sed -i 's/^Server=127.0.0.1$/Server=zbx-client.neutralisp.com/g' /etc/zabbix/zabbix_agentd.conf
-sed -i 's/^Hostname=Zabbix server$/Hostname="${hostname}"/g' /etc/zabbix/zabbix_agentd.conf
+sed -i "s/^Hostname=Zabbix server$/Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agentd.conf
 log 'Done!'
 
 log 'Adding firewall rule ...'

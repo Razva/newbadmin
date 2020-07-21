@@ -35,13 +35,13 @@ while true; do
 done
 log 'Done!'
 
-log "Setting time ..."
+log "Setting Time ..."
 timedatectl set-timezone Europe/Bucharest
 systemctl enable chronyd
 systemctl start chronyd
 log 'Done!'
 
-log 'Setting FIREWALLD Rules ...'
+log 'Setting FirewallD Rules ...'
 read -p 'Define custom SSH Port: ' sshport;
 systemctl start firewalld
 firewall-cmd --zone=public --permanent --add-port=$sshport/tcp
@@ -57,7 +57,7 @@ firewall-cmd --zone=public --permanent --remove-service=ssh
 firewall-cmd --reload
 log 'Done!'
 
-log 'Adding SELINUX SSH Port Rule ...'
+log 'Adding SELinux SSH Port Rule ...'
 semanage port -a -t ssh_port_t -p tcp $sshport
 log 'Done!'
 

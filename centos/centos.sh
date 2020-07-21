@@ -23,10 +23,10 @@ log 'Installing Utils ...'
 while true; do
 	read -p 'Select CentOS Version (7/8): ' os;
 	case $os in
-		7) yum -y install wget nano screen firewalld policycoreutils-python tar unzip
+		7) yum -y install wget nano screen firewalld policycoreutils-python tar unzip chrony
 		//do7
       	 	;;
-		8) dnf -y install wget nano screen firewalld policycoreutils-python-utils tar unzip
+		8) dnf -y install wget nano screen firewalld policycoreutils-python-utils tar unzip chrony
          	//do 8
       		;;
 	*) echo "Please choose either 7 or 8.";;
@@ -35,8 +35,10 @@ while true; do
 done
 log 'Done!'
 
-log "Setting Bucharest timezone ..."
+log "Setting time ..."
 timedatectl set-timezone Europe/Bucharest
+systemctl enable chronyd
+systemctl start chronyd
 log 'Done!'
 
 log 'Setting FIREWALLD Rules ...'

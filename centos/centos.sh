@@ -29,7 +29,7 @@ while true; do
       	 	;;
 		8) dnf -y install wget nano screen tar unzip epel-release
       		;;
-	*) echo "Please choose either 7 or 8.";;
+		*) echo "Please choose either 7 or 8.";;
 		esac
 	break
 done

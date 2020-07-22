@@ -44,6 +44,7 @@ log 'Setting Time ...'
 		yum -y install chrony
 		systemctl enable chronyd
 		systemctl start chronyd
+		;;
 	esac
 log 'Done!'
 echo ""

@@ -131,43 +131,44 @@ echo ""
 log 'Setting Auto Updaters ...'
 	read -r -p "Would you like to install Auto Updaters? [Y/N] " SSHD
 		case "$SSHD" in
-			[yY][eE][sS]|[yY]) if [[ "$OS" -eq 7 ]]
-				log 'Updating OS...'
-				yum -y update
-				log 'Done!'
-				echo ""
-				log 'Installing YUM-Cron...'
-				yum -y install yum-cron
-				log 'Done!'
-				echo ""
-				log 'Patching config...'
-				sed -i 's/^apply_updates = no$/apply_updates = yes/g' /etc/yum/yum-cron.conf
-				log 'Done!'
-				echo ""
-				log 'Enabling and starting YUM-Cron'
-				systemctl enable yum-cron
-				systemctl start yum-cron
-				log 'Done!'
-				;;
-			if [[ "$OS" -eq 8 ]] log 'Updating OS...'
-				dnf -y update
-				log 'Done!'
-				echo ""
-				log 'Installing DNF-Automatic...'
-				dnf -y install dnf-automatic
-				log 'Done!'
-				echo ""
-				log 'Patching config...'
-				sed -i 's/^apply_updates = no$/apply_updates = yes/g' /etc/dnf/automatic.conf
-				sed -i 's/^emit_via = stdio$/emit_via = motd/g' /etc/dnf/automatic.conf
-				log 'Done!'
-				echo ""
-				log 'Enabling and starting DNF-Automatic...'
-				systemctl enable --now dnf-automatic.timer
-				systemctl start dnf-automatic
-				log 'Done!'
-				;;
-			fi
+			[yY][eE][sS]|[yY]) 
+				if [[ "$OS" -eq 7 ]]
+					log 'Updating OS...'
+					yum -y update
+					log 'Done!'
+					echo ""
+					log 'Installing YUM-Cron...'
+					yum -y install yum-cron
+					log 'Done!'
+					echo ""
+					log 'Patching config...'
+					sed -i 's/^apply_updates = no$/apply_updates = yes/g' /etc/yum/yum-cron.conf
+					log 'Done!'
+					echo ""
+					log 'Enabling and starting YUM-Cron'
+					systemctl enable yum-cron
+					systemctl start yum-cron
+					log 'Done!'
+					;;
+				if [[ "$OS" -eq 8 ]] log 'Updating OS...'
+					dnf -y update
+					log 'Done!'
+					echo ""
+					log 'Installing DNF-Automatic...'
+					dnf -y install dnf-automatic
+					log 'Done!'
+					echo ""
+					log 'Patching config...'
+					sed -i 's/^apply_updates = no$/apply_updates = yes/g' /etc/dnf/automatic.conf
+					sed -i 's/^emit_via = stdio$/emit_via = motd/g' /etc/dnf/automatic.conf
+					log 'Done!'
+					echo ""
+					log 'Enabling and starting DNF-Automatic...'
+					systemctl enable --now dnf-automatic.timer
+					systemctl start dnf-automatic
+					log 'Done!'
+					;;
+				fi
 			echo ""
 			;;
 			*) echo "Skipping Auto Updaters ...";;

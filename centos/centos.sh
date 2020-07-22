@@ -26,10 +26,8 @@ while true; do
 	read -p 'Select CentOS Version (7/8): ' os;
 	case $os in
 		7) yum -y install wget nano screen tar unzip epel-release
-		//do7
       	 	;;
 		8) dnf -y install wget nano screen tar unzip epel-release
-         	//do 8
       		;;
 	*) echo "Please choose either 7 or 8.";;
 		esac
@@ -39,7 +37,7 @@ log 'Done!'
 echo ""
 
 log 'Setting Time ...'
-	read -r -p "Would you like to set and sync Time? [Y/N] " time
+	read -r -p "Would you like to Set and Sync Time? [Y/N] " time
 	case "$time" in
 		[yY][eE][sS]|[yY]) log "Setting Time ..."
 		timedatectl set-timezone Europe/Bucharest
@@ -51,19 +49,24 @@ log 'Done!'
 echo ""
 
 log 'Setting SSHD and FirewallD ...'
-	read -r -p "Would you like to defin a custom SSH Port? [Y/N] " sshd
+	read -r -p "Would you like to setup a custom SSH Port? [Y/N] " sshd
 	case "$sshd" in
-		[yY][eE][sS]|[yY]) log 'Setting FirewallD Rules ...'
-			read -p 'Define custom SSH Port: ' sshport;
+		[yY][eE][sS]|[yY]) read -p 'Define custom SSH Port: ' sshport;
+			echo ""
+			
+			log 'Installing FirewallD ...'
 			yum -y install firewalld
 			systemctl start firewalld
+			log 'Done!'
+			echo ""
+			
+			log 'Setting ports ...'
 			firewall-cmd --zone=public --permanent --add-port=$sshport/tcp
 			firewall-cmd --zone=public --permanent --add-port=80/tcp
 			firewall-cmd --zone=public --permanent --add-port=443/tcp
 			if [[ "$os" -eq 7 ]]
-				yum -y install policycoreutils-python
+				//do7
 			if [[ "$os" -eq 8 ]]
-				dnf -y install policycoreutils-python-utils
 				firewall-cmd --zone=public --permanent --remove-service=cockpit
 				firewall-cmd --zone=public --permanent --remove-service=dhcpv6-client
 			fi
@@ -73,6 +76,11 @@ log 'Setting SSHD and FirewallD ...'
 			echo ""
 
 			log 'Adding SELinux SSH Port Rule ...'
+			if [[ "$os" -eq 7 ]]
+				yum -y install policycoreutils-python
+			if [[ "$os" -eq 8 ]]
+				dnf -y install policycoreutils-python-utils
+			fi
 			semanage port -a -t ssh_port_t -p tcp $sshport
 			log 'Done!'
 			echo ""

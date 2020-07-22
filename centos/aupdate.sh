@@ -14,17 +14,16 @@ echo -e "YUM-Cron: \e[1m\e[91m$(systemctl is-active yum-cron)\e[0m"
 echo -e "DNF Automatic: \e[1m\e[91m$(systemctl is-active dnf-automatic)\e[0m"
 echo ""
 
-log 'Updating OS...'
-yum -y update
-log 'Done!'
-echo ""
-
 while true; do
 	log 'Selecting OS ...'
 	read -p 'Select CentOS Version (7/8): ' os;
 	echo ""
 	case $os in
-		7) log 'Installing YUM-Cron...'
+		7) log 'Updating OS...'
+			yum -y update
+			log 'Done!'
+			echo ""
+			log 'Installing YUM-Cron...'
 			yum -y install yum-cron
 			log 'Done!'
 			echo ""
@@ -37,7 +36,11 @@ while true; do
 			systemctl start yum-cron
 			log 'Done!'
    		;;
-		8) log 'Installing DNF-Automatic...'
+		8) log 'Updating OS...'
+			dnf -y update
+			log 'Done!'
+			echo ""
+			log 'Installing DNF-Automatic...'
 			dnf -y install dnf-automatic
 			log 'Done!'
 			echo ""

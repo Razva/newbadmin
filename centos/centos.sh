@@ -22,14 +22,15 @@ echo ""
 echo -e "CentOS Version: \e[1m\e[91m$(rpm -E %{rhel})\e[0m"
 echo -e "Hostname: \e[1m\e[91m$(hostname)\e[0m"
 echo ""
+
 while true; do
 	read -p 'Select CentOS Version (7/8): ' OS;
-	case $OS in
-		7) yum -y install wget nano screen tar unzip epel-release
-      	 	;;
-		8) dnf -y install wget nano screen tar unzip epel-release
-      		;;
-		*) echo "Please choose either 7 or 8.";;
+		case $OS in
+			7) yum -y install wget nano screen tar unzip epel-release
+			;;
+			8) dnf -y install wget nano screen tar unzip epel-release
+			;;
+			*) echo "Please choose either 7 or 8.";;
 		esac
 	break
 done
@@ -38,22 +39,22 @@ echo ""
 
 log 'Setting Time ...'
 	read -r -p "Would you like to Set and Sync Time? [Y/N] " TIME
-	case "$TIME" in
-		[yY][eE][sS]|[yY]) log "Setting Time ..."
-		timedatectl set-timezone Europe/Bucharest
-		yum -y install chrony
-		systemctl enable chronyd
-		systemctl start chronyd
-		;;
-		*) echo "Skipping Time and Sync ...";;
-	esac
+		case "$TIME" in
+			[yY][eE][sS]|[yY]) log "Setting Time ..."
+			timedatectl set-timezone Europe/Bucharest
+			yum -y install chrony
+			systemctl enable chronyd
+			systemctl start chronyd
+			;;
+			*) echo "Skipping Time and Sync ...";;
+		esac
 log 'Done!'
 echo ""
 
 log 'Setting SSHD and FirewallD ...'
 	read -r -p "Would you like to setup a custom SSH Port? [Y/N] " SSHD
-	case "$SSHD" in
-		[yY][eE][sS]|[yY]) read -p 'Define custom SSH Port: ' SSHPORT;
+		case "$SSHD" in
+			[yY][eE][sS]|[yY]) read -p 'Define custom SSH Port: ' SSHPORT;
 			echo ""
 			
 			log 'Installing FirewallD ...'
@@ -98,32 +99,32 @@ log 'Setting SSHD and FirewallD ...'
 			echo ""
 			;;
 			*) echo "Skipping custom SSHD Port ...";;
-	esac
+		esac
 log 'SSHD and FirewallD - Done!'
 echo ""
 
 log 'Setting Sudoers ...'
-read -r -p "Would you like to add a SUDO user? [y/n] " SUDO
-case "$SUDO" in
-	[yY][eE][sS]|[yY]) log 'Setting up SUDO user ...'
-		read -p 'New user: ' USER;
-		useradd $USER
-		passwd $USER
-		usermod -aG wheel $USER
-		log 'Done!'
-		echo ""
-		log "Adding SSH Key for $USER ..."
-		rm -rf /home/$USER/.ssh
-		mkdir -p /home/$USER/.ssh
-		wget -O /home/$USER/.ssh/authorized_keys https://t.isp.fun/authorized_keys
-		chmod 700 /home/$USER/.ssh
-		chmod 600 /home/$USER/.ssh/authorized_keys
-		chown -R $USER:$USER /home/$USER/.ssh
-		restorecon -R -v /home/$USER/.ssh
-		log 'Done!'
-		;;
-		*) echo "Skipping Sudoers ...";;
-	esac
+	read -r -p "Would you like to add a SUDO user? [y/n] " SUDO
+		case "$SUDO" in
+			[yY][eE][sS]|[yY]) log 'Setting up SUDO user ...'
+			read -p 'New user: ' USER;
+			useradd $USER
+			passwd $USER
+			usermod -aG wheel $USER
+			log 'Done!'
+			echo ""
+			log "Adding SSH Key for $USER ..."
+			rm -rf /home/$USER/.ssh
+			mkdir -p /home/$USER/.ssh
+			wget -O /home/$USER/.ssh/authorized_keys https://t.isp.fun/authorized_keys
+			chmod 700 /home/$USER/.ssh
+			chmod 600 /home/$USER/.ssh/authorized_keys
+			chown -R $USER:$USER /home/$USER/.ssh
+			restorecon -R -v /home/$USER/.ssh
+			log 'Done!'
+			;;
+			*) echo "Skipping Sudoers ...";;
+		esac
 log 'Done!'
 echo ""
 

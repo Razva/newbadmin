@@ -15,18 +15,14 @@ log 'Updating OS ...'
 yum -y update
 log 'Done!'
 
-log 'Installing EPEL ...'
-yum -y install epel-release
-log 'Done!'
-
 log 'Installing Utils ...'
 while true; do
 	read -p 'Select CentOS Version (7/8): ' os;
 	case $os in
-		7) yum -y install wget nano screen firewalld policycoreutils-python tar unzip chrony
+		7) yum -y install wget nano screen firewalld policycoreutils-python tar unzip chrony epel-release
 		//do7
       	 	;;
-		8) dnf -y install wget nano screen firewalld policycoreutils-python-utils tar unzip chrony
+		8) dnf -y install wget nano screen firewalld policycoreutils-python-utils tar unzip chrony epel-release
          	//do 8
       		;;
 	*) echo "Please choose either 7 or 8.";;
@@ -71,26 +67,24 @@ log 'Done!'
 
 read -r -p "Would you like to add a SUDO user? [y/n] " sudo
 case "$sudo" in
-	[yY][eE][sS]|[yY]);;
-	*) rm -rf centos.sh && log 'Done!' && exit;;
+	[yY][eE][sS]|[yY]) log 'Setting up SUDO user ...'
+		read -p 'New user: ' user;
+		useradd $user
+		passwd $user
+		usermod -aG wheel $user
+		log 'Done!'
+		echo ""
+		log "Adding SSH Key for $user ..."
+		rm -rf /home/$user/.ssh
+		mkdir -p /home/$user/.ssh
+		wget -O /home/$user/.ssh/authorized_keys https://t.isp.fun/authorized_keys
+		chmod 700 /home/$user/.ssh
+		chmod 600 /home/$user/.ssh/authorized_keys
+		chown -R $user:$user /home/$user/.ssh
+		restorecon -R -v /home/$user/.ssh
+		log 'Done!'
+		;;
 esac
-
-log 'Setting up SUDO user ...'
-read -p 'New user: ' user;
-useradd $user
-passwd $user
-usermod -aG wheel $user
-log 'Done!'
-
-log "Adding SSH Key for $user ..."
-rm -rf /home/$user/.ssh
-mkdir -p /home/$user/.ssh
-wget -O /home/$user/.ssh/authorized_keys https://t.isp.fun/authorized_keys
-chmod 700 /home/$user/.ssh
-chmod 600 /home/$user/.ssh/authorized_keys
-chown -R $user:$user /home/$user/.ssh
-restorecon -R -v /home/$user/.ssh
-log 'Done!'
 
 log 'Cleanup ...'
 rm -rf centos.sh

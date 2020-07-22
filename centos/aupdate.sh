@@ -28,12 +28,18 @@ while true; do
 			sed -i 's/^apply_updates = no$/apply_updates = yes/g' /etc/yum/yum-cron.conf
 			systemctl enable yum-cron
 			systemctl start yum-cron
+			log 'Done!'
    		;;
 		8) log 'Installing Chrony...'
 			dnf -y install dnf-automatic
+			sed -i 's/^apply_updates = no$/apply_updates = yes/g' /etc/dnf/automatic.conf
+			sed -i 's/^emit_via = stdio$/emit_via = motd/g' /etc/dnf/automatic.conf
+			systemctl enable --now dnf-automatic.timer
+			systemctl start dnf-automatic
+			log 'Done!'
 		;;
 		*) log 'Please choose either 7 or 8.'
-			echo ""
+			echo "" && exit
 		;;
 		esac
 	break

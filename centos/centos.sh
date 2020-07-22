@@ -45,6 +45,7 @@ log 'Setting Time ...'
 		systemctl enable chronyd
 		systemctl start chronyd
 		;;
+		*) echo "Skipping Time and Sync ...";;
 	esac
 log 'Done!'
 echo ""

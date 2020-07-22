@@ -17,6 +17,7 @@ echo ""
 log 'Updating OS...'
 yum -y update
 log 'Done!'
+echo ""
 
 while true; do
 	log 'Selecting OS ...'
@@ -30,10 +31,16 @@ while true; do
 			systemctl start yum-cron
 			log 'Done!'
    		;;
-		8) log 'Installing Chrony...'
+		8) log 'Installing DNF Automatic...'
 			dnf -y install dnf-automatic
+			log 'Done!'
+			echo ""
+			log 'Patching config...'
 			sed -i 's/^apply_updates = no$/apply_updates = yes/g' /etc/dnf/automatic.conf
 			sed -i 's/^emit_via = stdio$/emit_via = motd/g' /etc/dnf/automatic.conf
+			log 'Done!'
+			echo ""
+			log 'Enabling and starting DNF Automatic...'
 			systemctl enable --now dnf-automatic.timer
 			systemctl start dnf-automatic
 			log 'Done!'
@@ -45,5 +52,5 @@ while true; do
 	break
 done
 
-log 'All done!'
+echo ""
 rm -rf aupdate.sh

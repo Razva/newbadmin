@@ -95,7 +95,7 @@ log 'Setting SSHD and FirewallD ...'
 			log 'Done!'
 			echo ""
 			;;
-esac
+	esac
 log 'SSHD and FirewallD - Done!'
 echo ""
 
@@ -119,7 +119,7 @@ case "$sudo" in
 		restorecon -R -v /home/$user/.ssh
 		log 'Done!'
 		;;
-esac
+	esac
 log 'Done!'
 echo ""
 

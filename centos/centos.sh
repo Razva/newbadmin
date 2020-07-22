@@ -8,7 +8,7 @@ log() {
 }
 
 log 'Removing Cockpit ...'
-yum -y remove cockpit*
+yum -y remove cockpit-*
 log 'Done!'
 
 log 'Updating OS ...'

@@ -10,19 +10,25 @@ log() {
 log 'Removing Cockpit ...'
 yum -y remove cockpit-*
 log 'Done!'
+echo ""
 
 log 'Updating OS ...'
 yum -y update
 log 'Done!'
+echo ""
 
 log 'Installing Utils ...'
+echo ""
+echo -e "CentOS Version: \e[1m\e[91m$(rpm -E %{rhel})\e[0m"
+echo -e "Hostname: \e[1m\e[91m$(hostname)\e[0m"
+echo ""
 while true; do
 	read -p 'Select CentOS Version (7/8): ' os;
 	case $os in
-		7) yum -y install wget nano screen firewalld policycoreutils-python tar unzip chrony epel-release
+		7) yum -y install wget nano screen firewalld policycoreutils-python tar unzip epel-release
 		//do7
       	 	;;
-		8) dnf -y install wget nano screen firewalld policycoreutils-python-utils tar unzip chrony epel-release
+		8) dnf -y install wget nano screen firewalld policycoreutils-python-utils tar unzip epel-release
          	//do 8
       		;;
 	*) echo "Please choose either 7 or 8.";;
@@ -30,12 +36,23 @@ while true; do
 	break
 done
 log 'Done!'
+echo ""
 
-log "Setting Time ..."
-timedatectl set-timezone Europe/Bucharest
-systemctl enable chronyd
-systemctl start chronyd
+log 'Setting Time ...'
+	read -r -p "Would you like to set and sync Time? [Y/N] " sudo
+	case "$sudo" in
+		[yY][eE][sS]|[yY]) log "Setting Time ..."
+		timedatectl set-timezone Europe/Bucharest
+		yum -y install chrony
+		systemctl enable chronyd
+		systemctl start chronyd
+esac
 log 'Done!'
+echo ""
+
+
+
+
 
 log 'Setting FirewallD Rules ...'
 read -p 'Define custom SSH Port: ' sshport;
@@ -64,7 +81,9 @@ log 'Done!'
 log 'Restarting SSHD ...'
 systemctl restart sshd
 log 'Done!'
+echo ""
 
+log 'Setting Sudoers ...'
 read -r -p "Would you like to add a SUDO user? [y/n] " sudo
 case "$sudo" in
 	[yY][eE][sS]|[yY]) log 'Setting up SUDO user ...'
@@ -85,7 +104,10 @@ case "$sudo" in
 		log 'Done!'
 		;;
 esac
+log 'Done!'
+echo ""
 
 log 'Cleanup ...'
 rm -rf centos.sh
 log 'Done!'
+echo ""

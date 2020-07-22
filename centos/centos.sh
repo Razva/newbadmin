@@ -25,10 +25,10 @@ echo ""
 while true; do
 	read -p 'Select CentOS Version (7/8): ' os;
 	case $os in
-		7) yum -y install wget nano screen firewalld policycoreutils-python tar unzip epel-release
+		7) yum -y install wget nano screen tar unzip epel-release
 		//do7
       	 	;;
-		8) dnf -y install wget nano screen firewalld policycoreutils-python-utils tar unzip epel-release
+		8) dnf -y install wget nano screen tar unzip epel-release
          	//do 8
       		;;
 	*) echo "Please choose either 7 or 8.";;
@@ -39,8 +39,8 @@ log 'Done!'
 echo ""
 
 log 'Setting Time ...'
-	read -r -p "Would you like to set and sync Time? [Y/N] " sudo
-	case "$sudo" in
+	read -r -p "Would you like to set and sync Time? [Y/N] " time
+	case "$time" in
 		[yY][eE][sS]|[yY]) log "Setting Time ..."
 		timedatectl set-timezone Europe/Bucharest
 		yum -y install chrony
@@ -50,37 +50,45 @@ esac
 log 'Done!'
 echo ""
 
+log 'Setting SSHD and FirewallD ...'
+	read -r -p "Would you like to defin a custom SSH Port? [Y/N] " sshd
+	case "$sshd" in
+		[yY][eE][sS]|[yY]) log 'Setting FirewallD Rules ...'
+			read -p 'Define custom SSH Port: ' sshport;
+			yum -y install firewalld
+			systemctl start firewalld
+			firewall-cmd --zone=public --permanent --add-port=$sshport/tcp
+			firewall-cmd --zone=public --permanent --add-port=80/tcp
+			firewall-cmd --zone=public --permanent --add-port=443/tcp
+			if [[ "$os" -eq 7 ]]
+				yum -y install policycoreutils-python
+			if [[ "$os" -eq 8 ]]
+				dnf -y install policycoreutils-python-utils
+				firewall-cmd --zone=public --permanent --remove-service=cockpit
+				firewall-cmd --zone=public --permanent --remove-service=dhcpv6-client
+			fi
+			firewall-cmd --zone=public --permanent --remove-service=ssh
+			firewall-cmd --reload
+			log 'Done!'
+			echo ""
 
+			log 'Adding SELinux SSH Port Rule ...'
+			semanage port -a -t ssh_port_t -p tcp $sshport
+			log 'Done!'
+			echo ""
 
+			log 'Changing SSHD Port ...'
+			sed -i 's/^#Port 22$/Port "${sshport}"/g' /etc/ssh/sshd_config
+			log 'Done!'
+			echo ""
 
-
-log 'Setting FirewallD Rules ...'
-read -p 'Define custom SSH Port: ' sshport;
-systemctl start firewalld
-firewall-cmd --zone=public --permanent --add-port=$sshport/tcp
-firewall-cmd --zone=public --permanent --add-port=80/tcp
-firewall-cmd --zone=public --permanent --add-port=443/tcp
-if [[ "$os" -eq 8 ]]
-	firewall-cmd --zone=public --permanent --remove-service=cockpit
-	firewall-cmd --zone=public --permanent --remove-service=dhcpv6-client
-if [[ "$os" -eq 7 ]]
-	//do 7
-fi
-firewall-cmd --zone=public --permanent --remove-service=ssh
-firewall-cmd --reload
-log 'Done!'
-
-log 'Adding SELinux SSH Port Rule ...'
-semanage port -a -t ssh_port_t -p tcp $sshport
-log 'Done!'
-
-log 'Changing SSHD Port ...'
-sed -i 's/^#Port 22$/Port "${sshport}"/g' /etc/ssh/sshd_config
-log 'Done!'
-
-log 'Restarting SSHD ...'
-systemctl restart sshd
-log 'Done!'
+			log 'Restarting SSHD ...'
+			systemctl restart sshd
+			log 'Done!'
+			echo ""
+			;;
+esac
+log 'SSHD and FirewallD - Done!'
 echo ""
 
 log 'Setting Sudoers ...'

@@ -97,6 +97,7 @@ log 'Setting SSHD and FirewallD ...'
 			log 'Done!'
 			echo ""
 			;;
+			*) echo "Skipping custom SSHD Port ...";;
 	esac
 log 'SSHD and FirewallD - Done!'
 echo ""
@@ -121,6 +122,7 @@ case "$SUDO" in
 		restorecon -R -v /home/$USER/.ssh
 		log 'Done!'
 		;;
+		*) echo "Skipping Sudoers ...";;
 	esac
 log 'Done!'
 echo ""

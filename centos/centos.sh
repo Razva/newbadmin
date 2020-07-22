@@ -129,8 +129,8 @@ log 'Done!'
 echo ""
 
 log 'Setting Auto Updaters ...'
-	read -r -p "Would you like to install Auto Updaters? [Y/N] " SSHD
-		case "$SSHD" in
+	read -r -p "Would you like to install Auto Updaters? [Y/N] " AUTOUPDATE
+		case "$AUTOUPDATE" in
 			[yY][eE][sS]|[yY]) 
 				if [[ "$OS" -eq 7 ]]
 					log 'Updating OS...'

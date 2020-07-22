@@ -150,7 +150,8 @@ log 'Setting Auto Updaters ...'
 					systemctl start yum-cron
 					log 'Done!'
 					;;
-				if [[ "$OS" -eq 8 ]] log 'Updating OS...'
+				if [[ "$OS" -eq 8 ]]
+					log 'Updating OS...'
 					dnf -y update
 					log 'Done!'
 					echo ""

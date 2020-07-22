@@ -133,10 +133,6 @@ log 'Setting Auto Updaters ...'
 		case "$AUTOUPDATE" in
 			[yY][eE][sS]|[yY]) 
 				if [[ "$OS" -eq 7 ]]
-					log 'Updating OS...'
-					yum -y update
-					log 'Done!'
-					echo ""
 					log 'Installing YUM-Cron...'
 					yum -y install yum-cron
 					log 'Done!'
@@ -151,10 +147,6 @@ log 'Setting Auto Updaters ...'
 					log 'Done!'
 					;;
 				if [[ "$OS" -eq 8 ]]
-					log 'Updating OS...'
-					dnf -y update
-					log 'Done!'
-					echo ""
 					log 'Installing DNF-Automatic...'
 					dnf -y install dnf-automatic
 					log 'Done!'

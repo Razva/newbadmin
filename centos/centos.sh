@@ -44,7 +44,9 @@ while true; do
 			;;
 			8) dnf -y install wget nano screen tar unzip epel-release
 			;;
-			*) echo "Please choose either 7 or 8.";;
+			*) echo "Please choose either 7 or 8."
+			echo ""
+			;;
 		esac
 	break
 done
@@ -60,7 +62,9 @@ log 'Setting Time ...'
 			systemctl enable chronyd
 			systemctl start chronyd
 			;;
-			*) echo "Skipping Time and Sync ...";;
+			*) echo "Skipping Time and Sync ..."
+			echo ""
+			;;
 		esac
 log 'Done - Setting Time'
 echo ""
@@ -113,7 +117,9 @@ log 'Setting SSHD and FirewallD ...'
 			echo ""
 			
 			;;
-			*) echo "Skipping custom SSHD Port ...";;
+			*) echo "Skipping custom SSHD Port ..."
+			echo ""
+			;;
 		esac
 log 'Done - SSHD and FirewallD'
 echo ""
@@ -139,7 +145,9 @@ log 'Setting Sudoers ...'
 			restorecon -R -v /home/$USER/.ssh
 			log 'Done!'
 			;;
-			*) echo "Skipping Sudoers ...";;
+			*) echo "Skipping Sudoers ..."
+			echo ""
+			;;
 		esac
 log 'Done - Sudoers'
 echo ""
@@ -184,7 +192,9 @@ log 'Setting Auto Updaters ...'
 				fi
 			echo ""
 			;;
-			*) echo "Skipping Auto Updaters ...";;
+			*) echo "Skipping Auto Updaters ..."
+			echo ""
+			;;
 		esac
 log 'Done - Auto Updaters'
 echo ""

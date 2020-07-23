@@ -19,6 +19,7 @@ echo ""
 
 log 'Setting Hostname ...'
 echo -e "Current Hostname: \e[1m\e[91m$(hostname)\e[0m"
+echo ""
 	read -r -p "Would you like to set the Hostname? [Y/N] " SETHOSTNAME
 		case "$SETHOSTNAME" in
 			[yY][eE][sS]|[yY]) read -r -p "Hostname: " HOSTNAME
@@ -30,6 +31,22 @@ echo -e "Current Hostname: \e[1m\e[91m$(hostname)\e[0m"
 			;;
 		esac
 log 'Done - Hostname'
+echo ""
+
+log 'Setting Time ...'
+	read -r -p "Would you like to Set and Sync Time? [Y/N] " TIME
+		case "$TIME" in
+			[yY][eE][sS]|[yY]) log "Setting Time ..."
+			timedatectl set-timezone Europe/Bucharest
+			yum -y install chrony
+			systemctl enable chronyd
+			systemctl start chronyd
+			;;
+			*) echo "Skipping Time and Sync ..."
+			echo ""
+			;;
+		esac
+log 'Done - Setting Time'
 echo ""
 
 log 'Installing Utils ...'
@@ -51,22 +68,6 @@ while true; do
 	break
 done
 log 'Done - Installing Utils'
-echo ""
-
-log 'Setting Time ...'
-	read -r -p "Would you like to Set and Sync Time? [Y/N] " TIME
-		case "$TIME" in
-			[yY][eE][sS]|[yY]) log "Setting Time ..."
-			timedatectl set-timezone Europe/Bucharest
-			yum -y install chrony
-			systemctl enable chronyd
-			systemctl start chronyd
-			;;
-			*) echo "Skipping Time and Sync ..."
-			echo ""
-			;;
-		esac
-log 'Done - Setting Time'
 echo ""
 
 log 'Setting SSHD and FirewallD ...'
@@ -198,6 +199,56 @@ log 'Setting Auto Updaters ...'
 		esac
 log 'Done - Auto Updaters'
 echo ""
+
+log 'Installing Zabbix Agent ...'
+read -r -p "Would you like to install Zabbix Agent [Y/N] " ZABBIX
+case "$ZABBIX" in
+	[yY][eE][sS]|[yY]) 
+		if [[ "$OS" -eq 7 ]]
+			rpm -Uvh https://repo.zabbix.com/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm
+    			yum clean all
+    			yum -y install zabbix-agent
+			log 'Done - Installing Zabbix Agent for CentOS 7'
+			echo ""
+		if [[ "$OS" -eq 8 ]]
+			rpm -Uvh https://repo.zabbix.com/zabbix/5.0/rhel/8/x86_64/zabbix-release-5.0-1.el8.noarch.rpm
+			dnf clean all
+			dnf -y install zabbix-agent
+			log 'Done - Installing Zabbix Agent for CentOS 8'
+			echo ""
+		fi
+		;;
+		
+	log 'Patching config file ...'
+	sed -i 's/^Server=127.0.0.1$/Server=zbx-client.neutralisp.com/g' /etc/zabbix/zabbix_agentd.conf
+	sed -i "s/^Hostname=Zabbix server$/Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agentd.conf
+	log 'Done - Patching Zabbix Config'
+	echo ""
+	
+	read -r -p "Would you like to add Zabbix Firewalld Rules? [Y/N] " firewalld
+	case "$firewalld" in
+		[yY][eE][sS]|[yY]) log 'Adding firewall rule ...'
+		firewall-cmd --zone=public --permanent --add-port=10050/tcp
+		firewall-cmd --reload
+		log 'Done - Adding Zabbix FirewallD Rules'
+		echo ""
+		;;
+	esac
+
+	log 'Enabling and starting service ...'
+	systemctl enable zabbix-agent
+	systemctl stop zabbix-agent
+	systemctl start zabbix-agent
+	log 'Done!'
+	echo ""
+	
+	log 'Agent information:'
+	echo -e "Agent IP Address: \e[1m \e[91m$(hostname -I)\e[0m"
+	echo -e "Agent Hostname: \e[1m \e[91m$(hostname)\\e[0m"
+	echo ""
+	;;
+esac
+log 'Done - Zabbix Agent'
 
 log 'Cleanup ...'
 rm -rf centos.sh

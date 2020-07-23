@@ -9,18 +9,32 @@ log() {
 
 log 'Removing Cockpit ...'
 yum -y remove cockpit-*
-log 'Done!'
+log 'Done - Removing Cockpit'
 echo ""
 
 log 'Updating OS ...'
 yum -y update
-log 'Done!'
+log 'Done - Updating OS'
+echo ""
+
+log 'Setting Hostname ...'
+echo -e "Current Hostname: \e[1m\e[91m$(hostname)\e[0m"
+	read -r -p "Would you like to set the Hostname? [Y/N] " SETHOSTNAME
+		case "$SETHOSTNAME" in
+			[yY][eE][sS]|[yY]) read -r -p "Hostname: " HOSTNAME
+			hostnamectl set-hostname $HOSTNAME --static
+			echo ""
+			;;
+			*) echo "Skipping Hostname ..."
+			echo ""
+			;;
+		esac
+log 'Done - Hostname'
 echo ""
 
 log 'Installing Utils ...'
 echo ""
 echo -e "CentOS Version: \e[1m\e[91m$(rpm -E %{rhel})\e[0m"
-echo -e "Hostname: \e[1m\e[91m$(hostname)\e[0m"
 echo ""
 
 while true; do
@@ -34,7 +48,7 @@ while true; do
 		esac
 	break
 done
-log 'Done!'
+log 'Done - Installing Utils'
 echo ""
 
 log 'Setting Time ...'
@@ -48,7 +62,7 @@ log 'Setting Time ...'
 			;;
 			*) echo "Skipping Time and Sync ...";;
 		esac
-log 'Done!'
+log 'Done - Setting Time'
 echo ""
 
 log 'Setting SSHD and FirewallD ...'
@@ -101,7 +115,7 @@ log 'Setting SSHD and FirewallD ...'
 			;;
 			*) echo "Skipping custom SSHD Port ...";;
 		esac
-log 'SSHD and FirewallD - Done!'
+log 'Done - SSHD and FirewallD'
 echo ""
 
 log 'Setting Sudoers ...'
@@ -127,7 +141,7 @@ log 'Setting Sudoers ...'
 			;;
 			*) echo "Skipping Sudoers ...";;
 		esac
-log 'Done!'
+log 'Done - Sudoers'
 echo ""
 
 log 'Setting Auto Updaters ...'
@@ -172,10 +186,10 @@ log 'Setting Auto Updaters ...'
 			;;
 			*) echo "Skipping Auto Updaters ...";;
 		esac
-log 'Done!'
+log 'Done - Auto Updaters'
 echo ""
 
 log 'Cleanup ...'
 rm -rf centos.sh
-log 'Done!'
+log 'Done - Cleanup'
 echo ""

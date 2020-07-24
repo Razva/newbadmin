@@ -36,7 +36,7 @@ case ${IUPDATE,,} in
                 source ./update.sh
                 rm -rf ./update.sh
                 ;;
-        *) h2 'Skipping OS Updates ...';
+        *) h2 $'Skipping OS Updates ...\n\n';
 esac
 
-printf '\nScript END!\n\n'
+printf 'Script END!\n\n'

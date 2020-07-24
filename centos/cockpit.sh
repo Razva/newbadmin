@@ -1,1 +1,3 @@
-echo "YOU ARE AN IDIOT"
+printf '${$yellow}Removing Cockpit ...'
+yum -y -q remove cockpit-*
+printf 'done!${normal}'

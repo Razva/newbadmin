@@ -29,4 +29,14 @@ case ${ICOCKPIT,,} in
         *) printf '%s\n' "${green}Skipping Cockpit ...${normal}";;
 esac
 
+printf '%s\nUpdate OS? [Y/n] %s' "$green" "$normal" ; read -r IUPDATE
+case ${IUPDATE,,} in
+        [yY][eE][sS]|[yY]|"")
+                wget --quiet https://raw.githubusercontent.com/Razva/newbadmin/master/centos/update.sh
+                source ./update.sh
+                rm -rf ./update.sh
+                ;;
+        *) printf '%s\n' "${green}Skipping OS Updates ...${normal}";;
+esac
+
 printf '\nScript END!\n\n'

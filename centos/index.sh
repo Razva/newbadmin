@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 
 # Color & Style
 
@@ -19,17 +19,13 @@ printf 'SELinux Status: %s\n' "$red$(grep "^SELINUX=" /etc/selinux/config) $norm
 printf 'Current Date & Time: %s\n' "$red$(date '+%H:%M:%S') |$(timedatectl | grep 'Time zone' | sed -E 's/ +/ /g') $normal"
 
 printf '%s\nRemove Cockpit? [Y/n] %s' "$green" "$normal" ; read -r ICOCKPIT
-
-#case "$ICOCKPIT" in
-#        [yY][eE][sS]|[yY]|'')
 case ${ICOCKPIT,,} in
-        yes|y|'')
-
+        [yY][eE][sS]|[yY]|"")
                 wget --quiet https://raw.githubusercontent.com/Razva/newbadmin/master/centos/cockpit.sh
                 source ./cockpit.sh
                 rm -rf ./cockpit.sh
                 ;;
-        *) printf '%s\n' "${green}Skipping Cockpit ...${normal} $ICOCKPIT";
+        *) printf '%s\n' "${green}Skipping Cockpit ...${normal}";;
 esac
 
 printf '\nScript END!\n\n'

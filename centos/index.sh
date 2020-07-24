@@ -4,6 +4,7 @@
 
 red=$'\e[91m'
 green=$'\e[92m'
+yellow=$'\e[93m'
 normal=$'\e[0m'
 
 log() {

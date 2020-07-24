@@ -20,9 +20,11 @@ printf 'Current Date & Time: %s\n' "$red$(date '+%H:%M:%S') |$(timedatectl | gre
 
 printf '%s\nRemove Cockpit? [Y/n] %s' "$green" "$normal" ; read -r ICOCKPIT
 
-case ${ICOCKPIT,,} in yes|y|'')
 #case "$ICOCKPIT" in
 #        [yY][eE][sS]|[yY]|'')
+case ${ICOCKPIT,,} in
+        yes|y|'')
+
                 wget --quiet https://raw.githubusercontent.com/Razva/newbadmin/master/centos/cockpit.sh
                 source ./cockpit.sh
                 rm -rf ./cockpit.sh

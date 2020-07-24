@@ -1,3 +1,3 @@
-printf "${yellow}= Updating OS ... "
+h2 'Updating OS ... '
 yum -y -q update
-printf '%s\n' "done!${normal}"
+h2 $'done!\n\n'

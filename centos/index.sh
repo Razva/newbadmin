@@ -27,7 +27,7 @@ case ${ICOCKPIT,,} in yes|y|'')
                 source ./cockpit.sh
                 rm -rf ./cockpit.sh
                 ;;
-        *) printf '%s\n' "${green}Skipping Cockpit ...${normal}";
+        *) printf '%s\n' "${green}Skipping Cockpit ...${normal} $ICOCKPIT";
 esac
 
 printf '\nDone!\n\n'

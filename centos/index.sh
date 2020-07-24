@@ -18,9 +18,11 @@ printf 'Current Hostname: %s\n' "$red$(hostname) $normal"
 printf 'SELinux Status: %s\n' "$red$(grep "^SELINUX=" /etc/selinux/config) $normal"
 printf 'Current Date & Time: %s\n' "$red$(date '+%H:%M:%S') |$(timedatectl | grep 'Time zone' | sed -E 's/ +/ /g') $normal"
 
-printf '%sRemove Cockipit? [Y/n] %s' "$green" "$normal" ; read -r ICOCKPIT
-case "$ICOCKPIT" in
-        [yY][eE][sS]|[yY])
+printf '%s\nRemove Cockpit? [Y/n] %s' "$green" "$normal" ; read -r ICOCKPIT
+
+case ${ICOCKPIT,,} in yes|y|'')
+#case "$ICOCKPIT" in
+#        [yY][eE][sS]|[yY]|'')
                 wget --quiet https://raw.githubusercontent.com/Razva/newbadmin/master/centos/cockpit.sh
                 source ./cockpit.sh
                 rm -rf ./cockpit.sh

@@ -30,4 +30,4 @@ case ${ICOCKPIT,,} in yes|y|'')
         *) printf '%s\n' "${green}Skipping Cockpit ...${normal} $ICOCKPIT";
 esac
 
-printf '\nDone!\n\n'
+printf '\nScript END!\n\n'

@@ -1,1 +1,1 @@
-echo "$ICOCKPIT"
+echo "YOU ARE AN IDIOT"

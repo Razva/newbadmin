@@ -4,7 +4,7 @@
 log() {
 	local green=$(tput setaf 2)
 	local normal=$(tput sgr0)
-	printf "${green}=== %s ${normal}\n" "$1"
+	printf '%s=== %s%s\n' "$green" "$1" "$normal"
 }
 
 red=$(tput setaf 1)
@@ -12,7 +12,7 @@ normal=$(tput sgr0)
 
 # General Information
 log 'System information ...'
-printf "CentOS Version: ${red} rpm -E %{rhel} ${normal}"
+printf "CentOS Version: ${red} 'rpm -E %{rhel}' ${normal}"
 
 
 

@@ -8,7 +8,7 @@ log() {
 }
 
 red=$'\e[91m'
-normal=$(tput sgr0)
+normal=$'\e[0m'
 
 # General Information
 log 'System information ...'

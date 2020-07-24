@@ -7,8 +7,9 @@ green=$'\e[92m'
 yellow=$'\e[93m'
 normal=$'\e[0m'
 
-h1() { printf '\n%s=== %s%s' "$green" "$1" "$normal"; }
-h2() { printf '%s= %s%s\n' "$yellow" "$1" "$normal"; }
+h1() { printf '%s=== %s%s' "$green" "$1" "$normal"; }
+h2() { printf '%s= %s%s' "$yellow" "$1" "$normal"; }
+yl() { printf '%s' "$yellow" "$1" "$normal"; }
 
 # General Information
 clear
@@ -16,7 +17,7 @@ h1 'System information ...'
 printf '\nCentOS Version: %s\n' "$red$(rpm -E %{rhel})$normal"
 printf 'Current Hostname: %s\n' "$red$(hostname) $normal"
 printf 'SELinux Status: %s\n' "$red$(grep "^SELINUX=" /etc/selinux/config) $normal"
-printf 'Current Date & Time: %s\n' "$red$(date '+%H:%M:%S') |$(timedatectl | grep 'Time zone' | sed -E 's/ +/ /g') $normal"
+printf 'Current Date & Time: %s\n\n' "$red$(date '+%H:%M:%S') |$(timedatectl | grep 'Time zone' | sed -E 's/ +/ /g') $normal"
 
 h1 'Remove Cockpit? [Y/n] ' ; read -r ICOCKPIT
 case ${ICOCKPIT,,} in
@@ -25,7 +26,7 @@ case ${ICOCKPIT,,} in
                 source ./cockpit.sh
                 rm -rf ./cockpit.sh
                 ;;
-        *) h2 'Skipping Cockpit ...'
+        *) h2 $'Skipping Cockpit ...\n\n'
 esac
 
 h1 'Update OS? [Y/n] ' ; read -r IUPDATE
@@ -38,4 +39,4 @@ case ${IUPDATE,,} in
         *) h2 'Skipping OS Updates ...';
 esac
 
-printf '\nEND!\n\n'
+printf '\nScript END!\n\n'

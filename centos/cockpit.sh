@@ -1,1 +1,1 @@
-echo "$QUESTION"
+echo "$ICOCKPIT"

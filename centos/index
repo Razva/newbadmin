@@ -189,5 +189,8 @@ esac
 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/zabbix
 source ./zabbix
 
+# CLeanup
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/cleanup
+source ./cleanup
+
 h1 $'Everything Done!\n\n'
-rm -rf ./deps ./index

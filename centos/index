@@ -31,7 +31,7 @@ case ${deps,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing Dependencies and Utilities ...\n'
                 yum -y install epel-release nano screen tar unzip
-                h2 $'done!\n\n'
+                h2 $'Done - Dependencies and Utilities\n\n'
                 ;;
         *) h2 $'Skipping Dependencies and Utilities ...\n\n'
 esac
@@ -40,9 +40,9 @@ esac
 h1 'Remove Cockpit? [Y/n] ' ; read -r cockpit
 case ${cockpit,,} in
         [yY][eE][sS]|[yY]|"")
-                h2 'Removing Cockpit ... '
-                yum -y remove cockpit-* > /dev/null 2>&1
-                yl $'done!\n\n'
+                h2 $'Removing Cockpit ...\n'
+                yum -y remove cockpit-*
+                h2 $'Done - Cockpit\n\n'
                 ;;
         *) h2 $'Skipping Cockpit ...\n\n'
 esac
@@ -52,8 +52,8 @@ h1 'Update OS? [Y/n] ' ; read -r update
 case ${update,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 'Updating OS ... '
-                yum -y -q update
-                yl $'done!\n\n'
+                yum -y update
+                h2 $'Done - OS Updates!\n\n'
                 ;;
         *) h2 $'Skipping OS Updates ...\n\n';
 esac

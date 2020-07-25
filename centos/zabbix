@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Dependencies
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/deps
+source ./deps
+
+# Zabbix
+h1 'Install Zabbix? [Y/n] ' ; read -r zabbix
+case ${zabbix,,} in
+        [yY][eE][sS]|[yY]|"")
+		h2 $'Installing Zabbix Agent\n\n'
+                if [[ "$os" -eq 7 ]]; then
+			rpm -Uvh https://repo.zabbix.com/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm
+    			yum clean all
+    			yum -y install zabbix-agent
+			h2 $'Done - Installing Zabbix Agent for CentOS 7\n\n'
+                fi
+
+                if [[ "$os" -eq 8 ]]; then
+			rpm -Uvh https://repo.zabbix.com/zabbix/5.0/rhel/8/x86_64/zabbix-release-5.0-1.el8.noarch.rpm
+			dnf clean all
+			dnf -y install zabbix-agent
+			h2 'Done - Installing Zabbix Agent for CentOS 8\n\n'
+                fi
+		
+		h2 'Patching Config File ... '
+		sed -i 's/^Server=127.0.0.1$/Server=zbx-client.neutralisp.com/g' /etc/zabbix/zabbix_agentd.conf
+		sed -i "s/^Hostname=Zabbix server$/Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agentd.conf
+		ye $'done!\n\n'
+		
+		h3 'Add Zabbix FirewallD Rules? [Y/n] ' ; read -r fzabbix
+			case ${fzabbix,,} in
+       				[yY][eE][sS]|[yY]|"")
+				firewall-cmd --zone=public --permanent --add-port=10050/tcp
+				firewall-cmd --reload
+				h3 $'Done - Adding Zabbix FirewallD Rules\n\n'	
+				;;
+				*) h3 $'Skipping Zabbix FirewallD Rules\n\n'
+			esac
+		
+		h2 'Enabling and starting service ... '
+		systemctl enable zabbix-agent
+		systemctl stop zabbix-agent
+		systemctl start zabbix-agent
+		ye $'done!\n\n'
+	
+		h1 $'Zabbix Agent information:\n\n'
+		printf 'Agent IP Address: %s\n' "$red$bold$(hostname -I)$normal"
+		printf 'Agent Hostname: %s\n\n' "$red$bold$(hostname)$normal"
+		;;
+        *) h2 $'Skipping Zabbix\n\n';
+esac

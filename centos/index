@@ -179,7 +179,7 @@ case ${time,,} in
                         ye $'done!\n\n'
                 fi
 		
-		if [[ "$OS" -eq 8 ]]; then
+		if [[ "$os" -eq 8 ]]; then
                         h2 $'Installing YUM-Cron\n'
                         dnf -y install dnf-automatic
                         h2 $'Done - YUM-Cron\n\n'
@@ -196,6 +196,21 @@ case ${time,,} in
 		fi
 		;;
         *) h2 $'Skipping Auto-Updaters\n\n';
+esac
+
+# Zabbix
+h1 'Install Zabbix? [Y/n] ' ; read -r zabbix
+case ${zabbix,,} in
+        [yY][eE][sS]|[yY]|"")
+                if [[ "$os" -eq 7 ]]; then
+
+                fi
+
+                if [[ "$os" -eq 8 ]]; then
+
+                fi
+                ;;
+        *) h2 $'Skipping Time\n\n';
 esac
 
 h1 $'Everything Done!\n\n'

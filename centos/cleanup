@@ -2,3 +2,4 @@
 
 rm -rf ./zabbix
 rm -rf ./deps
+rm -rf ./index

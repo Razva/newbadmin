@@ -119,9 +119,11 @@ case ${sshdport,,} in
 		firewall-cmd --zone=public --permanent --add-port=$sshport/tcp
 		firewall-cmd --zone=public --permanent --add-port=80/tcp
 		firewall-cmd --zone=public --permanent --add-port=443/tcp
-		if [[ "$os" -eq 7 ]]
+		if [[ "$os" -eq 7 ]]; then
 			//do7
-		if [[ "$os" -eq 8 ]]
+		fi
+		
+		if [[ "$os" -eq 8 ]]; then
 			firewall-cmd --zone=public --permanent --remove-service=cockpit
 			firewall-cmd --zone=public --permanent --remove-service=dhcpv6-client
 		fi
@@ -130,9 +132,11 @@ case ${sshdport,,} in
 		h3 $'Done - Setting FirewallD Ports\n\n'
 
 		h3 'Adding SELinux SSHD Port Rule'
-		if [[ "$os" -eq 7 ]]
+		if [[ "$os" -eq 7 ]]; then
 			yum -y install policycoreutils-python
-		if [[ "$os" -eq 8 ]]
+		fi
+		
+		if [[ "$os" -eq 8 ]]; then
 			dnf -y install policycoreutils-python-utils
 		fi
 		semanage port -a -t ssh_port_t -p tcp $sshport

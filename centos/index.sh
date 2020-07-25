@@ -12,10 +12,8 @@ printf 'Current Hostname: %s\n' "$red$(hostname)$normal"
 printf 'SELinux Status: %s\n' "$red$(getenforce)$normal"
 printf 'Current Date & Time: %s\n\n' "$red$(date '+%H:%M:%S') |$(timedatectl | grep 'Time zone' | sed -E 's/ +/ /g') $normal"
 
-# Setting general values
-curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/general.sh
-source ./general.sh
-rm -rf ./general.sh
+OS=$(rpm -E %{rhel}) echo $OS
+SELINUX=$(getenforce) echo $SELINUX
 
 # Cockpit
 h1 'Remove Cockpit? [Y/n] ' ; read -r ICOCKPIT

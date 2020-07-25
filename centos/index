@@ -11,6 +11,7 @@ normal=$'\e[0m'
 h1() { printf '%s=== %s%s' "$green" "$1" "$normal"; }
 h2() { printf '%s== %s%s' "$yellow" "$1" "$normal"; }
 h3() { printf '%s= %s%s' "$cyan" "$1" "$normal"; }
+cy() { printf '%s' "$cyan" "$1" "$normal"; }
 
 # General Variables
 os=$(rpm -E %{rhel})
@@ -110,17 +111,17 @@ h1 'Set custom SSHD Port? [Y/n] ' ; read -r sshdport
 case ${sshdport,,} in
         [yY][eE][sS]|[yY]|"")
 		h2 'New SSHD Port: ' ; read -r sshport
-		h3 $'\nInstalling FirewallD ...'
+		h3 $'Installing FirewallD ...\n'
 		yum -y install firewalld
 		systemctl start firewalld
 		h3 $'Done - Installing FirewallD\n\n'
 			
-		h3 'Setting FirewallD Ports'
+		h3 $'Setting FirewallD Ports\n'
 		firewall-cmd --zone=public --permanent --add-port=$sshport/tcp
 		firewall-cmd --zone=public --permanent --add-port=80/tcp
 		firewall-cmd --zone=public --permanent --add-port=443/tcp
 		if [[ "$os" -eq 7 ]]; then
-			//do7
+			echo "This is C7"
 		fi
 		
 		if [[ "$os" -eq 8 ]]; then
@@ -131,7 +132,7 @@ case ${sshdport,,} in
 		firewall-cmd --reload
 		h3 $'Done - Setting FirewallD Ports\n\n'
 
-		h3 'Adding SELinux SSHD Port Rule'
+		h3 $'Adding SELinux SSHD Port Rule\n'
 		if [[ "$os" -eq 7 ]]; then
 			yum -y install policycoreutils-python
 		fi
@@ -142,13 +143,13 @@ case ${sshdport,,} in
 		semanage port -a -t ssh_port_t -p tcp $sshport
 		h3 $'Done - SELinux SSHD Port Rule\n\n'
 
-		h3 'Changing SSHD Port'
+		h3 'Changing SSHD Port ... '
 		sed -i 's/^#Port 22$/Port "${sshport}"/g' /etc/ssh/sshd_config
-		h3 $'Done - Changing SSHD Port\n\n'
+		cy $'done!\n\n'
 
-		h3 'Restarting SSHD'
+		h3 'Restarting SSHD ... '
 		systemctl restart sshd
-		h3 $'Done - Restarting SSHD\n\n'
+		cy $'done!\n\n'
                 ;;
         *) h2 $'Skipping custom SSHD\n\n';
 esac

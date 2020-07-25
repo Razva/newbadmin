@@ -105,4 +105,48 @@ case ${sudoers,,} in
         *) h2 $'Skipping Sudoers\n\n';
 esac
 
+# SSHD
+h1 'Set custom SSHD Port? [Y/n] ' ; read -r sshdport
+case ${sshdport,,} in
+        [yY][eE][sS]|[yY]|"")
+		h2 'New SSHD Port: ' ; read -r sshport;
+		h3 $'\nInstalling FirewallD ...'
+		yum -y install firewalld
+		systemctl start firewalld
+		h3 $'Done - Installing FirewallD\n\n'
+			
+		h3 'Setting FirewallD Ports'
+		firewall-cmd --zone=public --permanent --add-port=$sshport/tcp
+		firewall-cmd --zone=public --permanent --add-port=80/tcp
+		firewall-cmd --zone=public --permanent --add-port=443/tcp
+		if [[ "$os" -eq 7 ]]
+			//do7
+		if [[ "$os" -eq 8 ]]
+			firewall-cmd --zone=public --permanent --remove-service=cockpit
+			firewall-cmd --zone=public --permanent --remove-service=dhcpv6-client
+		fi
+		firewall-cmd --zone=public --permanent --remove-service=ssh
+		firewall-cmd --reload
+		h3 $'Done - Setting FirewallD Ports\n\n'
+
+		h3 'Adding SELinux SSHD Port Rule'
+		if [[ "$os" -eq 7 ]]
+			yum -y install policycoreutils-python
+		if [[ "$os" -eq 8 ]]
+			dnf -y install policycoreutils-python-utils
+		fi
+		semanage port -a -t ssh_port_t -p tcp $sshport
+		h3 $'Done - SELinux SSHD Port Rule\n\n'
+
+		h3 'Changing SSHD Port'
+		sed -i 's/^#Port 22$/Port "${SSHPORT}"/g' /etc/ssh/sshd_config
+		h3 $'Done - Changing SSHD Port\n\n'
+
+		h3 'Restarting SSHD'
+		systemctl restart sshd
+		h3 $'Done - Restarting SSHD\n\n'
+                ;;
+        *) h2 $'Skipping custom SSHD\n\n';
+esac
+
 h1 $'Everything Done!\n\n'

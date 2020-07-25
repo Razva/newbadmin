@@ -1,3 +1,5 @@
+#!/bin/bash
+
 red=$'\e[91m'
 green=$'\e[92m'
 yellow=$'\e[93m'

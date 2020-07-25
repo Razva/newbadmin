@@ -61,5 +61,5 @@ case ${ITIME,,} in
         *) h2 $'Skipping Time ...\n\n';
 esac
 
-h1 'Cleanup ...'
+h1 $'Cleanup ...\n\n'
 rm -rf ./deps.sh

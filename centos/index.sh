@@ -9,7 +9,7 @@ OS=$(rpm -E %{rhel})
 SELINUX=$(getenforce)
 
 # General Information
-clear
+#clear
 h1 'System information ...'
 printf '\nCentOS Version: %s\n' "$red$(rpm -E %{rhel})$normal"
 printf 'Current Hostname: %s\n' "$red$(hostname)$normal"

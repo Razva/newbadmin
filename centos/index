@@ -29,9 +29,9 @@ printf 'Current Date & Time: %s\n\n' "$red$(date '+%H:%M:%S') |$(timedatectl | g
 h1 'Install Dependencies and Utilities? [Y/n] ' ; read -r deps
 case ${deps,,} in
         [yY][eE][sS]|[yY]|"")
-                h2 'Installing Dependencies and Utilities ... '
-                yum -y -q install epel-release nano screen tar unzip
-                yl $'done!\n\n'
+                h2 $'Installing Dependencies and Utilities ...\n'
+                yum -y install epel-release nano screen tar unzip
+                h2 $'done!\n\n'
                 ;;
         *) h2 $'Skipping Dependencies and Utilities ...\n\n'
 esac

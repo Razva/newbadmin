@@ -143,7 +143,7 @@ case ${sshdport,,} in
 		h3 $'Done - SELinux SSHD Port Rule\n\n'
 
 		h3 'Changing SSHD Port'
-		sed -i 's/^#Port 22$/Port "${SSHPORT}"/g' /etc/ssh/sshd_config
+		sed -i 's/^#Port 22$/Port "${sshport}"/g' /etc/ssh/sshd_config
 		h3 $'Done - Changing SSHD Port\n\n'
 
 		h3 'Restarting SSHD'

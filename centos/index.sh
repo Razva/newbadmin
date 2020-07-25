@@ -4,6 +4,10 @@
 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/deps.sh
 source ./deps.sh
 
+# General variables
+OS=$(rpm -E %{rhel})
+SELINUX=$(getenforce)
+
 # General Information
 clear
 h1 'System information ...'
@@ -11,9 +15,6 @@ printf '\nCentOS Version: %s\n' "$red$(rpm -E %{rhel})$normal"
 printf 'Current Hostname: %s\n' "$red$(hostname)$normal"
 printf 'SELinux Status: %s\n' "$red$(getenforce)$normal"
 printf 'Current Date & Time: %s\n\n' "$red$(date '+%H:%M:%S') |$(timedatectl | grep 'Time zone' | sed -E 's/ +/ /g') $normal"
-
-OS=$(rpm -E %{rhel}) echo $OS
-SELINUX=$(getenforce) echo $SELINUX
 
 # Cockpit
 h1 'Remove Cockpit? [Y/n] ' ; read -r ICOCKPIT

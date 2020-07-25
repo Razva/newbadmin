@@ -130,6 +130,9 @@ case ${sshdport,,} in
 		fi
 		firewall-cmd --zone=public --permanent --remove-service=ssh
 		firewall-cmd --reload
+		
+		h3 'Current FirewallD Rules:' firewall-cmd --list-all | grep "  ports" | sed -E 's/ +/ /g'
+		
 		h3 $'Done - Setting FirewallD Ports\n\n'
 
 		h3 $'Adding SELinux SSHD Port Rule\n'

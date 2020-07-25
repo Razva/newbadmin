@@ -131,8 +131,9 @@ case ${sshdport,,} in
 		firewall-cmd --zone=public --permanent --remove-service=ssh
 		firewall-cmd --reload
 		
+		printf '\n'
                 h2 'Current FirewallD Rules: '
-                printf "$red$(firewall-cmd --list-all | grep "  ports" | sed -E 's/  ports: //')$normal\n"
+                printf "$red$(firewall-cmd --list-all | grep "  ports" | sed -E 's/  ports: //')$normal\n\n"
 		
 		h3 $'Done - Setting FirewallD Ports\n\n'
 

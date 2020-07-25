@@ -39,4 +39,14 @@ case ${IUPDATE,,} in
         *) h2 $'Skipping OS Updates ...\n\n';
 esac
 
+h1 'Set Hostname? [Y/n] ' ; read -r IHOSTNAME
+case ${IHOSTNAME,,} in
+        [yY][eE][sS]|[yY]|"")
+                curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/hostname.sh
+                source ./hostname.sh
+                rm -rf ./hostname.sh
+                ;
+        *) h2 $'Skipping OS Updates ...\n\n';
+esac
+
 printf 'Script END!\n\n'

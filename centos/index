@@ -14,9 +14,6 @@ h3() { printf '%s= %s%s' "$cyan" "$1" "$normal"; }
 yl() { printf '%s' "$yellow" "$1" "$normal"; }
 cy() { printf '%s' "$cyan" "$1" "$normal"; }
 
-# Dependencies and Utilities
-yum -y -q install epel-release nano screen tar unzip
-
 # General Variables
 os=$(rpm -E %{rhel})
 selinux=$(getenforce)
@@ -27,6 +24,17 @@ printf '\nCentOS Version: %s\n' "$red$(rpm -E %{rhel})$normal"
 printf 'Current Hostname: %s\n' "$red$(hostname)$normal"
 printf 'SELinux Status: %s\n' "$red$(getenforce)$normal"
 printf 'Current Date & Time: %s\n\n' "$red$(date '+%H:%M:%S') |$(timedatectl | grep 'Time zone' | sed -E 's/ +/ /g') $normal"
+
+# Dependencies and Utilities
+h1 'Install Dependencies and Utilities? [Y/n] ' ; read -r deps
+case ${deps,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 'Removing Cockpit ... '
+                yum -y -q install epel-release nano screen tar unzip
+                yl $'done!\n\n'
+                ;;
+        *) h2 $'Skipping Dependencies and Utilities ...\n\n'
+esac
 
 # Cockpit
 h1 'Remove Cockpit? [Y/n] ' ; read -r cockpit

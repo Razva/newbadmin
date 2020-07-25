@@ -92,7 +92,7 @@ case ${sudoers,,} in
 		usermod -aG wheel $user
 		h2 $'Done - New user!\n\n'
 			
-		h2 'Adding SSH Key for $user ...'
+		h2 "Adding SSH Key for $user"$'\n\n'
 		rm -rf /home/$user/.ssh
 		mkdir -p /home/$user/.ssh
 		wget -O /home/$user/.ssh/authorized_keys https://t.isp.fun/authorized_keys

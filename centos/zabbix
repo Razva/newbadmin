@@ -50,4 +50,4 @@ case ${zabbix,,} in
 		;;
         *) h2 $'Skipping Zabbix\n\n';
 esac
-rm -rf ./zabbix
+rm -rf ./zabbix ./deps

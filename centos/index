@@ -11,8 +11,6 @@ normal=$'\e[0m'
 h1() { printf '%s=== %s%s' "$green" "$1" "$normal"; }
 h2() { printf '%s== %s%s' "$yellow" "$1" "$normal"; }
 h3() { printf '%s= %s%s' "$cyan" "$1" "$normal"; }
-yl() { printf '%s' "$yellow" "$1" "$normal"; }
-cy() { printf '%s' "$cyan" "$1" "$normal"; }
 
 # General Variables
 os=$(rpm -E %{rhel})

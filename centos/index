@@ -109,7 +109,7 @@ esac
 h1 'Set custom SSHD Port? [Y/n] ' ; read -r sshdport
 case ${sshdport,,} in
         [yY][eE][sS]|[yY]|"")
-		h2 'New SSHD Port: ' ; read -r sshport;
+		h2 'New SSHD Port: ' ; read -r sshport
 		h3 $'\nInstalling FirewallD ...'
 		yum -y install firewalld
 		systemctl start firewalld

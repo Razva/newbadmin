@@ -194,6 +194,7 @@ case ${time,,} in
 			systemctl start dnf-automatic
                         ye $'done!\n\n'
 		fi
+		;;
         *) h2 $'Skipping Auto-Updaters\n\n';
 esac
 

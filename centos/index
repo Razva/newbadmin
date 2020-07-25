@@ -132,8 +132,7 @@ case ${sshdport,,} in
 		firewall-cmd --reload
 		
                 h2 'Current FirewallD Rules: '
-                $red firewall-cmd --list-all | grep "  ports" | sed -E 's/  ports: //'$normal
-                printf '\n'
+                printf "$red$(firewall-cmd --list-all | grep "  ports" | sed -E 's/  ports: //')$normal\n"
 		
 		h3 $'Done - Setting FirewallD Ports\n\n'
 

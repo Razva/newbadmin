@@ -11,6 +11,7 @@ normal=$'\e[0m'
 h1() { printf '%s=== %s%s' "$green" "$1" "$normal"; }
 h2() { printf '%s== %s%s' "$yellow" "$1" "$normal"; }
 h3() { printf '%s= %s%s' "$cyan" "$1" "$normal"; }
+ye() { printf '%s' "$yellow" "$1" "$normal"; }
 cy() { printf '%s' "$cyan" "$1" "$normal"; }
 
 # General Variables
@@ -133,7 +134,7 @@ case ${sshdport,,} in
 		
 		printf '\n'
                 h2 'Current FirewallD Rules: '
-                printf "$red$(firewall-cmd --list-all | grep "  ports" | sed -E 's/  ports: //')$normal\n\n"
+                printf "$red$(firewall-cmd --list-all | sed -n 's/  ports: *//p')$normal\n\n"
 		
 		h3 $'Done - Setting FirewallD Ports\n\n'
 
@@ -157,6 +158,43 @@ case ${sshdport,,} in
 		cy $'done!\n\n'
                 ;;
         *) h2 $'Skipping custom SSHD\n\n';
+esac
+
+# Auto Updaters
+h1 'Set Auto-Updaters? [Y/n] ' ; read -r time
+case ${time,,} in
+        [yY][eE][sS]|[yY]|"")
+                if [[ "$os" -eq 7 ]]; then
+                        h2 $'Installing YUM-Cron\n'
+                        yum -y install yum-cron
+                        h2 $'Done - YUM-Cron\n\n'
+
+                        h2 'Patching config ... '
+                        sed -i 's/^apply_updates = no$/apply_updates = yes/g' /etc/yum/yum-cron.conf
+                        ye $'done!\n\n'
+
+                        h2 'Enabling and starting YUM-Cron ... '
+                        systemctl enable yum-cron
+                        systemctl start yum-cron
+                        ye $'done!\n\n'
+                fi
+		
+		if [[ "$OS" -eq 8 ]]; then
+                        h2 $'Installing YUM-Cron\n'
+                        dnf -y install dnf-automatic
+                        h2 $'Done - YUM-Cron\n\n'
+
+                        h2 'Patching config ... '
+                        sed -i 's/^apply_updates = no$/apply_updates = yes/g' /etc/dnf/automatic.conf
+			sed -i 's/^emit_via = stdio$/emit_via = motd/g' /etc/dnf/automatic.conf
+                        ye $'done!\n\n'
+
+                        h2 'Enabling and starting YUM-Cron ... '
+			systemctl enable --now dnf-automatic.timer
+			systemctl start dnf-automatic
+                        ye $'done!\n\n'
+		fi
+        *) h2 $'Skipping Auto-Updaters\n\n';
 esac
 
 h1 $'Everything Done!\n\n'

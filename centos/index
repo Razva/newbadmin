@@ -86,7 +86,7 @@ esac
 h1 'Add Sudoers? [Y/n] ' ; read -r sudoers
 case ${sudoers,,} in
         [yY][eE][sS]|[yY]|"")
-		h2 'New user: ' ; read -r user;
+		h2 'New user: ' ; read -r user
 		useradd $user
 		passwd $user
 		usermod -aG wheel $user

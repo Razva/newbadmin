@@ -1,0 +1,35 @@
+#!/bin/bash
+
+yum -y -q install dialog
+
+height=30
+width=40
+choice_height=20
+backtitle="backtitle here"
+title="title here"
+menu="choose one of the following options:"
+
+options=(1 "option 1"
+         2 "option 2"
+         3 "option 3")
+
+choice=$(dialog --clear \
+                --backtitle "$backtitle" \
+                --title "$title" \
+                --menu "$menu" \
+                $height $width $choice_height \
+                "${options[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $choice in
+        1)
+            echo "you chose option 1"
+            ;;
+        2)
+            echo "you chose option 2"
+            ;;
+        3)
+            echo "you chose option 3"
+            ;;
+esac

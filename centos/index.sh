@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 # Dependencies
 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/deps.sh

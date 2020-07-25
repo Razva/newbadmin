@@ -19,7 +19,7 @@ os=$(rpm -E %{rhel})
 selinux=$(getenforce)
 
 # General Information
-h1 'System information ...'
+h1 'System information'
 printf '\nCentOS Version: %s\n' "$red$(rpm -E %{rhel})$normal"
 printf 'Current Hostname: %s\n' "$red$(hostname)$normal"
 printf 'SELinux Status: %s\n' "$red$(getenforce)$normal"
@@ -29,57 +29,59 @@ printf 'Current Date & Time: %s\n\n' "$red$(date '+%H:%M:%S') |$(timedatectl | g
 h1 'Install Dependencies and Utilities? [Y/n] ' ; read -r deps
 case ${deps,,} in
         [yY][eE][sS]|[yY]|"")
-                h2 $'Installing Dependencies and Utilities ...\n'
+                h2 $'Installing Dependencies and Utilities\n'
                 yum -y install epel-release nano screen tar unzip
                 h2 $'Done - Dependencies and Utilities\n\n'
                 ;;
-        *) h2 $'Skipping Dependencies and Utilities ...\n\n'
+        *) h2 $'Skipping Dependencies and Utilities\n\n'
 esac
 
 # Cockpit
 h1 'Remove Cockpit? [Y/n] ' ; read -r cockpit
 case ${cockpit,,} in
         [yY][eE][sS]|[yY]|"")
-                h2 $'Removing Cockpit ...\n'
+                h2 $'Removing Cockpit\n'
                 yum -y remove cockpit-*
                 h2 $'Done - Cockpit\n\n'
                 ;;
-        *) h2 $'Skipping Cockpit ...\n\n'
+        *) h2 $'Skipping Cockpit\n\n'
 esac
 
 # OS Updates
 h1 'Update OS? [Y/n] ' ; read -r update
 case ${update,,} in
         [yY][eE][sS]|[yY]|"")
-                h2 'Updating OS ... '
+                h2 $'Updating OS\n'
                 yum -y update
-                h2 $'Done - OS Updates!\n\n'
+                h2 $'Done - OS Updates\n\n'
                 ;;
-        *) h2 $'Skipping OS Updates ...\n\n';
+        *) h2 $'Skipping OS Updates\n\n';
 esac
 
 # Hostname
 h1 'Set Hostname? [Y/n] ' ; read -r nhostname
 case ${nhostname,,} in
         [yY][eE][sS]|[yY]|"")
-                h2 $'Setting Hostname ...\n'
+                h2 $'Setting Hostname\n'
                 h3 'New hostname: ' ; read -r hostname
                 hostnamectl set-hostname $hostname --static
-                h2 $'Done!\n\n'
+                h2 $'Done - Hostname\n\n'
                 ;;
-        *) h2 $'Skipping Hostname ...\n\n';
+        *) h2 $'Skipping Hostname\n\n';
 esac
 
 # Time
 h1 'Set Time? [Y/n] ' ; read -r time
 case ${time,,} in
         [yY][eE][sS]|[yY]|"")
+		h2 $'Setting Time\n'
 		yum -y -q install chrony
 		systemctl enable chronyd
 		systemctl start chronyd
                 timedatectl set-timezone Europe/Bucharest
+		h2 $'Done - Time\n\n'
                 ;;
-        *) h2 $'Skipping Time ...\n\n';
+        *) h2 $'Skipping Time\n\n';
 esac
 
 h1 $'Everything Done!\n\n'

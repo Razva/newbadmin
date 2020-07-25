@@ -15,4 +15,4 @@ while true; do
 	esac
 done
 
-echo "$OS"
+h3 $'Selected CentOS $OS. Continuing ...\n'

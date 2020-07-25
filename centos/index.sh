@@ -28,7 +28,7 @@ case ${ICOCKPIT,,} in
                 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/cockpit.sh
                 source ./cockpit.sh
                 rm -rf ./cockpit.sh
-                ;
+                ;;
         *) h2 $'Skipping Cockpit ...\n\n'
 esac
 
@@ -38,7 +38,7 @@ case ${IUPDATE,,} in
                 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/update.sh
                 source ./update.sh
                 rm -rf ./update.sh
-                ;
+                ;;
         *) h2 $'Skipping OS Updates ...\n\n';
 esac
 
@@ -48,8 +48,18 @@ case ${IHOSTNAME,,} in
                 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/hostname.sh
                 source ./hostname.sh
                 rm -rf ./hostname.sh
-                ;
-        *) h2 $'Skipping OS Updates ...\n\n';
+                ;;
+        *) h2 $'Skipping Hostname ...\n\n';
+esac
+
+h1 'Set Time? [Y/n] ' ; read -r ITIME
+case ${ITIME,,} in
+        [yY][eE][sS]|[yY]|"")
+                curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/time.sh
+                source ./time.sh
+                rm -rf ./time.sh
+                ;;
+        *) h2 $'Skipping Time ...\n\n';
 esac
 
 printf 'Script END!\n\n'

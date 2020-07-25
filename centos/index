@@ -239,7 +239,7 @@ case ${zabbix,,} in
 		systemctl start zabbix-agent
 		ye $'done!\n\n'
 	
-		h2 $'Agent information:\n\n'
+		h1 $'Zabbix Agent information:\n\n'
 		printf 'Agent IP Address: %s\n' "$red$bold$(hostname -I)$normal"
 		printf 'Agent Hostname: %s\n\n' "$red$bold$(hostname)$normal"
 		;;

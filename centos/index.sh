@@ -8,8 +8,8 @@ source ./deps.sh
 clear
 h1 'System information ...'
 printf '\nCentOS Version: %s\n' "$red$(rpm -E %{rhel})$normal"
-printf 'Current Hostname: %s\n' "$red$(hostname) $normal"
-printf 'SELinux Status: %s\n' "$red$(grep "^SELINUX=" /etc/selinux/config) $normal"
+printf 'Current Hostname: %s\n' "$red$(hostname)$normal"
+printf 'SELinux Status: %s\n' "$red$(getenforce)$normal"
 printf 'Current Date & Time: %s\n\n' "$red$(date '+%H:%M:%S') |$(timedatectl | grep 'Time zone' | sed -E 's/ +/ /g') $normal"
 
 # Setting general values

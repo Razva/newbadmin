@@ -185,4 +185,10 @@ case ${time,,} in
         *) h2 $'Skipping Auto-Updaters\n\n';
 esac
 
+# Zabbix
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/zabbix
+source ./zabbix
+rm -rf ./zabbix
+
 h1 $'Everything Done!\n\n'
+rm -rf ./deps ./index

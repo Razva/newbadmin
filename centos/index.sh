@@ -22,20 +22,20 @@ printf 'Current Date & Time: %s\n\n' "$red$(date '+%H:%M:%S') |$(timedatectl | g
 h1 'Remove Cockpit? [Y/n] ' ; read -r ICOCKPIT
 case ${ICOCKPIT,,} in
         [yY][eE][sS]|[yY]|"")
-                wget --quiet https://raw.githubusercontent.com/Razva/newbadmin/master/centos/cockpit.sh
+                curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/cockpit.sh
                 source ./cockpit.sh
                 rm -rf ./cockpit.sh
-                ;;
+                ;
         *) h2 $'Skipping Cockpit ...\n\n'
 esac
 
 h1 'Update OS? [Y/n] ' ; read -r IUPDATE
 case ${IUPDATE,,} in
         [yY][eE][sS]|[yY]|"")
-                wget --quiet https://raw.githubusercontent.com/Razva/newbadmin/master/centos/update.sh
+                curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/update.sh
                 source ./update.sh
                 rm -rf ./update.sh
-                ;;
+                ;
         *) h2 $'Skipping OS Updates ...\n\n';
 esac
 

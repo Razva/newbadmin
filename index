@@ -22,7 +22,7 @@ choice=$(dialog --clear \
 
 clear
 case $choice in
-        1) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/nwb-index-c
+        1) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/index-c
         source ./index-c
         source ./index
         ;;

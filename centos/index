@@ -26,7 +26,7 @@ case $choice in
         source ./wizard
         source ./index
         ;;
-        2) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/zabbix
+        2) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/monitoring/zabbix
         source ./zabbix
         source ./index
         ;;

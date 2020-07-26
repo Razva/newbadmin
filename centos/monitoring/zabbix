@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Dependencies
-curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/deps
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/base/deps
 source ./deps
 
 # Zabbix

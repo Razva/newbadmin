@@ -5,12 +5,12 @@
 height=30
 width=40
 choice_height=20
-backtitle="Newb Admin"
-title="Newb Admin - CentOS"
+backtitle="CentOS - Newb Admin"
+title="CentOS - Newb Admin"
 
 options=(1 "CentOS Wizard"
          2 "Zabbix Install"
-		 3 "Main Index"
+         3 "Main Index"
          4 "Exit")
 
 choice=$(dialog --clear \
@@ -31,11 +31,11 @@ case $choice in
         source ./nwb-zabbix-c
         source ./index-c
         ;;
-		3) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/index
-		bash ./index
-		;;
+        3) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/index
+        bash ./index
+        ;;
         4) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/base/cleanup-c
-		source ./cleanup-c
-		exit
-		;;
+        source ./cleanup-c
+        exit
+        ;;
 esac

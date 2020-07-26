@@ -5,8 +5,8 @@
 height=30
 width=40
 choice_height=20
-backtitle="Newb Admin"
-title="Newb Admin - CentOS"
+backtitle="Welcome to Newb Admin"
+title="Newb Admin - Main Menu"
 
 options=(1 "CentOS Tools"
          2 "Email Tools"

@@ -5,13 +5,13 @@ Useful bash scripts and utilities for newb sysadmins.
 
 ### RPM-based systems (CentOS, RHEL etc)
 ```bash
-yum -y install display && curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/index && bash ./index
+yum -y install dialog && curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/index && bash ./index
 ```
 
 ### DEB-based systems (Ubuntu, Debian etc)
 ```bash
-apt-get -y install display && curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/index && bash ./index
+apt-get -y install dialog && curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/index && bash ./index
 ```
 
 ### Bugs
-Please report any bugs and errors to [GitHub Issues](https://github.com/Razva/newbadmin/issues).
+Please report any issues to [GitHub Issues](https://github.com/Razva/newbadmin/issues).

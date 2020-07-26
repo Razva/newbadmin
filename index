@@ -22,12 +22,15 @@ choice=$(dialog --clear \
 
 clear
 case $choice in
-        1) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/index
-        source ./wizard
+        1) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/nwb-index-c
+        source ./nwb-index-c
         source ./index
         ;;
         2) echo "Soon"
 		source ./index
         ;;
-        3) exit;
+        3) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/cleanup
+		source ./cleanup
+		exit
+		;;
 esac

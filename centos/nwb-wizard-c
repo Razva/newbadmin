@@ -2,8 +2,8 @@
 clear
 
 # Dependencies
-curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/base/deps
-source ./deps
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/base/nwb-deps-c
+source ./nwb-deps-c
 
 # General Information
 h1 'System information'
@@ -186,11 +186,11 @@ case ${time,,} in
 esac
 
 # Zabbix
-curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/monitoring/zabbix
-source ./zabbix
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/monitoring/nwb-zabbix-c
+source ./nwb-zabbix-c
 
 # CLeanup
-curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/base/cleanup
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/cleanup
 source ./cleanup
 
 h1 $'Everything Done!\n\n'

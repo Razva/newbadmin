@@ -1,6 +1,0 @@
-#!/bin/bash
-
-rm -rf ./zabbix
-rm -rf ./deps
-rm -rf ./wizard
-rm -rf ./cleanup

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Dependencies
-curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/base/deps
-source ./deps
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/base/nwb-deps-c
+source ./nwb-deps-c
 
 # Zabbix
 h1 'Install Zabbix? [Y/n] ' ; read -r zabbix
@@ -50,4 +50,4 @@ case ${zabbix,,} in
 		;;
         *) h2 $'Skipping Zabbix\n\n';
 esac
-rm -rf ./deps ./zabbix
+rm -rf ./nwb-*

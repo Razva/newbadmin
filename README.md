@@ -5,7 +5,7 @@ Useful bash scripts and utilities for newb sysadmins.
 
 ### RPM-based systems (CentOS, RHEL etc)
 ```bash
-yum -y -q install dialog && curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/index && bash ./index
+yum -q -y install dialog && curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/index && bash ./index
 ```
 
 ### DEB-based systems (Ubuntu, Debian etc)

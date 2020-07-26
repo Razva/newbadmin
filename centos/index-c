@@ -24,11 +24,11 @@ clear
 case $choice in
         1) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/nwb-wizard-c
         source ./nwb-wizard-c
-        source ./nwb-index-c
+        source ./index-c
         ;;
         2) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/monitoring/nwb-zabbix-c
         source ./nwb-zabbix-c
-        source ./nwb-index-c
+        source ./index-c
         ;;
         3) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/cleanup
 		source ./cleanup

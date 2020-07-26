@@ -30,8 +30,8 @@ case $choice in
         source ./nwb-zabbix-c
         source ./index-c
         ;;
-        3) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/cleanup
-		source ./cleanup
+        3) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/cleanup-c
+		source ./cleanup-c
 		exit
 		;;
 esac

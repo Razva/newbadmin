@@ -1,4 +1,4 @@
 #!/bin/bash
 
 rm -rf ./nwb-*
-rm -rf ./cleanup-c
+rm -rf ./cleanup-c*

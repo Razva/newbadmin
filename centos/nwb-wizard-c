@@ -190,7 +190,7 @@ curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/monitor
 source ./nwb-zabbix-c
 
 # CLeanup
-curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/cleanup-c
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/centos/base/cleanup-c
 source ./cleanup-c
 
 h1 $'Everything Done!\n\n'

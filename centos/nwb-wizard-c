@@ -154,32 +154,32 @@ case ${time,,} in
                 if [[ "$os" -eq 7 ]]; then
                         h2 $'Installing YUM-Cron\n'
                         yum -y install yum-cron
-                        h2 $'Done - YUM-Cron\n\n'
+                        h2 $'Done - Installing YUM-Cron\n\n'
 
                         h2 'Patching config ... '
                         sed -i 's/^apply_updates = no$/apply_updates = yes/g' /etc/yum/yum-cron.conf
                         ye $'done!\n\n'
 
-                        h2 'Enabling and starting YUM-Cron ... '
+                        h2 $'Enabling and starting YUM-Cron\n'
                         systemctl enable yum-cron
                         systemctl start yum-cron
-                        ye $'done!\n\n'
+                        h2 $'Done - Starting YUM-Cron\n\n'
                 fi
 		
 		if [[ "$os" -eq 8 ]]; then
-                        h2 $'Installing YUM-Cron\n'
+                        h2 $'Installing DNF-Automatic\n'
                         dnf -y install dnf-automatic
-                        h2 $'Done - YUM-Cron\n\n'
+                        h2 $'Done - Installing DNF-Automatic\n\n'
 
                         h2 'Patching config ... '
                         sed -i 's/^apply_updates = no$/apply_updates = yes/g' /etc/dnf/automatic.conf
 			sed -i 's/^emit_via = stdio$/emit_via = motd/g' /etc/dnf/automatic.conf
                         ye $'done!\n\n'
 
-                        h2 'Enabling and starting YUM-Cron ... '
+                        h2 $'Enabling and starting DNF-Automatic\n'
 			systemctl enable --now dnf-automatic.timer
 			systemctl start dnf-automatic
-                        ye $'done!\n\n'
+                        h2 $'Done - Starting DNF-Automatic\n\n'
 		fi
 		;;
         *) h2 $'Skipping Auto-Updaters\n\n';

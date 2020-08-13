@@ -17,7 +17,9 @@ h1 'Install Dependencies and Utilities? [Y/n] ' ; read -r deps
 case ${deps,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing Dependencies and Utilities\n'
-                yum -y install epel-release nano screen tar unzip
+                yum -y install epel-release
+		yum update
+		yum -y install nano wget screen tar unzip
                 h2 $'Done - Dependencies and Utilities\n\n'
                 ;;
         *) h2 $'Skipping Dependencies and Utilities\n\n'

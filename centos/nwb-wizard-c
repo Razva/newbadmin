@@ -18,7 +18,7 @@ case ${deps,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing Dependencies and Utilities\n'
                 yum -y install epel-release
-		yum update
+		yum -y update
 		yum -y install nano wget screen tar unzip
                 h2 $'Done - Dependencies and Utilities\n\n'
                 ;;

@@ -17,9 +17,9 @@ h1 'Install Dependencies and Utilities? [Y/n] ' ; read -r deps
 case ${deps,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing Dependencies and Utilities\n'
-                yum -y install epel-release
-		yum -y update
-		yum -y install nano wget screen tar unzip
+                yum install -y epel-release
+		yum update -y
+		yum install -y nano wget screen tar unzip
                 h2 $'Done - Dependencies and Utilities\n\n'
                 ;;
         *) h2 $'Skipping Dependencies and Utilities\n\n'
@@ -30,7 +30,7 @@ h1 'Remove Cockpit? [Y/n] ' ; read -r cockpit
 case ${cockpit,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Removing Cockpit\n'
-                yum -y remove cockpit-*
+                yum remove -y cockpit-*
                 h2 $'Done - Cockpit\n\n'
                 ;;
         *) h2 $'Skipping Cockpit\n\n'

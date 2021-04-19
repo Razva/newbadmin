@@ -121,7 +121,7 @@ esac
 h1 'Install MariaDB? [Y/n] ' ; read -r time
 case ${time,,} in
         [yY][eE][sS]|[yY]|"")
-                h2 $'Installing NGINX\n'
+                h2 $'Installing MariaDB\n'
 		apt-get -qq -y install software-properties-common dirmngr apt-transport-https
 		apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
 			h3 $'MariaDB Version: ' ; read -r mariaversion

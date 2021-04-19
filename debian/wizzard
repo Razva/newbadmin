@@ -44,8 +44,8 @@ case ${time,,} in
         [yY][eE][sS]|[yY]|"")
 		h2 $'Setting Time\n'
 		apt -y -q install chrony
-		systemctl enable chronyd
-		systemctl start chronyd
+		systemctl enable chrony
+		systemctl start chrony
                 timedatectl set-timezone Europe/Bucharest
 		h2 $'Done - Time\n\n'
                 ;;

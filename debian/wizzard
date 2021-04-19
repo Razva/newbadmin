@@ -20,7 +20,7 @@ h1 'Update OS? [Y/n] ' ; read -r update
 case ${update,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Updating OS\n'
-                apt -y update && apt -y dist-upgrade
+                apt -y update && apt -y dist-upgrade && apt -y autoremove && aot -y install sudo
                 h2 $'Done - OS Updates\n\n'
                 ;;
         *) h2 $'Skipping OS Updates\n\n';
@@ -81,7 +81,7 @@ case ${time,,} in
         *) h2 $'Skipping Auto-Updaters\n\n';
 esac
 
-# Auto Updaters
+# PHP
 h1 'Install Modern PHP? [Y/n] ' ; read -r time
 case ${time,,} in
         [yY][eE][sS]|[yY]|"")
@@ -89,15 +89,33 @@ case ${time,,} in
 		apt -y install lsb-release apt-transport-https ca-certificates
 		wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 		echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list
-		apt -y update && apt -y dist-upgrade
+		apt -y update && apt -y dist-upgrade && apt -y autoremove
                 h2 $'Done - Adding PHP Repo\n\n'
 		h2 $'PHP Version: ' ; read -r phpversion
 			apt -y install $phpversion-fpm
 			systemctl enable php$phpversion-fpm
 			systemctl start php$phpversion-fpm
-		h2 $'Done - Installing PHP $phpversion \n\n'
+		h2 $'Done - Installing Modern PHP\n\n'
                 ;;
         *) h2 $'Skipping Modern PHP\n\n';
 esac
+
+# NGINX
+h1 'Install NGINX? [Y/n] ' ; read -r time
+case ${time,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Installing NGINX\n'
+			systemctl disable --now apache2
+			apt -y install curl gnupg2 ca-certificates lsb-release
+			echo "deb http://nginx.org/packages/debian `lsb_release -cs` nginx" \ | sudo tee /etc/apt/sources.list.d/nginx.list
+			echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \ | sudo tee /etc/apt/preferences.d/99nginx
+			curl -o /etc/apt/trusted.gpg.d/nginx_signing.asc https://nginx.org/keys/nginx_signing.key
+			apt -y update && apt -y dist-upgrade && apt -y autoremove && apt -y install nginx
+		h2 $'Done - Installing NGINX\n\n'
+                ;;
+        *) h2 $'Skipping NGINX\n\n';
+esac
+
+# MariaDB
 
 h1 $'Everything Done!\n\n'

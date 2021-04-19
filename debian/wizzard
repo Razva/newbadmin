@@ -82,7 +82,7 @@ case ${time,,} in
 esac
 
 # Auto Updaters
-h1 'Install PHP Repo? [Y/n] ' ; read -r time
+h1 'Install Modern PHP? [Y/n] ' ; read -r time
 case ${time,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Adding PHP Repo\n'
@@ -91,8 +91,11 @@ case ${time,,} in
 		echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list
 		apt -y update && apt -y dist-upgrade
                 h2 $'Done - Adding PHP Repo\n\n'
+		h2 $'PHP Version: ' ; read -r phpversion
+			apt -y install $phpversion-fpm
+		h2 $'Done - Installing PHP $phpversion\n\n'
                 ;;
-        *) h2 $'Skipping Auto-Updaters\n\n';
+        *) h2 $'Skipping Modern PHP\n\n';
 esac
 
 h1 $'Everything Done!\n\n'

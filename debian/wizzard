@@ -1,5 +1,4 @@
 #!/bin/bash
-clear
 
 # Style
 red=$'\e[91m'
@@ -14,6 +13,8 @@ h2() { printf '%s== %s%s' "$yellow" "$1" "$normal"; }
 h3() { printf '%s= %s%s' "$cyan" "$1" "$normal"; }
 ye() { printf '%s' "$yellow" "$1" "$normal"; }
 cy() { printf '%s' "$cyan" "$1" "$normal"; }
+
+clear
 
 # OS Updates
 h1 'Update OS? [Y/n] ' ; read -r update

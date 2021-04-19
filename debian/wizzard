@@ -1,0 +1,104 @@
+#!/bin/bash
+clear
+
+# Style
+red=$'\e[91m'
+green=$'\e[92m'
+yellow=$'\e[93m'
+cyan=$'\e[96m'
+normal=$'\e[0m'
+bold=$'\e[1m'
+
+h1() { printf '%s=== %s%s' "$green" "$1" "$normal"; }
+h2() { printf '%s== %s%s' "$yellow" "$1" "$normal"; }
+h3() { printf '%s= %s%s' "$cyan" "$1" "$normal"; }
+ye() { printf '%s' "$yellow" "$1" "$normal"; }
+cy() { printf '%s' "$cyan" "$1" "$normal"; }
+
+# OS Updates
+h1 'Update OS? [Y/n] ' ; read -r update
+case ${update,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Updating OS\n'
+                apt -y update && apt -y dist-upgrade
+                h2 $'Done - OS Updates\n\n'
+                ;;
+        *) h2 $'Skipping OS Updates\n\n';
+esac
+
+# Hostname
+h1 'Set Hostname? [Y/n] ' ; read -r nhostname
+case ${nhostname,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Setting Hostname\n'
+                h3 'New hostname: ' ; read -r hostname
+                hostnamectl set-hostname $hostname --static
+                h2 $'Done - Hostname\n\n'
+                ;;
+        *) h2 $'Skipping Hostname\n\n';
+esac
+
+# Time
+h1 'Set Time? [Y/n] ' ; read -r time
+case ${time,,} in
+        [yY][eE][sS]|[yY]|"")
+		h2 $'Setting Time\n'
+		yum -y -q install chrony
+		systemctl enable chronyd
+		systemctl start chronyd
+                timedatectl set-timezone Europe/Bucharest
+		h2 $'Done - Time\n\n'
+                ;;
+        *) h2 $'Skipping Time\n\n';
+esac
+
+# Utilities
+h1 'Install Utilities? [Y/n] ' ; read -r deps
+case ${deps,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Installing Dependencies and Utilities\n'
+                apt install -y nano wget screen tar unzip qemu-guest-agent acpid
+                h2 $'Done - Dependencies and Utilities\n\n'
+                ;;
+        *) h2 $'Skipping Dependencies and Utilities\n\n'
+esac
+
+# Auto Updaters
+h1 'Set Auto-Updaters? [Y/n] ' ; read -r time
+case ${time,,} in
+        [yY][eE][sS]|[yY]|"")
+                if [[ "$os" -eq 7 ]]; then
+                        h2 $'Installing YUM-Cron\n'
+                        yum -y install yum-cron
+                        h2 $'Done - Installing YUM-Cron\n\n'
+
+                        h2 'Patching config ... '
+                        sed -i 's/^apply_updates = no$/apply_updates = yes/g' /etc/yum/yum-cron.conf
+                        ye $'done!\n\n'
+
+                        h2 $'Enabling and starting YUM-Cron\n'
+                        systemctl enable yum-cron
+                        systemctl start yum-cron
+                        h2 $'Done - Starting YUM-Cron\n\n'
+                fi
+		
+		if [[ "$os" -eq 8 ]]; then
+                        h2 $'Installing DNF-Automatic\n'
+                        dnf -y install dnf-automatic
+                        h2 $'Done - Installing DNF-Automatic\n\n'
+
+                        h2 'Patching config ... '
+                        sed -i 's/^apply_updates = no$/apply_updates = yes/g' /etc/dnf/automatic.conf
+			sed -i 's/^emit_via = stdio$/emit_via = motd/g' /etc/dnf/automatic.conf
+                        ye $'done!\n\n'
+
+                        h2 $'Enabling and starting DNF-Automatic\n'
+			systemctl enable --now dnf-automatic.timer
+			systemctl start dnf-automatic
+                        h2 $'Done - Starting DNF-Automatic\n\n'
+		fi
+		;;
+        *) h2 $'Skipping Auto-Updaters\n\n';
+esac
+
+h1 $'Everything Done!\n\n'

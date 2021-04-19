@@ -91,9 +91,10 @@ case ${time,,} in
 		echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list
 		apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove
 		h3 $'PHP Version: ' ; read -r phpversion
-			apt-get -qq -y install $phpversion-fpm
+			apt-get -qq -y install $phpversion-fpm && apt-get -qq -y install $phpversion-cli
 			systemctl enable php$phpversion-fpm
 			systemctl start php$phpversion-fpm
+			dpkg-query -l | grep php$phpversion
 		h2 $'Done - Installing Modern PHP\n\n'
                 ;;
         *) h2 $'Skipping Modern PHP\n\n';
@@ -112,6 +113,7 @@ case ${time,,} in
 			apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove && apt-get -qq -y install nginx
 			systemctl enable nginx
 			systemctl start nginx
+			dpkg-query -l | grep nginx
 		h2 $'Done - Installing NGINX\n\n'
                 ;;
         *) h2 $'Skipping NGINX\n\n';
@@ -129,6 +131,7 @@ case ${time,,} in
                         echo "deb-src http://ftp.hosteurope.de/mirror/mariadb.org/repo/$mariaversion/debian buster main" >> /etc/apt/sources.list.d/mariadb.list
                         apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove && apt-get -qq -y install mariadb-server
 			systemctl enable mariadb && systemctl start mariadb
+			dpkg-query -l | grep mariadb
                 h2 $"Done - Installing MariaDB \n\n"
                 ;;
         *) h2 $'Skipping MariaDB\n\n';

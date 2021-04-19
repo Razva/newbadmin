@@ -81,4 +81,18 @@ case ${time,,} in
         *) h2 $'Skipping Auto-Updaters\n\n';
 esac
 
+# Auto Updaters
+h1 'Install PHP Repo? [Y/n] ' ; read -r time
+case ${time,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Adding PHP Repo\n'
+		apt -y install lsb-release apt-transport-https ca-certificates
+		wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+		echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list
+		apt -y update && apt -y dist-upgrade
+                h2 $'Done - Adding PHP Repo\n\n'
+                ;;
+        *) h2 $'Skipping Auto-Updaters\n\n';
+esac
+
 h1 $'Everything Done!\n\n'

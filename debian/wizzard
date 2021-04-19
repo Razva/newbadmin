@@ -16,14 +16,14 @@ ye() { printf '%s' "$yellow" "$1" "$normal"; }
 cy() { printf '%s' "$cyan" "$1" "$normal"; }
 
 # OS Updates
-h1 'Update OS? [Y/n] ' ; read -r update
+h1 'Update and Upgrade OS? [Y/n] ' ; read -r update
 case ${update,,} in
         [yY][eE][sS]|[yY]|"")
-                h2 $'Updating OS\n'
-                apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove && apt-get -qq -y install sudo
-                h2 $'Done - OS Updates\n\n'
+                h2 $'Updating and Upgrading the OS\n'
+                	apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove && apt-get -qq -y install sudo
+                h2 $'Done - Updating and Upgrading the OS\n\n'
                 ;;
-        *) h2 $'Skipping OS Updates\n\n';
+        *) h2 $'Skipping - Updating and Upgrading the OS\n\n';
 esac
 
 # Hostname
@@ -31,11 +31,11 @@ h1 'Set Hostname? [Y/n] ' ; read -r nhostname
 case ${nhostname,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Setting Hostname\n'
-                h3 'New hostname: ' ; read -r hostname
-                hostnamectl set-hostname $hostname --static
-                h2 $'Done - Hostname\n\n'
+			h3 'New hostname: ' ; read -r hostname
+				hostnamectl set-hostname $hostname --static
+                h2 $'Done - Setting Hostname\n\n'
                 ;;
-        *) h2 $'Skipping Hostname\n\n';
+        *) h2 $'Skipping - Set Hostname\n\n';
 esac
 
 # Time
@@ -43,24 +43,25 @@ h1 'Set Time? [Y/n] ' ; read -r time
 case ${time,,} in
         [yY][eE][sS]|[yY]|"")
 		h2 $'Setting Time\n'
-		apt-get -qq -y install chrony
-		systemctl enable chrony
-		systemctl start chrony
-                timedatectl set-timezone Europe/Bucharest
-		h2 $'Done - Time\n\n'
+			apt-get -qq -y install chrony
+			systemctl enable chrony
+			systemctl start chrony
+			h3 $'Timezone: ' ; read -r timezone
+				timedatectl set-timezone $timezone
+		h2 $'Done - Setting Time\n\n'
                 ;;
-        *) h2 $'Skipping Time\n\n';
+        *) h2 $'Skipping - Set Time\n\n';
 esac
 
 # Utilities
 h1 'Install Utilities? [Y/n] ' ; read -r deps
 case ${deps,,} in
         [yY][eE][sS]|[yY]|"")
-                h2 $'Installing Dependencies and Utilities\n'
-                apt-get -qq -y install nano wget screen tar unzip qemu-guest-agent acpid
-                h2 $'Done - Dependencies and Utilities\n\n'
+                h2 $'Installing Utilities\n'
+                	apt-get -qq -y install nano wget screen tar unzip qemu-guest-agent acpid
+                h2 $'Done - Installing Utilities\n\n'
                 ;;
-        *) h2 $'Skipping Dependencies and Utilities\n\n'
+        *) h2 $'Skipping - Install Utilities\n\n'
 esac
 
 # Auto Updaters
@@ -68,17 +69,17 @@ h1 'Set Auto-Updaters? [Y/n] ' ; read -r time
 case ${time,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing Unnatended Upgrades\n'
-                apt-get -qq -y install unattended-upgrades
-		
-		h2 'Patching config ... '
-		sed -i 's|//      "origin=Debian,codename=${distro_codename}-updates"|        "origin=Debian,codename=${distro_codename}-updates"|g' /etc/apt/apt.conf.d/50unattended-upgrades
-		sed -i 's|//      "origin=Debian,codename=${distro_codename}-proposed-updates"|        "origin=Debian,codename=${distro_codename}-proposed-updates"|g' /etc/apt/apt.conf.d/50unattended-upgrades
-                ye $'done!\n\n'	
-		
-		dpkg-reconfigure --priority=low unattended-upgrades
-                h2 $'Done - Unnatended Upgrades\n\n'
+			apt-get -qq -y install unattended-upgrades
+
+			h2 'Patching config ... '
+			sed -i 's|//      "origin=Debian,codename=${distro_codename}-updates"|        "origin=Debian,codename=${distro_codename}-updates"|g' /etc/apt/apt.conf.d/50unattended-upgrades
+			sed -i 's|//      "origin=Debian,codename=${distro_codename}-proposed-updates"|        "origin=Debian,codename=${distro_codename}-proposed-updates"|g' /etc/apt/apt.conf.d/50unattended-upgrades
+			ye $'done!\n\n'	
+
+			dpkg-reconfigure --priority=low unattended-upgrades
+                h2 $'Done - Installing Unnatended Upgrades\n\n'
                 ;;
-        *) h2 $'Skipping Auto-Updaters\n\n';
+        *) h2 $'Skipping - Set Auto-Updaters\n\n';
 esac
 
 # PHP
@@ -86,18 +87,18 @@ h1 'Install Modern PHP? [Y/n] ' ; read -r time
 case ${time,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing Modern PHP\n'
-		apt-get -qq -y install lsb-release apt-transport-https ca-certificates
-		wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-		echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list
-		apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove
-		h3 $'PHP Version: ' ; read -r phpversion
-			apt-get -qq -y install $phpversion-fpm && apt-get -qq -y install $phpversion-cli
-			systemctl enable php$phpversion-fpm
-			systemctl start php$phpversion-fpm
-			dpkg-query -l | grep php$phpversion
+			apt-get -qq -y install lsb-release apt-transport-https ca-certificates
+			wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+			echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list
+			apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove
+			h3 $'PHP Version: ' ; read -r phpversion
+				apt-get -qq -y install $phpversion-fpm && apt-get -qq -y install $phpversion-cli
+				systemctl enable php$phpversion-fpm
+				systemctl start php$phpversion-fpm
+				dpkg-query -l | grep php$phpversion
 		h2 $'Done - Installing Modern PHP\n\n'
                 ;;
-        *) h2 $'Skipping Modern PHP\n\n';
+        *) h2 $'Skipping - Install Modern PHP\n\n';
 esac
 
 # NGINX
@@ -116,7 +117,7 @@ case ${time,,} in
 			dpkg-query -l | grep nginx
 		h2 $'Done - Installing NGINX\n\n'
                 ;;
-        *) h2 $'Skipping NGINX\n\n';
+        *) h2 $'Skipping - Install NGINX\n\n';
 esac
 
 # MariaDB
@@ -124,17 +125,17 @@ h1 'Install MariaDB? [Y/n] ' ; read -r time
 case ${time,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing MariaDB\n'
-                apt-get -qq -y install software-properties-common dirmngr apt-transport-https
-                apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
-                        h3 $'MariaDB Version: ' ; read -r mariaversion
-			echo "deb [arch=amd64] http://ftp.hosteurope.de/mirror/mariadb.org/repo/$mariaversion/debian buster main" >> /etc/apt/sources.list.d/mariadb.list
-                        echo "deb-src http://ftp.hosteurope.de/mirror/mariadb.org/repo/$mariaversion/debian buster main" >> /etc/apt/sources.list.d/mariadb.list
-                        apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove && apt-get -qq -y install mariadb-server
-			systemctl enable mariadb && systemctl start mariadb
-			dpkg-query -l | grep mariadb
-                h2 $"Done - Installing MariaDB \n\n"
+			apt-get -qq -y install software-properties-common dirmngr apt-transport-https
+			apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
+				h3 $'MariaDB Version: ' ; read -r mariaversion
+					echo "deb [arch=amd64] http://ftp.hosteurope.de/mirror/mariadb.org/repo/$mariaversion/debian buster main" >> /etc/apt/sources.list.d/mariadb.list
+					echo "deb-src http://ftp.hosteurope.de/mirror/mariadb.org/repo/$mariaversion/debian buster main" >> /etc/apt/sources.list.d/mariadb.list
+					apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove && apt-get -qq -y install mariadb-server
+					systemctl enable mariadb && systemctl start mariadb
+					dpkg-query -l | grep mariadb
+                h2 $'Done - Installing MariaDB \n\n'
                 ;;
-        *) h2 $'Skipping MariaDB\n\n';
+        *) h2 $'Skipping - Install MariaDB\n\n';
 esac
 
 h1 $'Everything Done!\n\n'

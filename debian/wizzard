@@ -2,12 +2,10 @@
 clear
 
 # Style
-red="$(tput setaf 1)"
 green="$(tput setaf 2)"
 yellow="$(tput setaf 3)"
 cyan="$(tput setaf 6)"
 normal="$(tput sgr0)"
-bold="$(tput bold)"
 
 h1() { printf '%s=== %s%s' "$green" "$1" "$normal"; }
 h2() { printf '%s== %s%s' "$yellow" "$1" "$normal"; }
@@ -32,7 +30,7 @@ case ${nhostname,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Setting Hostname\n'
 			h3 'New hostname: ' ; read -r hostname
-				hostnamectl set-hostname $hostname --static
+				hostnamectl set-hostname "$hostname" --static
                 h2 $'Done - Setting Hostname\n\n'
                 ;;
         *) h2 $'Skipping - Set Hostname\n\n';
@@ -47,7 +45,7 @@ case ${time,,} in
 			systemctl enable chrony
 			systemctl start chrony
 			h3 $'Timezone: ' ; read -r timezone
-				timedatectl set-timezone $timezone
+				timedatectl set-timezone "$timezone"
 		h2 $'Done - Setting Time\n\n'
                 ;;
         *) h2 $'Skipping - Set Time\n\n';
@@ -92,10 +90,10 @@ case ${time,,} in
 			echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list
 			apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove
 			h3 $'PHP Version: ' ; read -r phpversion
-				apt-get -qq -y install $phpversion-fpm && apt-get -qq -y install $phpversion-cli
-				systemctl enable php$phpversion-fpm
-				systemctl start php$phpversion-fpm
-				dpkg-query -l | grep php$phpversion
+				apt-get -qq -y install "$phpversion"-fpm && apt-get -qq -y install "$phpversion"-cli
+				systemctl enable php"$phpversion"-fpm
+				systemctl start php"$phpversion"-fpm
+				dpkg-query -l | grep php"$phpversion"
 		h2 $'Done - Installing Modern PHP\n\n'
                 ;;
         *) h2 $'Skipping - Install Modern PHP\n\n';

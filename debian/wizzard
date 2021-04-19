@@ -93,7 +93,9 @@ case ${time,,} in
                 h2 $'Done - Adding PHP Repo\n\n'
 		h2 $'PHP Version: ' ; read -r phpversion
 			apt -y install $phpversion-fpm
-		h2 $'Done - Installing PHP $phpversion\n\n'
+			systemctl enable php$phpversion-fpm
+			systemctl start php$phpversion-fpm
+		h2 $'Done - Installing PHP $phpversion \n\n'
                 ;;
         *) h2 $'Skipping Modern PHP\n\n';
 esac

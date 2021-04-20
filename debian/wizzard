@@ -90,7 +90,7 @@ case ${time,,} in
 			echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list
 			apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove
 			h3 $'PHP Version: ' ; read -r phpversion
-				apt-get -qq -y install "$phpversion"-fpm && apt-get -qq -y install "$phpversion"-cli "$phpversion"-curl "$phpversion"-dom "$phpversion"-json "$phpversion"-mbstring "$phpversion"-sodium "$phpversion"-imagick "$phpversion"-xml "$phpversion"-gd "$phpversion"-mcrypt
+				apt-get -qq -y install "$phpversion"-fpm && apt-get -qq -y install "$phpversion"-cli "$phpversion"-curl "$phpversion"-dom "$phpversion"-json "$phpversion"-mbstring "$phpversion"-mcrypt "$phpversion"-mysqlnd "$phpversion"-imagick "$phpversion"-xml "$phpversion"-gd "$phpversion"-mcrypt "$phpversion"-sodium
 				systemctl enable php"$phpversion"-fpm
 				systemctl start php"$phpversion"-fpm
 				dpkg-query -l | grep php"$phpversion"

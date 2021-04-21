@@ -43,7 +43,7 @@ case ${ssh,,} in
                         sed -i 's|#PermitEmptyPasswords no|PermitEmptyPasswords no|g' /etc/ssh/sshd_config
                         sed -i 's|#UseDNS no|UseDNS no|g' /etc/ssh/sshd_config
                         systemctl restart sshd
-                        h3 $'\n= A copy of sshd_config was made to /etc/ssh/sshd_config-bak\n\n'
+                        h3 $'\n= A backup of your initial sshd_config was made to /etc/ssh/sshd_config-bak\n\n'
                 h2 $'Done - Securing SSH\n\n'
                 ;;
         *) h2 $'Skipping - Secure SSH\n\n';

@@ -24,6 +24,29 @@ case ${update,,} in
         *) h2 $'Skipping - Updating and Upgrading the OS\n\n';
 esac
 
+# Secure SSH
+h1 'Secure SSH? [Y/n] ' ; read -r ssh
+case ${ssh,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Securing SSH\n'
+			h3 'New SSH port: ' ; read -r sshport
+				sed -i 's|#Port 22|Port "$sshport"|g' /etc/ssh/sshd_config
+			h3 'Permit Root Login? [yes/no] ' ; read -r sshroot
+				sed -i 's|#PermitRootLogin prohibit-password|PermitRootLogin "$sshroot"|g' /etc/ssh/sshd_config
+			h3 'Allow Password Authentication? [yes/no] ' ; read -r sshpass
+				sed -i 's|#PasswordAuthentication yes|PasswordAuthentication "$sshpass"|g' /etc/ssh/sshd_config
+                	sed -i 's|#LoginGraceTime 2m|LoginGraceTime 1m|g' /etc/ssh/sshd_config
+			sed -i 's|#StrictModes yes|StrictModes yes|g' /etc/ssh/sshd_config
+			sed -i 's|#MaxAuthTries 6|MaxAuthTries 3|g' /etc/ssh/sshd_config
+			sed -i 's|#MaxSessions 10|MaxSessions 5|g' /etc/ssh/sshd_config
+			sed -i 's|#PermitEmptyPasswords no|PermitEmptyPasswords no|g' /etc/ssh/sshd_config
+			sed -i 's|#UseDNS no|UseDNS no|g' /etc/ssh/sshd_config
+			systemctl restart sshd
+                h2 $'Done - Securing SSH\n\n'
+                ;;
+        *) h2 $'Skipping - Secure SSH\n\n';
+esac
+
 # Hostname
 h1 'Set Hostname? [Y/n] ' ; read -r hostname
 case ${hostname,,} in
@@ -144,6 +167,7 @@ case ${docker,,} in
 			curl -fsSL https://get.docker.com -o get-docker.sh
 			systemctl start docker
 			systemctl enable docker
+			rm -rf get-docker.sh
                 h2 $'Done - Installing Docker \n\n'
                 ;;
         *) h2 $'Skipping - Install Docker\n\n';

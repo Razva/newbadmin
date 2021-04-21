@@ -29,12 +29,13 @@ h1 'Secure SSH? [Y/n] ' ; read -r ssh
 case ${ssh,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Securing SSH\n'
+			cp /etc/ssh/sshd_config /etc/ssh/sshd_config-bak
 			h3 'New SSH port: ' ; read -r sshport
-				sed -i 's|#Port 22|Port "$sshport"|g' /etc/ssh/sshd_config
+				sed -i "s|#Port 22|Port $sshport|g" /etc/ssh/sshd_config
 			h3 'Permit Root Login? [yes/no] ' ; read -r sshroot
-				sed -i 's|#PermitRootLogin prohibit-password|PermitRootLogin "$sshroot"|g' /etc/ssh/sshd_config
+				sed -i "s|#PermitRootLogin prohibit-password|PermitRootLogin $sshroot|g" /etc/ssh/sshd_config
 			h3 'Allow Password Authentication? [yes/no] ' ; read -r sshpass
-				sed -i 's|#PasswordAuthentication yes|PasswordAuthentication "$sshpass"|g' /etc/ssh/sshd_config
+				sed -i "s|#PasswordAuthentication yes|PasswordAuthentication $sshpass|g" /etc/ssh/sshd_config
                 	sed -i 's|#LoginGraceTime 2m|LoginGraceTime 1m|g' /etc/ssh/sshd_config
 			sed -i 's|#StrictModes yes|StrictModes yes|g' /etc/ssh/sshd_config
 			sed -i 's|#MaxAuthTries 6|MaxAuthTries 3|g' /etc/ssh/sshd_config
@@ -42,6 +43,7 @@ case ${ssh,,} in
 			sed -i 's|#PermitEmptyPasswords no|PermitEmptyPasswords no|g' /etc/ssh/sshd_config
 			sed -i 's|#UseDNS no|UseDNS no|g' /etc/ssh/sshd_config
 			systemctl restart sshd
+			h3 'A copy of sshd_config was made to /etc/ssh/sshd_config-bak'
                 h2 $'Done - Securing SSH\n\n'
                 ;;
         *) h2 $'Skipping - Secure SSH\n\n';

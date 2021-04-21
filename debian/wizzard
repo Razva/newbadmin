@@ -25,8 +25,8 @@ case ${update,,} in
 esac
 
 # Hostname
-h1 'Set Hostname? [Y/n] ' ; read -r nhostname
-case ${nhostname,,} in
+h1 'Set Hostname? [Y/n] ' ; read -r hostname
+case ${hostname,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Setting Hostname\n'
 			h3 'New hostname: ' ; read -r hostname
@@ -63,8 +63,8 @@ case ${deps,,} in
 esac
 
 # Auto Updaters
-h1 'Set Auto-Updaters? [Y/n] ' ; read -r time
-case ${time,,} in
+h1 'Set Auto-Updaters? [Y/n] ' ; read -r autoupdaters
+case ${autoupdaters,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing Unnatended Upgrades\n'
 			apt-get -qq -y install unattended-upgrades
@@ -81,8 +81,8 @@ case ${time,,} in
 esac
 
 # PHP
-h1 'Install Modern PHP? [Y/n] ' ; read -r time
-case ${time,,} in
+h1 'Install Modern PHP? [Y/n] ' ; read -r php
+case ${php,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing Modern PHP\n'
 			apt-get -qq -y install lsb-release apt-transport-https ca-certificates
@@ -100,8 +100,8 @@ case ${time,,} in
 esac
 
 # NGINX
-h1 'Install NGINX? [Y/n] ' ; read -r time
-case ${time,,} in
+h1 'Install NGINX? [Y/n] ' ; read -r nginx
+case ${nginx,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing NGINX\n'
 			systemctl disable --now apache2 > /dev/null
@@ -119,8 +119,8 @@ case ${time,,} in
 esac
 
 # MariaDB
-h1 'Install MariaDB? [Y/n] ' ; read -r time
-case ${time,,} in
+h1 'Install MariaDB? [Y/n] ' ; read -r mariadb
+case ${mariadb,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing MariaDB\n'
 			apt-get -qq -y install software-properties-common dirmngr apt-transport-https
@@ -134,6 +134,19 @@ case ${time,,} in
                 h2 $'Done - Installing MariaDB \n\n'
                 ;;
         *) h2 $'Skipping - Install MariaDB\n\n';
+esac
+
+# Docker
+h1 'Install Docker? [Y/n] ' ; read -r docker
+case ${docker,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Installing Docker\n'
+			curl -fsSL https://get.docker.com -o get-docker.sh
+			systemctl start docker
+			systemctl enable docker
+                h2 $'Done - Installing Docker \n\n'
+                ;;
+        *) h2 $'Skipping - Install Docker\n\n';
 esac
 
 h1 $'Everything Done!\n\n'

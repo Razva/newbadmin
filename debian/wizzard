@@ -175,4 +175,15 @@ case ${docker,,} in
         *) h2 $'Skipping - Install Docker\n\n';
 esac
 
+# Git
+h1 'Install Git? [Y/n] ' ; read -r docker
+case ${docker,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Installing Git\n'
+			apt-get -qq -y install git
+                h2 $'Done - Installing Git\n\n'
+                ;;
+        *) h2 $'Skipping - Install Git\n\n';	
+esac
+
 h1 $'Everything Done!\n\n'

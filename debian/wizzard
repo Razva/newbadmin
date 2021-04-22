@@ -155,6 +155,7 @@ case ${mariadb,,} in
 					echo "deb-src http://ftp.hosteurope.de/mirror/mariadb.org/repo/$mariaversion/debian buster main" >> /etc/apt/sources.list.d/mariadb.list
 					apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove && apt-get -qq -y install mariadb-server
 					systemctl enable mariadb && systemctl start mariadb
+					mysql_secure_installation
 					dpkg-query -l | grep mariadb
                 h2 $'Done - Installing MariaDB \n\n'
                 ;;

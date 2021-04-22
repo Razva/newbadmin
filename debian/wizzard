@@ -115,7 +115,7 @@ case ${php,,} in
 			echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list
 			apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove
 			h3 $'PHP Version: ' ; read -r phpversion
-				apt-get -qq -y install php"$phpversion"-fpm && apt-get -qq -y install php"$phpversion"-cli php"$phpversion"-curl php"$phpversion"-dom php"$phpversion"-json php"$phpversion"-mbstring php"$phpversion"-mcrypt php"$phpversion"-mysqlnd php"$phpversion"-imagick php"$phpversion"-xml php"$phpversion"-gd php"$phpversion"-mcrypt php"$phpversion"-sodium
+				apt-get -qq -y install php"$phpversion"-fpm && apt-get -qq -y install php"$phpversion"-cli php"$phpversion"-curl php"$phpversion"-dom php"$phpversion"-json php"$phpversion"-mbstring php"$phpversion"-mcrypt php"$phpversion"-mysqlnd php"$phpversion"-imagick php"$phpversion"-xml php"$phpversion"-gd php"$phpversion"-mcrypt
 				systemctl enable php"$phpversion"-fpm
 				systemctl start php"$phpversion"-fpm
 				dpkg-query -l | grep php"$phpversion"

@@ -143,6 +143,24 @@ case ${nginx,,} in
         *) h2 $'Skipping - Install NGINX\n\n';
 esac
 
+# Self-Signed Certificate
+h1 'Install Self-Signed Certificate? [Y/n] ' ; read -r ssl
+case ${ssl,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Installing Self-Signed Certificate\n'
+			mkdir /etc/ssl/private
+			chmod 700 /etc/ssl/private
+			openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
+			openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+			h3 $'\n= Self-Signed Certificates were generated at:\n'
+			h3 $'Public Key: /etc/ssl/certs/nginx-selfsigned.crt\n'
+			h3 $'Private Key: /etc/ssl/private/nginx-selfsigned.key\n'
+			h3 $'Diffie-Hellman Key: /etc/ssl/certs/dhparam.pem\n'
+		h2 $'Done - Installing Self-Signed Certificate\n\n'
+                ;;
+        *) h2 $'Skipping - Install Self-Signed Certificate\n\n';
+esac
+
 # MariaDB
 h1 'Install MariaDB? [Y/n] ' ; read -r mariadb
 case ${mariadb,,} in

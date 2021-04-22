@@ -173,7 +173,7 @@ case ${certbot,,} in
 			snap install core; sudo snap refresh core
 			snap install --classic certbot
 			ln -s /snap/bin/certbot /usr/bin/certbot
-			h3 $'\n= Issue with "certbot certonly --nginx"\n\n'
+			h3 $'\n= Issue with "certbot certonly"\n\n'
 		h2 $'Done - Installing Certbot\n\n'
                 ;;
         *) h2 $'Skipping - Install Certbot\n\n';

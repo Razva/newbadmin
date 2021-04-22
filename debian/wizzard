@@ -66,11 +66,11 @@ h1 'Set Time? [Y/n] ' ; read -r time
 case ${time,,} in
         [yY][eE][sS]|[yY]|"")
 		h2 $'Setting Time\n'
+			h3 $'Timezone: ' ; read -r timezone
+				timedatectl set-timezone "$timezone"
 			apt-get -qq -y install chrony
 			systemctl enable chrony
 			systemctl start chrony
-			h3 $'Timezone: ' ; read -r timezone
-				timedatectl set-timezone "$timezone"
 		h2 $'Done - Setting Time\n\n'
                 ;;
         *) h2 $'Skipping - Set Time\n\n';
@@ -81,7 +81,7 @@ h1 'Install Utilities? [Y/n] ' ; read -r deps
 case ${deps,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing Utilities\n'
-                	apt-get -qq -y install nano wget screen tar unzip qemu-guest-agent acpid
+                	apt-get -qq -y install nano wget screen tar unzip qemu-guest-agent acpid rsync
                 h2 $'Done - Installing Utilities\n\n'
                 ;;
         *) h2 $'Skipping - Install Utilities\n\n'

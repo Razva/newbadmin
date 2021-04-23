@@ -81,7 +81,7 @@ h1 'Install Utilities? [Y/n] ' ; read -r deps
 case ${deps,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing Utilities\n'
-                	apt-get -qq -y install nano wget screen tar unzip qemu-guest-agent acpid rsync
+                	apt-get -qq -y install nano wget screen tar unzip qemu-guest-agent acpid rsync software-properties-common
                 h2 $'Done - Installing Utilities\n\n'
                 ;;
         *) h2 $'Skipping - Install Utilities\n\n'

@@ -24,6 +24,32 @@ case ${update,,} in
         *) h2 $'Skipping - Updating and Upgrading the OS\n\n';
 esac
 
+# IPv6
+h1 'Disable IPv6? [Y/n] ' ; read -r ipv6
+case ${ipv6,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Disabling IPv6\n'
+                	echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
+			sysctl -p
+                h2 $'Done - Disabling IPv6\n\n'
+                ;;
+        *) h2 $'Skipping - Disable IPv6\n\n'
+esac
+
+# fstrim
+h1 'Install fstrim cron? [Y/n] ' ; read -r fstrim
+case ${fstrim,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Installing fstrim cron\n'
+			crontab -l > fstrim
+			echo "*/30 * * * * fstrim --all >/dev/null 2>&1" >> fstrim
+			crontab fstrim
+			rm -rf fstrim
+                h2 $'Done - Installing fstrim cron\n\n'
+                ;;
+        *) h2 $'Skipping - Install fstrim cron\n\n'
+esac
+
 # Secure SSH
 h1 'Secure SSH? [Y/n] ' ; read -r ssh
 case ${ssh,,} in
@@ -47,18 +73,6 @@ case ${ssh,,} in
                 h2 $'Done - Securing SSH\n\n'
                 ;;
         *) h2 $'Skipping - Secure SSH\n\n';
-esac
-
-# IPv6
-h1 'Disable IPv6? [Y/n] ' ; read -r ipv6
-case ${ipv6,,} in
-        [yY][eE][sS]|[yY]|"")
-                h2 $'Disabling IPv6\n'
-                	echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
-			sysctl -p
-                h2 $'Done - Disabling IPv6\n\n'
-                ;;
-        *) h2 $'Skipping - Disable IPv6\n\n'
 esac
 
 # Hostname

@@ -49,6 +49,18 @@ case ${ssh,,} in
         *) h2 $'Skipping - Secure SSH\n\n';
 esac
 
+# IPv6
+h1 'Disable IPv6? [Y/n] ' ; read -r ipv6
+case ${ipv6,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Disabling IPv6\n'
+                	echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
+			sysctl -p
+                h2 $'Done - Disabling IPv6\n\n'
+                ;;
+        *) h2 $'Skipping - Disable IPv6\n\n'
+esac
+
 # Hostname
 h1 'Set Hostname? [Y/n] ' ; read -r hostname
 case ${hostname,,} in

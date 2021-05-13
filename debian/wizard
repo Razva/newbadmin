@@ -102,6 +102,17 @@ case ${time,,} in
         *) h2 $'Skipping - Set Time\n\n';
 esac
 
+# Useradd Bash Fix
+h1 'Apply useradd bash fix? [Y/n] ' ; read -r useraddbash
+case ${useraddbash,,} in
+        [yY][eE][sS]|[yY]|"")
+		h2 $'Applying ueradd bash fix\n'
+			sed -i 's|SHELL=/bin/sh|SHELL=/bin/bash|g' /etc/default/useradd
+		h2 $'Done - Applying ueradd bash fix\n\n'
+                ;;
+        *) h2 $'Skipping - Apply useradd bash fix\n\n';
+esac
+
 # Utilities
 h1 'Install Utilities? [Y/n] ' ; read -r deps
 case ${deps,,} in

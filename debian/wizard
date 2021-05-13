@@ -196,7 +196,7 @@ case ${certbot,,} in
                 h2 $'Installing Certbot\n'
 			apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove
 			apt-get -qq -y remove certbot
-			apt install snapd
+			apt-get -qq -y install snapd
 			snap install core
 			sudo sysctl kernel.unprivileged_userns_clone=1
 			snap install core; sudo snap refresh core

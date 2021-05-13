@@ -236,9 +236,21 @@ case ${docker,,} in
 			systemctl start docker
 			systemctl enable docker
 			rm -rf get-docker.sh
-                h2 $'Done - Installing Docker \n\n'
+                h2 $'Done - Installing Docker\n\n'
                 ;;
         *) h2 $'Skipping - Install Docker\n\n';
+esac
+
+# Docker Compose
+h1 'Install Docker Compose? [Y/n] ' ; read -r dockercompose
+case ${dockercompose,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Installing Docker Compose\n'
+			curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose
+			chmod +x /usr/local/bin/docker-compose
+                h2 $'Done - Installing Docker Compose\n\n'
+                ;;
+        *) h2 $'Skipping - Install Docker Compose\n\n';
 esac
 
 # Git

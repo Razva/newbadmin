@@ -1,0 +1,55 @@
+#!/bin/bash
+height=30
+width=40
+choice_height=20
+backtitle="Newb Admin - Debian 10"
+title="Applications"
+
+options=(1 "Install NGINX"
+		2 "Install Certbot"
+		3 "Install Modern PHP"
+		4 "Install MariaDB"
+		5 "Install Docker"
+		6 "Install Docker Compose"
+		7 "Install Git"
+		98 "Back to Main Menu"
+		99 "Exit")
+
+choice=$(dialog --clear \
+                --backtitle "$backtitle" \
+                --title "$title" \
+                --menu "" \
+                $height $width $choice_height \
+                "${options[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $choice in
+        1) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-nginx
+		bash ./nwb-nginx
+        ;;
+        2) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-certbot
+		bash ./nwb-certbot
+        ;;
+        3) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-php
+		bash ./nwb-php
+        ;;
+        4) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-mariadb
+		bash ./nwb-mariadb
+        ;;
+        5) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-docker
+		bash ./nwb-docker
+        ;;
+        6) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-dockercompose
+		bash ./nwb-dockercompose
+        ;;
+        7) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-git
+		bash ./nwb-git
+        ;;
+		98) bash newbadmin-debian10
+		;;
+        99) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-cleanup
+		bash ./nwb-cleanup
+		exit
+	;;
+esac

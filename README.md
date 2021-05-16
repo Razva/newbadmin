@@ -1,17 +1,16 @@
 # Newb Admin
-Useful bash scripts and utilities for newb sysadmins.
+Useful scripts for newb sysadmins.
 
-## Installation
+## Installation notes
 
-This script should be run as root.
+This script should always be run as root.
 
-Currently supported Operating Systems:
-- Debian 10
+*Do NOT* run this script on unsupported Operating Systems! It *will* break your machine.
 
-### Debian 10
+## Debian 10
 ```bash
 apt-get -qq -y install dialog curl wget && curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/index && bash ./index
 ```
 
-### Bugs
+## Bugs
 Please report any issues to [GitHub Issues](https://github.com/Razva/newbadmin/issues).

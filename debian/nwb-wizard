@@ -2,7 +2,7 @@
 clear
 
 # OS Updates
-curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/nwb-osupdate
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-osupdate
 source ./nwb-osupdate
 
 # IPv6

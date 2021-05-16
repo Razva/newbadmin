@@ -70,7 +70,7 @@ curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/n
 source ./nwb-git
 
 # Cleanup
-rm -rf nwb-wizard
+rm -rf nwb-*
 
 # Back to index
 index=newbadmin-debian10

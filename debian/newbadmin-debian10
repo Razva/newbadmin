@@ -26,7 +26,7 @@ choice=$(dialog --clear \
 clear
 case $choice in
         1) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/wizards/wizard-newbadmin
-		bash ./nwb-wizard
+		bash ./wizard-newbadmin
         ;;
         2) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/menus/nwb-ostweaks
 		source ./nwb-tweaks

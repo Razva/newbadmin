@@ -19,7 +19,7 @@ case ${osupdate,,} in
 esac
 
 # Check if run by Wizard
-wizard=nwb-wizard
+wizard=wizard-newbadmin
 if [ ! -f "$wizard" ]; then
     bash ./nwb-ostweaks
 fi

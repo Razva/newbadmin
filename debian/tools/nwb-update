@@ -18,6 +18,12 @@ case ${osupdate,,} in
         *) h2 $'Skipping - Updating and Upgrading the OS\n\n';
 esac
 
+# Check if run by Wizard
+wizard=wizard-newbadmin
+if [ ! -f "$wizard" ]; then
+    bash ./nwb-ostweaks
+fi
+
 # Footer
 footer=nwb-footer
 if [ ! -f "$footer" ]; then

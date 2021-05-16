@@ -32,6 +32,12 @@ case ${securessh,,} in
         *) h2 $'Skipping - Secure SSH\n\n';
 esac
 
+# Check if run by Wizard
+wizard=wizard-newbadmin
+if [ ! -f "$wizard" ]; then
+    bash ./nwb-security
+fi
+
 # Footer
 footer=nwb-footer
 if [ ! -f "$footer" ]; then

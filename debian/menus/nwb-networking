@@ -20,8 +20,11 @@ choice=$(dialog --clear \
 
 clear
 case $choice in
-        1) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-ssh
-		bash ./nwb-ssh
+        1) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-disableipv6
+		bash ./nwb-disableipv6
+        ;;
+        2) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-hostname
+		bash ./nwb-hostname
         ;;
 		98) bash newbadmin-debian10
 		;;

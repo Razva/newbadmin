@@ -19,6 +19,12 @@ case ${disipv6,,} in
         *) h2 $'Skipping - Disable IPv6\n\n'
 esac
 
+# Check if run by Wizard
+wizard=wizard-newbadmin
+if [ ! -f "$wizard" ]; then
+    bash ./nwb-networking
+fi
+
 # Footer
 footer=nwb-footer
 if [ ! -f "$footer" ]; then

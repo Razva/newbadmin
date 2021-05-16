@@ -1,4 +1,4 @@
-##!/bin/bash
+#!/bin/bash
 
 # Header
 header=nwb-header
@@ -17,6 +17,12 @@ case ${utils,,} in
                 ;;
         *) h2 $'Skipping - Install Utilities\n\n'
 esac
+
+# Check if run by Wizard
+wizard=wizard-newbadmin
+if [ ! -f "$wizard" ]; then
+    bash ./nwb-ostweaks
+fi
 
 # Footer
 footer=nwb-footer

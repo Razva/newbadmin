@@ -1,7 +1,1 @@
 #!/bin/bash
-
-# Check if run by Wizard
-wizard=wizard-newbadmin
-if [ ! -f "$wizard" ]; then
-    bash ./nwb-ostweaks
-fi

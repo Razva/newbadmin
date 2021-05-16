@@ -26,6 +26,12 @@ case ${autoupdate,,} in
         *) h2 $'Skipping - Set Auto-Updaters\n\n';
 esac
 
+# Check if run by Wizard
+wizard=wizard-newbadmin
+if [ ! -f "$wizard" ]; then
+    bash ./nwb-ostweaks
+fi
+
 # Footer
 footer=nwb-footer
 if [ ! -f "$footer" ]; then

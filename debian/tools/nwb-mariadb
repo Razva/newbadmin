@@ -26,6 +26,12 @@ case ${mariadb,,} in
         *) h2 $'Skipping - Install MariaDB\n\n';
 esac
 
+# Check if run by Wizard
+wizard=wizard-newbadmin
+if [ ! -f "$wizard" ]; then
+    bash ./nwb-apps
+fi
+
 # Footer
 footer=nwb-footer
 if [ ! -f "$footer" ]; then

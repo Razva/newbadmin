@@ -1,2 +1,4 @@
 #!/bin/bash
-rm -rf ./nwb-*
+echo "Cleaning up..."
+sleep 3 &&
+rm -rf nwb-*

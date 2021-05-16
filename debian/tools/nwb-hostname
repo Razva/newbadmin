@@ -24,10 +24,3 @@ wizard=wizard-newbadmin
 if [ ! -f "$wizard" ]; then
     bash ./nwb-networking
 fi
-
-# Footer
-footer=nwb-footer
-if [ ! -f "$footer" ]; then
-    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-footer
-fi
-source ./nwb-footer

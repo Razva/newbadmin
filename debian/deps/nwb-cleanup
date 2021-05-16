@@ -1,6 +1,4 @@
 #!/bin/bash
-set -x
-ls &&
 echo "Cleaning up..."
 sleep 3 &&
 rm -rf nwb-*

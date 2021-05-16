@@ -1,5 +1,10 @@
 #!/bin/bash
-curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+
+# Check Header
+header=nwb-header
+if [ ! -f "$header" ]; then
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+fi
 source ./nwb-header
 
 h1 'Set Auto-Updaters? [Y/n] ' ; read -r autoupdate

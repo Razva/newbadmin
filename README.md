@@ -9,7 +9,7 @@ This script should always be run as root.
 
 ## Debian 10
 ```bash
-apt-get -qq -y install dialog curl wget && curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/index && bash ./index
+apt-get -qq -y install dialog curl && curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/index && bash ./index
 ```
 
 ## Bugs

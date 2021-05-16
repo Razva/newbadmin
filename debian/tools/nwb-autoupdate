@@ -1,0 +1,21 @@
+#!/bin/bash
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+source ./nwb-header
+
+h1 'Set Auto-Updaters? [Y/n] ' ; read -r autoupdate
+case ${autoupdate,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Installing Unnatended Upgrades\n'
+			apt-get -qq -y install unattended-upgrades
+			h2 'Patching config ... '
+			sed -i 's|//      "origin=Debian,codename=${distro_codename}-updates"|        "origin=Debian,codename=${distro_codename}-updates"|g' /etc/apt/apt.conf.d/50unattended-upgrades
+			sed -i 's|//      "origin=Debian,codename=${distro_codename}-proposed-updates"|        "origin=Debian,codename=${distro_codename}-proposed-updates"|g' /etc/apt/apt.conf.d/50unattended-upgrades
+			sed -i 's|//Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";|Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";|g' /etc/apt/apt.conf.d/50unattended-upgrades
+			sed -i 's|//Unattended-Upgrade::Remove-New-Unused-Dependencies "true";|Unattended-Upgrade::Remove-New-Unused-Dependencies "true";|g' /etc/apt/apt.conf.d/50unattended-upgrades
+			sed -i 's|//Unattended-Upgrade::Remove-Unused-Dependencies "false";|Unattended-Upgrade::Remove-Unused-Dependencies "true";|g' /etc/apt/apt.conf.d/50unattended-upgrades
+			ye $'done!\n\n'
+			dpkg-reconfigure --priority=low unattended-upgrades
+                h2 $'Done - Installing Unnatended Upgrades\n\n'
+                ;;
+        *) h2 $'Skipping - Set Auto-Updaters\n\n';
+esac

@@ -1,0 +1,13 @@
+#!/bin/bash
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+source ./nwb-header
+
+h1 'Install Utilities? [Y/n] ' ; read -r utils
+case ${utils,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Installing Utilities\n'
+                	apt-get -qq -y install nano wget curl screen tar unzip qemu-guest-agent acpid rsync software-properties-common
+                h2 $'Done - Installing Utilities\n\n'
+                ;;
+        *) h2 $'Skipping - Install Utilities\n\n'
+esac

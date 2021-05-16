@@ -1,0 +1,17 @@
+#!/bin/bash
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+source ./nwb-header
+
+h1 'Set Time? [Y/n] ' ; read -r settime
+case ${settime,,} in
+        [yY][eE][sS]|[yY]|"")
+		h2 $'Setting Time\n'
+			h3 $'Timezone: ' ; read -r timezone
+				timedatectl set-timezone "$timezone"
+			apt-get -qq -y install chrony
+			systemctl enable chrony
+			systemctl start chrony
+		h2 $'Done - Setting Time\n\n'
+                ;;
+        *) h2 $'Skipping - Set Time\n\n';
+esac

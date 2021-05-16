@@ -1,0 +1,14 @@
+#!/bin/bash
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+source ./nwb-header
+
+h1 'Set Hostname? [Y/n] ' ; read -r sethostname
+case ${sethostname,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Setting Hostname\n'
+			h3 'New hostname: ' ; read -r hostname
+				hostnamectl set-hostname "$hostname" --static
+                h2 $'Done - Setting Hostname\n\n'
+                ;;
+        *) h2 $'Skipping - Set Hostname\n\n';
+esac

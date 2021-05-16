@@ -1,259 +1,78 @@
 #!/bin/bash
 clear
 
-# OS Updates
-curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-osupdate
-source ./nwb-osupdate
+# Apply OS Updates
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-update
+source ./nwb-update
 
-# IPv6
-h1 'Disable IPv6? [Y/n] ' ; read -r ipv6
-case ${ipv6,,} in
-        [yY][eE][sS]|[yY]|"")
-                h2 $'Disabling IPv6\n'
-                	echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
-			sysctl -p
-                h2 $'Done - Disabling IPv6\n\n'
-                ;;
-        *) h2 $'Skipping - Disable IPv6\n\n'
-esac
+# Disable IPv6
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-disableipv6
+source ./nwb-disableipv6
 
-# fstrim
-h1 'Install fstrim cron? [Y/n] ' ; read -r fstrim
-case ${fstrim,,} in
-        [yY][eE][sS]|[yY]|"")
-                h2 $'Installing fstrim cron\n'
-			crontab -l > fstrim
-			echo "*/30 * * * * fstrim --all >/dev/null 2>&1" >> fstrim
-			crontab fstrim
-			rm -rf fstrim
-                h2 $'Done - Installing fstrim cron\n\n'
-                ;;
-        *) h2 $'Skipping - Install fstrim cron\n\n'
-esac
+# Add fstrim cron
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-fstrim
+source ./nwb-fstrim
 
 # Secure SSH
-h1 'Secure SSH? [Y/n] ' ; read -r ssh
-case ${ssh,,} in
-        [yY][eE][sS]|[yY]|"")
-                h2 $'Securing SSH\n'
-                        cp /etc/ssh/sshd_config /etc/ssh/sshd_config-bak
-                        h3 'New SSH port: ' ; read -r sshport
-                                sed -i "s|#Port 22|Port $sshport|g" /etc/ssh/sshd_config
-                        h3 'Permit Root Login? [EXPLICIT: yes/no] ' ; read -r sshroot
-                                sed -i "s|#PermitRootLogin prohibit-password|PermitRootLogin $sshroot|g" /etc/ssh/sshd_config
-                        h3 'Allow Password Authentication? [EXPLICIT: yes/no] ' ; read -r sshpass
-                                sed -i "s|#PasswordAuthentication yes|PasswordAuthentication $sshpass|g" /etc/ssh/sshd_config
-                        sed -i 's|#LoginGraceTime 2m|LoginGraceTime 1m|g' /etc/ssh/sshd_config
-                        sed -i 's|#StrictModes yes|StrictModes yes|g' /etc/ssh/sshd_config
-                        sed -i 's|#MaxAuthTries 6|MaxAuthTries 3|g' /etc/ssh/sshd_config
-                        sed -i 's|#MaxSessions 10|MaxSessions 5|g' /etc/ssh/sshd_config
-                        sed -i 's|#PermitEmptyPasswords no|PermitEmptyPasswords no|g' /etc/ssh/sshd_config
-                        sed -i 's|#UseDNS no|UseDNS no|g' /etc/ssh/sshd_config
-                        systemctl restart sshd
-                        h3 $'\n= A backup of your initial sshd_config was made to /etc/ssh/sshd_config-bak\n\n'
-                h2 $'Done - Securing SSH\n\n'
-                ;;
-        *) h2 $'Skipping - Secure SSH\n\n';
-esac
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-ssh
+source ./nwb-ssh
 
-# Hostname
-h1 'Set Hostname? [Y/n] ' ; read -r hostname
-case ${hostname,,} in
-        [yY][eE][sS]|[yY]|"")
-                h2 $'Setting Hostname\n'
-			h3 'New hostname: ' ; read -r hostname
-				hostnamectl set-hostname "$hostname" --static
-                h2 $'Done - Setting Hostname\n\n'
-                ;;
-        *) h2 $'Skipping - Set Hostname\n\n';
-esac
+# Set Hostname
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-hostname
+source ./nwb-hostname
 
-# Time
-h1 'Set Time? [Y/n] ' ; read -r time
-case ${time,,} in
-        [yY][eE][sS]|[yY]|"")
-		h2 $'Setting Time\n'
-			h3 $'Timezone: ' ; read -r timezone
-				timedatectl set-timezone "$timezone"
-			apt-get -qq -y install chrony
-			systemctl enable chrony
-			systemctl start chrony
-		h2 $'Done - Setting Time\n\n'
-                ;;
-        *) h2 $'Skipping - Set Time\n\n';
-esac
+# Set Time
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-time
+source ./nwb-time
 
 # Useradd Bash Fix
-h1 'Apply useradd bash fix? [Y/n] ' ; read -r useraddbash
-case ${useraddbash,,} in
-        [yY][eE][sS]|[yY]|"")
-		h2 $'Applying ueradd bash fix\n'
-			sed -i 's|SHELL=/bin/sh|SHELL=/bin/bash|g' /etc/default/useradd
-		h2 $'Done - Applying ueradd bash fix\n\n'
-                ;;
-        *) h2 $'Skipping - Apply useradd bash fix\n\n';
-esac
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-useraddfix
+source ./nwb-useraddfix
 
-# Utilities
-h1 'Install Utilities? [Y/n] ' ; read -r deps
-case ${deps,,} in
-        [yY][eE][sS]|[yY]|"")
-                h2 $'Installing Utilities\n'
-                	apt-get -qq -y install nano wget curl screen tar unzip qemu-guest-agent acpid rsync software-properties-common
-                h2 $'Done - Installing Utilities\n\n'
-                ;;
-        *) h2 $'Skipping - Install Utilities\n\n'
-esac
+# Install Utilities
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-utils
+source ./nwb-utils
 
-# Auto Updaters
-h1 'Set Auto-Updaters? [Y/n] ' ; read -r autoupdaters
-case ${autoupdaters,,} in
-        [yY][eE][sS]|[yY]|"")
-                h2 $'Installing Unnatended Upgrades\n'
-			apt-get -qq -y install unattended-upgrades
-			h2 'Patching config ... '
-			sed -i 's|//      "origin=Debian,codename=${distro_codename}-updates"|        "origin=Debian,codename=${distro_codename}-updates"|g' /etc/apt/apt.conf.d/50unattended-upgrades
-			sed -i 's|//      "origin=Debian,codename=${distro_codename}-proposed-updates"|        "origin=Debian,codename=${distro_codename}-proposed-updates"|g' /etc/apt/apt.conf.d/50unattended-upgrades
-			sed -i 's|//Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";|Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";|g' /etc/apt/apt.conf.d/50unattended-upgrades
-			sed -i 's|//Unattended-Upgrade::Remove-New-Unused-Dependencies "true";|Unattended-Upgrade::Remove-New-Unused-Dependencies "true";|g' /etc/apt/apt.conf.d/50unattended-upgrades
-			sed -i 's|//Unattended-Upgrade::Remove-Unused-Dependencies "false";|Unattended-Upgrade::Remove-Unused-Dependencies "true";|g' /etc/apt/apt.conf.d/50unattended-upgrades
-			ye $'done!\n\n'
-			dpkg-reconfigure --priority=low unattended-upgrades
-                h2 $'Done - Installing Unnatended Upgrades\n\n'
-                ;;
-        *) h2 $'Skipping - Set Auto-Updaters\n\n';
-esac
+# Enable Auto Updates
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-autoupdate
+source ./nwb-autoupdate
 
-# PHP
-h1 'Install Modern PHP? [Y/n] ' ; read -r php
-case ${php,,} in
-        [yY][eE][sS]|[yY]|"")
-                h2 $'Installing Modern PHP\n'
-			apt-get -qq -y install lsb-release apt-transport-https ca-certificates
-			wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-			echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list
-			apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove
-			h3 $'PHP Version: ' ; read -r phpversion
-				apt-get -qq -y install php"$phpversion"-fpm && apt-get -qq -y install php"$phpversion"-cli php"$phpversion"-curl php"$phpversion"-dom php"$phpversion"-json php"$phpversion"-mbstring php"$phpversion"-mcrypt php"$phpversion"-mysqlnd php"$phpversion"-imagick php"$phpversion"-xml php"$phpversion"-gd php"$phpversion"-mcrypt php"$phpversion"-zip php"$phpversion"-imap php"$phpversion"-soap php"$phpversion"-bcmath php"$phpversion"-bz2 php"$phpversion"-tidy php"$phpversion"-xmlrpc php"$phpversion"-intl php"$phpversion"-ldap php"$phpversion"-smbclient php"$phpversion"-gmp
-				systemctl enable php"$phpversion"-fpm
-				systemctl start php"$phpversion"-fpm
-				dpkg-query -l | grep php"$phpversion"
-		h2 $'Done - Installing Modern PHP\n\n'
-                ;;
-        *) h2 $'Skipping - Install Modern PHP\n\n';
-esac
+# Install Modern PHP
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-php
+source ./nwb-php
 
-# NGINX
-h1 'Install NGINX? [Y/n] ' ; read -r nginx
-case ${nginx,,} in
-        [yY][eE][sS]|[yY]|"")
-                h2 $'Installing NGINX\n'
-			systemctl disable --now apache2 > /dev/null
-			apt-get -qq -y install curl gnupg2 ca-certificates lsb-release
-			echo "deb http://nginx.org/packages/debian `lsb_release -cs` nginx" \ | sudo tee /etc/apt/sources.list.d/nginx.list
-			echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \ | sudo tee /etc/apt/preferences.d/99nginx
-			curl -o /etc/apt/trusted.gpg.d/nginx_signing.asc https://nginx.org/keys/nginx_signing.key > /dev/null
-			apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove && apt-get -qq -y install nginx
-			systemctl enable nginx
-			systemctl start nginx
-			dpkg-query -l | grep nginx
-		h2 $'Done - Installing NGINX\n\n'
-                ;;
-        *) h2 $'Skipping - Install NGINX\n\n';
-esac
+# Install NGINX
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-nginx
+source ./nwb-nginx
 
-# Self-Signed Certificate
-h1 'Install Self-Signed Certificate? [Y/n] ' ; read -r ssl
-case ${ssl,,} in
-        [yY][eE][sS]|[yY]|"")
-                h2 $'Installing Self-Signed Certificate\n'
-			mkdir /etc/ssl/private
-			chmod 700 /etc/ssl/private
-			openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
-			openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
-			h3 $'\n= Public Key: /etc/ssl/certs/nginx-selfsigned.crt\n'
-			h3 $'Private Key: /etc/ssl/private/nginx-selfsigned.key\n'
-			h3 $'Diffie-Hellman Key: /etc/ssl/certs/dhparam.pem\n\n'
-		h2 $'Done - Installing Self-Signed Certificate\n\n'
-                ;;
-        *) h2 $'Skipping - Install Self-Signed Certificate\n\n';
-esac
+# Create Self-Signed Certificate
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-selfssl
+source ./nwb-selfssl
 
-# Certbot
-h1 'Install Certbot? [Y/n] ' ; read -r certbot
-case ${certbot,,} in
-        [yY][eE][sS]|[yY]|"")
-                h2 $'Installing Certbot\n'
-			apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove
-			apt-get -qq -y remove certbot
-			apt-get -qq -y install snapd
-			snap install core
-			sudo sysctl kernel.unprivileged_userns_clone=1
-			snap install core; sudo snap refresh core
-			snap install --classic certbot
-			ln -s /snap/bin/certbot /usr/bin/certbot
-			h3 $'\n= Issue with "certbot certonly"\n\n'
-		h2 $'Done - Installing Certbot\n\n'
-                ;;
-        *) h2 $'Skipping - Install Certbot\n\n';
-esac
+# Install Certbot
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-certbot
+source ./nwb-certbot
 
-# MariaDB
-h1 'Install MariaDB? [Y/n] ' ; read -r mariadb
-case ${mariadb,,} in
-        [yY][eE][sS]|[yY]|"")
-                h2 $'Installing MariaDB\n'
-			apt-get -qq -y install software-properties-common dirmngr apt-transport-https
-			apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
-				h3 $'MariaDB Version: ' ; read -r mariaversion
-					echo "deb [arch=amd64] http://ftp.hosteurope.de/mirror/mariadb.org/repo/$mariaversion/debian buster main" >> /etc/apt/sources.list.d/mariadb.list
-					echo "deb-src http://ftp.hosteurope.de/mirror/mariadb.org/repo/$mariaversion/debian buster main" >> /etc/apt/sources.list.d/mariadb.list
-					apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove && apt-get -qq -y install mariadb-server
-					systemctl enable mariadb && systemctl start mariadb
-					mysql_secure_installation
-					dpkg-query -l | grep mariadb
-                h2 $'Done - Installing MariaDB \n\n'
-                ;;
-        *) h2 $'Skipping - Install MariaDB\n\n';
-esac
+# Install MariaDB
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-mariadb
+source ./nwb-mariadb
 
-# Docker
-h1 'Install Docker? [Y/n] ' ; read -r docker
-case ${docker,,} in
-        [yY][eE][sS]|[yY]|"")
-                h2 $'Installing Docker\n'
-			curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
-			systemctl start docker
-			systemctl enable docker
-			rm -rf get-docker.sh
-                h2 $'Done - Installing Docker\n\n'
-                ;;
-        *) h2 $'Skipping - Install Docker\n\n';
-esac
+# InstallDocker
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-docker
+source ./nwb-docker
 
-# Docker Compose
-h1 'Install Docker Compose? [Y/n] ' ; read -r dockercompose
-case ${dockercompose,,} in
-        [yY][eE][sS]|[yY]|"")
-                h2 $'Installing Docker Compose\n'
-			curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose
-			chmod +x /usr/local/bin/docker-compose
-                h2 $'Done - Installing Docker Compose\n\n'
-                ;;
-        *) h2 $'Skipping - Install Docker Compose\n\n';
-esac
+# Install Docker Compose
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-dockercompose
+source ./nwb-dockercompose
 
-# Git
-h1 'Install Git? [Y/n] ' ; read -r git
-case ${git,,} in
-        [yY][eE][sS]|[yY]|"")
-                h2 $'Installing Git\n'
-			apt-get -qq -y install git
-                h2 $'Done - Installing Git\n\n'
-                ;;
-        *) h2 $'Skipping - Install Git\n\n';	
-esac
+# Install Git
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-git
+source ./nwb-git
 
-h1 $'Everything Done!\n\n'
-
-bash ./newbadmin-debian10
+# Back to index
+index=newbadmin-debian10
+if [ -f "$index" ]; then
+    bash newbadmin-debian10
+else
+    exit
+fi

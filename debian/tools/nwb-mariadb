@@ -1,0 +1,21 @@
+#!/bin/bash
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+source ./nwb-header
+
+h1 'Install MariaDB? [Y/n] ' ; read -r mariadb
+case ${mariadb,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Installing MariaDB\n'
+			apt-get -qq -y install software-properties-common dirmngr apt-transport-https
+			apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
+				h3 $'MariaDB Version: ' ; read -r mariaversion
+					echo "deb [arch=amd64] http://ftp.hosteurope.de/mirror/mariadb.org/repo/$mariaversion/debian buster main" >> /etc/apt/sources.list.d/mariadb.list
+					echo "deb-src http://ftp.hosteurope.de/mirror/mariadb.org/repo/$mariaversion/debian buster main" >> /etc/apt/sources.list.d/mariadb.list
+					apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove && apt-get -qq -y install mariadb-server
+					systemctl enable mariadb && systemctl start mariadb
+					mysql_secure_installation
+					dpkg-query -l | grep mariadb
+                h2 $'Done - Installing MariaDB \n\n'
+                ;;
+        *) h2 $'Skipping - Install MariaDB\n\n';
+esac

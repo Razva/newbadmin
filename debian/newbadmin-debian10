@@ -22,7 +22,7 @@ choice=$(dialog --clear \
 
 clear
 case $choice in
-        1) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/wizard/nwb-wizard
+        1) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/wizards/nwb-wizard
         bash ./nwb-wizard
         ;;
         2) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/nwb-tools

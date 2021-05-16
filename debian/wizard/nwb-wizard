@@ -256,4 +256,4 @@ esac
 
 h1 $'Everything Done!\n\n'
 
-source ./newbadmin-debian10
+bash ./newbadmin-debian10

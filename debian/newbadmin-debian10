@@ -22,14 +22,14 @@ choice=$(dialog --clear \
 
 clear
 case $choice in
-        1) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/nwb-wizard
-        source ./nwb-wizard
+        1) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/wizard/nwb-wizard
+        bash ./nwb-wizard
         ;;
         2) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/nwb-tools
-		source ./nwb-tools
+		bash ./nwb-tools
         ;;
         3) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-cleanup
-		source ./nwb-cleanup
+		bash ./nwb-cleanup
 		exit
 		;;
 esac

@@ -1,12 +1,13 @@
 #!/bin/bash
 
-# Check Header
+# Header
 header=nwb-header
 if [ ! -f "$header" ]; then
     curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
 fi
 source ./nwb-header
 
+# Set Auto-Updaters
 h1 'Set Auto-Updaters? [Y/n] ' ; read -r autoupdate
 case ${autoupdate,,} in
         [yY][eE][sS]|[yY]|"")
@@ -24,3 +25,10 @@ case ${autoupdate,,} in
                 ;;
         *) h2 $'Skipping - Set Auto-Updaters\n\n';
 esac
+
+# Footer
+footer=nwb-footer
+if [ ! -f "$footer" ]; then
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-footer
+fi
+source ./nwb-footer

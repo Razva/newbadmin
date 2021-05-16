@@ -1,7 +1,13 @@
 #!/bin/bash
-curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+
+# Header
+header=nwb-header
+if [ ! -f "$header" ]; then
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+fi
 source ./nwb-header
 
+# Apply useradd bash fix
 h1 'Apply useradd bash fix? [Y/n] ' ; read -r useraddfix
 case ${useraddfix,,} in
         [yY][eE][sS]|[yY]|"")
@@ -11,3 +17,10 @@ case ${useraddfix,,} in
                 ;;
         *) h2 $'Skipping - Apply useradd bash fix\n\n';
 esac
+
+# Footer
+footer=nwb-footer
+if [ ! -f "$footer" ]; then
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-footer
+fi
+source ./nwb-footer

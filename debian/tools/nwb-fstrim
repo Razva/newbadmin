@@ -1,7 +1,13 @@
 #!/bin/bash
-curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+
+# Header
+header=nwb-header
+if [ ! -f "$header" ]; then
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+fi
 source ./nwb-header
 
+# Install fstrim cron
 h1 'Install fstrim cron? [Y/n] ' ; read -r fstrimcron
 case ${fstrimcron,,} in
         [yY][eE][sS]|[yY]|"")
@@ -14,3 +20,10 @@ case ${fstrimcron,,} in
                 ;;
         *) h2 $'Skipping - Install fstrim cron\n\n'
 esac
+
+# Footer
+footer=nwb-footer
+if [ ! -f "$footer" ]; then
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-footer
+fi
+source ./nwb-footer

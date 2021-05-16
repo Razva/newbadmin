@@ -1,7 +1,13 @@
 #!/bin/bash
-curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+
+# Header
+header=nwb-header
+if [ ! -f "$header" ]; then
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+fi
 source ./nwb-header
 
+# Set Hostname
 h1 'Set Hostname? [Y/n] ' ; read -r sethostname
 case ${sethostname,,} in
         [yY][eE][sS]|[yY]|"")
@@ -12,3 +18,10 @@ case ${sethostname,,} in
                 ;;
         *) h2 $'Skipping - Set Hostname\n\n';
 esac
+
+# Footer
+footer=nwb-footer
+if [ ! -f "$footer" ]; then
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-footer
+fi
+source ./nwb-footer

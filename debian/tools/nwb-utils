@@ -1,7 +1,13 @@
-#!/bin/bash
-curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+##!/bin/bash
+
+# Header
+header=nwb-header
+if [ ! -f "$header" ]; then
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+fi
 source ./nwb-header
 
+# Install Utilities
 h1 'Install Utilities? [Y/n] ' ; read -r utils
 case ${utils,,} in
         [yY][eE][sS]|[yY]|"")
@@ -11,3 +17,10 @@ case ${utils,,} in
                 ;;
         *) h2 $'Skipping - Install Utilities\n\n'
 esac
+
+# Footer
+footer=nwb-footer
+if [ ! -f "$footer" ]; then
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-footer
+fi
+source ./nwb-footer

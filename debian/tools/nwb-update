@@ -7,7 +7,7 @@ if [ ! -f "$header" ]; then
 fi
 source ./nwb-header
 
-# Script
+# Update and Upgrade OS
 h1 'Update and Upgrade OS? [Y/n] ' ; read -r osupdate
 case ${osupdate,,} in
         [yY][eE][sS]|[yY]|"")

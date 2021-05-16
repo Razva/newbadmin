@@ -1,7 +1,13 @@
 #!/bin/bash
-curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+
+# Header
+header=nwb-header
+if [ ! -f "$header" ]; then
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+fi
 source ./nwb-header
 
+# Install NGINX
 h1 'Install NGINX? [Y/n] ' ; read -r nginx
 case ${nginx,,} in
         [yY][eE][sS]|[yY]|"")
@@ -19,3 +25,10 @@ case ${nginx,,} in
                 ;;
         *) h2 $'Skipping - Install NGINX\n\n';
 esac
+
+# Footer
+footer=nwb-footer
+if [ ! -f "$footer" ]; then
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-footer
+fi
+source ./nwb-footer

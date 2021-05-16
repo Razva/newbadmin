@@ -1,7 +1,13 @@
 #!/bin/bash
-curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+
+# Header
+header=nwb-header
+if [ ! -f "$header" ]; then
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+fi
 source ./nwb-header
 
+# Install Modern PHP
 h1 'Install Modern PHP? [Y/n] ' ; read -r php
 case ${php,,} in
         [yY][eE][sS]|[yY]|"")
@@ -19,3 +25,10 @@ case ${php,,} in
                 ;;
         *) h2 $'Skipping - Install Modern PHP\n\n';
 esac
+
+# Footer
+footer=nwb-footer
+if [ ! -f "$footer" ]; then
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-footer
+fi
+source ./nwb-footer

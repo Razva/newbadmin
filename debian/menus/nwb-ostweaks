@@ -6,8 +6,13 @@ backtitle="Newb Admin - Debian 10"
 title="OS Tweaks"
 
 options=(1 "Apply OS Updates"
-         98 "Back to Main Menu"
-         99 "Exit")
+		2 "Add fstrim cron"
+		3 "Set Time"
+		4 "Install Utilities"
+		5 "Enable Auto Updates"
+		6 "Useradd Bash Fix"
+		98 "Back to Main Menu"
+		99 "Exit")
 
 choice=$(dialog --clear \
                 --backtitle "$backtitle" \
@@ -21,6 +26,21 @@ clear
 case $choice in
         1) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-update
 		bash ./nwb-update
+        ;;
+        2) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-fstrim
+		bash ./nwb-fstrim
+        ;;
+        3) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-time
+		bash ./nwb-time
+        ;;
+        4) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-utils
+		bash ./nwb-utils
+        ;;
+        5) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-autoupdate
+		bash ./nwb-autoupdate
+        ;;
+        6) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-useraddfix
+		bash ./nwb-useraddfix
         ;;
 		98) bash newbadmin-debian10
 		;;

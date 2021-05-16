@@ -1,7 +1,7 @@
 #!/bin/bash
 
 filename="${BASH_SOURCE[0]}"
-mv $filename newbadmin-debian10
+mv -f $filename newbadmin-debian10 2>/dev/null
 
 apt-get -qq -y install dialog
 

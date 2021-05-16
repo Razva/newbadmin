@@ -2,7 +2,7 @@
 clear
 
 filename="${BASH_SOURCE[0]}"
-mv $filename wizard-newbadmin
+mv -f $filename wizard-newbadmin 2>/dev/null
 
 # Apply OS Updates
 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-update

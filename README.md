@@ -3,14 +3,14 @@ Useful bash scripts and utilities for newb sysadmins.
 
 ## Installation
 
-### RPM-based systems (CentOS, RHEL etc)
-```bash
-yum -q -y install dialog && curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/index && bash ./index
-```
+This script should be run as root.
 
-### DEB-based systems (Ubuntu, Debian etc)
+Currently supported Operating Systems:
+- Debian 10
+
+### Debian 10
 ```bash
-apt-get -qq -y install dialog && curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/index && bash ./index
+apt-get -qq -y install dialog curl wget && curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/index && bash ./index
 ```
 
 ### Bugs

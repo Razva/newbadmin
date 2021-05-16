@@ -75,6 +75,7 @@ rm -rf nwb-*
 # Back to index
 index=newbadmin-debian10
 if [ -f "$index" ]; then
+	rm -rf wizard-newbadmin
     bash newbadmin-debian10
 else
     exit

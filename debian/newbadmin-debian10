@@ -29,7 +29,7 @@ case $choice in
 		bash ./wizard-newbadmin
         ;;
         2) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/menus/nwb-ostweaks
-		source ./nwb-tweaks
+		source ./nwb-ostweaks
         ;;
         3) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/menus/nwb-security
 		source ./nwb-security

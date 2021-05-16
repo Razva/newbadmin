@@ -1,5 +1,8 @@
 #!/bin/bash
 
+filename="${BASH_SOURCE[0]}"
+mv $filename newbadmin-debian10
+
 apt-get -qq -y install dialog
 
 height=30

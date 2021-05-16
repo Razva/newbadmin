@@ -1,0 +1,31 @@
+#!/bin/bash
+height=30
+width=40
+choice_height=20
+backtitle="Newb Admin - Debian 10"
+title="OS Tweaks"
+
+options=(1 "Apply OS Updates"
+         98 "Back to Main Menu"
+         99 "Exit")
+
+choice=$(dialog --clear \
+                --backtitle "$backtitle" \
+                --title "$title" \
+                --menu "" \
+                $height $width $choice_height \
+                "${options[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $choice in
+        1) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-update
+		bash ./nwb-update
+        ;;
+		98) bash newbadmin-debian10
+		;;
+        99) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-cleanup
+		bash ./nwb-cleanup
+		exit
+	;;
+esac

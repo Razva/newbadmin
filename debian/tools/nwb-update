@@ -17,3 +17,9 @@ case ${osupdate,,} in
                 ;;
         *) h2 $'Skipping - Updating and Upgrading the OS\n\n';
 esac
+
+# Check if run by Wizard
+wizard=nwb-wizard
+if [ ! -f "$wizard" ]; then
+    bash ./nwb-ostweaks
+fi

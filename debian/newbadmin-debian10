@@ -5,12 +5,15 @@ apt-get -qq -y install dialog
 height=30
 width=40
 choice_height=20
-backtitle="Welcome to Newb Admin for Debian 10"
-title="Newb Admin - Main Menu"
+backtitle="Newb Admin - Debian 10"
+title="Main Menu"
 
 options=(1 "Installation Wizard"
-         2 "Update OS"
-         3 "Exit")
+         2 "OS Tweaks"
+         3 "Security"
+         4 "Networking"
+         5 "Applications"
+         99 "Exit")
 
 choice=$(dialog --clear \
                 --backtitle "$backtitle" \
@@ -25,10 +28,19 @@ case $choice in
         1) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/wizards/nwb-wizard
 		bash ./nwb-wizard
         ;;
-        2) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-update
-		source ./nwb-update
+        2) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/menus/nwb-ostweaks
+		source ./nwb-tweaks
         ;;
-        3) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-cleanup
+        3) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/menus/nwb-security
+		source ./nwb-security
+		;;
+		4) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/menus/nwb-networking
+		source ./nwb-networking
+		;;
+		5) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/menus/nwb-apps
+		source ./nwb-apps
+		;;
+        99) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-cleanup
 		bash ./nwb-cleanup
 		exit
 	;;

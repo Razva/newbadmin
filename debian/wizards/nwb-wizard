@@ -57,7 +57,7 @@ source ./nwb-certbot
 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-mariadb
 source ./nwb-mariadb
 
-# InstallDocker
+# Install Docker
 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-docker
 source ./nwb-docker
 
@@ -68,6 +68,9 @@ source ./nwb-dockercompose
 # Install Git
 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-git
 source ./nwb-git
+
+# Cleanup
+rm -rf nwb-wizard
 
 # Back to index
 index=newbadmin-debian10

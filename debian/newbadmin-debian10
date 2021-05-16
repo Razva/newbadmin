@@ -9,7 +9,7 @@ backtitle="Welcome to Newb Admin for Debian 10"
 title="Newb Admin - Main Menu"
 
 options=(1 "Installation Wizard"
-         2 "Newb Tools"
+         2 "Update OS"
          3 "Exit")
 
 choice=$(dialog --clear \
@@ -25,8 +25,8 @@ case $choice in
         1) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/wizards/nwb-wizard
 		bash ./nwb-wizard
         ;;
-        2) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/nwb-tools
-		bash ./nwb-tools
+        2) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-update
+		source ./nwb-update
         ;;
         3) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-cleanup
 		bash ./nwb-cleanup

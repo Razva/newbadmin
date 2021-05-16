@@ -1,10 +1,13 @@
 #!/bin/bash
+
+# Check Header
 header=nwb-header
 if [ ! -f "$header" ]; then
     curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
 	source ./nwb-header
 fi
 
+# Script
 h1 'Update and Upgrade OS? [Y/n] ' ; read -r osupdate
 case ${osupdate,,} in
         [yY][eE][sS]|[yY]|"")

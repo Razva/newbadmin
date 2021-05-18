@@ -15,9 +15,9 @@ case ${securessh,,} in
                         cp /etc/ssh/sshd_config /etc/ssh/sshd_config-bak
                         h3 'New SSH port: ' ; read -r sshport
                                 sed -i "s|#Port 22|Port $sshport|g" /etc/ssh/sshd_config
-                        h3 'Permit Root Login? [EXPLICIT: yes/no] ' ; read -r sshroot
+                        h3 'Permit Root Login? [EXPLICIT: yes / no /prohibit-password] ' ; read -r sshroot
                                 sed -i "s|#PermitRootLogin prohibit-password|PermitRootLogin $sshroot|g" /etc/ssh/sshd_config
-                        h3 'Allow Password Authentication? [EXPLICIT: yes/no] ' ; read -r sshpass
+                        h3 'Allow Password Authentication? [EXPLICIT: yes / no] ' ; read -r sshpass
                                 sed -i "s|#PasswordAuthentication yes|PasswordAuthentication $sshpass|g" /etc/ssh/sshd_config
                         sed -i 's|#LoginGraceTime 2m|LoginGraceTime 1m|g' /etc/ssh/sshd_config
                         sed -i 's|#StrictModes yes|StrictModes yes|g' /etc/ssh/sshd_config

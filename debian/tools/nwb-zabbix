@@ -8,11 +8,12 @@ fi
 source ./nwb-header
 
 # Install Zabbix
-h1 'Install Zabbix? [Y/n] ' ; read -r utils
+h1 'Install Zabbix? This will remove all existing Zabbix configs! [Y/n] ' ; read -r utils
 case ${utils,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing Zabbix\n'
 					h3 $'Zabbix Version: ' ; read -r zversion
+						apt-get -qq -y purge zabbix-agent && apt-get -qq -y autoclean
 						wget https://repo.zabbix.com/zabbix/$zversion/debian/pool/main/z/zabbix-release/zabbix-release_$zversion-1+debian10_all.deb
 						dpkg -i zabbix-release_$zversion-1+debian10_all.deb
 						rm -rf zabbix-release_$zversion-1+debian10_all.deb

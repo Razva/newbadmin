@@ -12,6 +12,7 @@ options=(1 "Install NGINX"
 		5 "Install Docker"
 		6 "Install Docker Compose"
 		7 "Install Git"
+		8 "Install Zabbix"
 		98 "Back to Main Menu"
 		99 "Exit")
 
@@ -45,6 +46,9 @@ case $choice in
         ;;
         7) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-git
 		bash ./nwb-git
+        ;;
+		8) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-zabbix
+		bash ./nwb-zabbix
         ;;
 		98) bash newbadmin-debian10
 		;;

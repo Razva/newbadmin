@@ -23,7 +23,7 @@ case ${autoupdate,,} in
 			dpkg-reconfigure --priority=low unattended-upgrades
                 h2 $'Done - Installing Unnatended Upgrades\n\n'
                 ;;
-        *) h2 $'Skipping - Set Auto-Updaters\n\n';
+        *) h1 $'Skipping - Set Auto-Updaters\n\n';
 esac
 
 # Check if run by Wizard

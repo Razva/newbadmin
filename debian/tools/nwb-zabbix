@@ -18,8 +18,21 @@ case ${utils,,} in
 						rm -rf zabbix-release_$zversion-1+debian10_all.deb
 						apt-get -qq -y update && apt-get -qq -y zabbix-agent
                 h2 $'Done - Installing Zabbix\n\n'
-                ;;
-        *) h2 $'Skipping - Install Zabbix\n\n'
+
+				h2 'Apply Zabbix CNCTED Settings? [Y/n] ' ; read -r zcncted
+					case ${zcncted,,} in
+						[yY][eE][sS]|[yY]|"")
+							h2 $'Applying Zabbix CNCTED Settings\n'
+								sed -i 's/^Server=127.0.0.1$/Server=zabbix.cncted.net/g' /etc/zabbix/zabbix_agentd.conf &&
+								sed -i "s/^Hostname=Zabbix server$/Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agentd.conf &&
+								sed -i "s/^ServerActive=127.0.0.1/#ServerActive=127.0.0.1/g" /etc/zabbix/zabbix_agentd.conf &&
+								systemctl restart zabbix-agent
+							h2 $'Done - Applying Zabbix CNCTED Settings\n'
+							;;
+							*) h2 $'Skipping - Applying Zabbix CNCTED Settings\n'
+					esac
+				;;
+        *) h1 $'Skipping - Install Zabbix\n\n'
 esac
 
 # Check if run by Wizard

@@ -15,7 +15,7 @@ case ${useraddfix,,} in
 			sed -i 's|SHELL=/bin/sh|SHELL=/bin/bash|g' /etc/default/useradd
 		h2 $'Done - Applying ueradd bash fix\n\n'
                 ;;
-        *) h2 $'Skipping - Apply useradd bash fix\n\n';
+        *) h1 $'Skipping - Apply useradd bash fix\n\n';
 esac
 
 # Check if run by Wizard

@@ -23,7 +23,7 @@ case ${php,,} in
 				dpkg-query -l | grep php"$phpversion"
 		h2 $'Done - Installing Modern PHP\n\n'
                 ;;
-        *) h2 $'Skipping - Install Modern PHP\n\n';
+        *) h1 $'Skipping - Install Modern PHP\n\n';
 esac
 
 # Check if run by Wizard

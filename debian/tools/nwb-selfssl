@@ -21,7 +21,7 @@ case ${selfssl,,} in
 			h3 $'Diffie-Hellman Key: /etc/ssl/certs/dhparam.pem\n\n'
 		h2 $'Done - Installing Self-Signed Certificate\n\n'
                 ;;
-        *) h2 $'Skipping - Install Self-Signed Certificate\n\n';
+        *) h1 $'Skipping - Install Self-Signed Certificate\n\n';
 esac
 
 # Check if run by Wizard

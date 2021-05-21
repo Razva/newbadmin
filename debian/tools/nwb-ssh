@@ -29,7 +29,7 @@ case ${securessh,,} in
                         h3 $'\n= A backup of your initial sshd_config was made to /etc/ssh/sshd_config-bak\n\n'
                 h2 $'Done - Securing SSH\n\n'
                 ;;
-        *) h2 $'Skipping - Secure SSH\n\n';
+        *) h1 $'Skipping - Secure SSH\n\n';
 esac
 
 # Check if run by Wizard

@@ -12,10 +12,10 @@ h1 'Install Git? [Y/n] ' ; read -r git
 case ${git,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing Git\n'
-			apt-get -qq -y install git
+					apt-get -qq -y install git
                 h2 $'Done - Installing Git\n\n'
                 ;;
-        *) h2 $'Skipping - Install Git\n\n';	
+        *) h1 $'Skipping - Install Git\n\n';	
 esac
 
 # Check if run by Wizard

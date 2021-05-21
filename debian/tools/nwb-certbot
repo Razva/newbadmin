@@ -23,7 +23,7 @@ case ${certbot,,} in
 			h3 $'\n= Issue with "certbot certonly"\n\n'
 		h2 $'Done - Installing Certbot\n\n'
                 ;;
-        *) h2 $'Skipping - Install Certbot\n\n';
+        *) h1 $'Skipping - Install Certbot\n\n';
 esac
 
 # Check if run by Wizard

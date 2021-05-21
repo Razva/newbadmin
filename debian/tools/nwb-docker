@@ -18,7 +18,7 @@ case ${docker,,} in
 			rm -rf get-docker.sh
                 h2 $'Done - Installing Docker\n\n'
                 ;;
-        *) h2 $'Skipping - Install Docker\n\n';
+        *) h1 $'Skipping - Install Docker\n\n';
 esac
 
 # Check if run by Wizard

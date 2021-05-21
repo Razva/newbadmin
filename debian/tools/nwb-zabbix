@@ -14,7 +14,8 @@ case ${utils,,} in
                 h2 $'Installing Zabbix\n'
 					h3 $'Zabbix Version: ' ; read -r zversion
 						wget https://repo.zabbix.com/zabbix/$zversion/debian/pool/main/z/zabbix-release/zabbix-release_$zversion-1+debian10_all.deb
-						dpkg -i zabbix-release_5.4-1+debian10_all.deb
+						dpkg -i zabbix-release_$zversion-1+debian10_all.deb
+						rm -rf zabbix-release_$zversion-1+debian10_all.deb
 						apt-get -qq -y update && apt-get -qq -y zabbix-agent
                 h2 $'Done - Installing Zabbix\n\n'
                 ;;
@@ -24,5 +25,5 @@ esac
 # Check if run by Wizard
 wizard=wizard-newbadmin
 if [ ! -f "$wizard" ]; then
-    bash ./nwb-ostweaks
+    bash ./nwb-apps
 fi

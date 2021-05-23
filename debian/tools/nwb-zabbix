@@ -28,6 +28,19 @@ case ${utils,,} in
 								sed -i "s/^Hostname=Zabbix server$/Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agentd.conf &&
 								sed -i "s/^ServerActive=127.0.0.1/#ServerActive=127.0.0.1/g" /etc/zabbix/zabbix_agentd.conf &&
 								systemctl restart zabbix-agent
+								
+								printf "\n${yellow}Public IP:${green} "
+								ip -o addr show | \
+								grep -v 'inet6' | \
+								grep -v 'scope host' | \
+								awk '{print $4}' | \
+								cut -d '/' -f 1 | \
+								grep -vE '^(192\.168|10\.|172\.1[6789]\.|172\.2[0-9]\.|172\.3[01]\.)'
+								printf "${normal}\n"
+								printf "${yellow}Server Hostname:${green} "
+								hostname
+								printf "${normal}\n"
+								
 							h2 $'Done - Applying Zabbix CNCTED Settings\n'
 							;;
 							*) h2 $'Skipping - Applying Zabbix CNCTED Settings\n'

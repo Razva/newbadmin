@@ -8,8 +8,8 @@ fi
 source ./nwb-header
 
 # Install NodeJS
-h1 'Install NodeJS? [Y/n] ' ; read -r mariadb
-case ${mariadb,,} in
+h1 'Install NodeJS? [Y/n] ' ; read -r nodejs
+case ${nodejs,,} in
 	[yY][eE][sS]|[yY]|"")
 		h2 $'Installing NodeJS\n'
 			h3 $'NodeJS Version (current, lts, 12, 14, 15, 16): ' ; read -r nodeversion

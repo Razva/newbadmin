@@ -8,7 +8,7 @@ fi
 source ./nwb-header
 
 # Install PHP Composer
-h1 'Install PHP Composer? Make sure that you already have PHP installed! [Y/n] ' ; read -r composer
+h1 'Install PHP Composer? Make sure that you already have PHP-CLI installed! [Y/n] ' ; read -r composer
 case ${composer,,} in
 	[yY][eE][sS]|[yY]|"")
 		h2 $'Installing NGINX\n'

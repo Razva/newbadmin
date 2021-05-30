@@ -19,32 +19,32 @@ options=(1 "Installation Wizard"
          99 "Exit")
 
 choice=$(dialog --clear \
-                --backtitle "$backtitle" \
-                --title "$title" \
-                --menu "" \
-                $height $width $choice_height \
-                "${options[@]}" \
-                2>&1 >/dev/tty)
+	--backtitle "$backtitle" \
+	--title "$title" \
+	--menu "" \
+	$height $width $choice_height \
+	"${options[@]}" \
+	2>&1 >/dev/tty)
 
 clear
 case $choice in
         1) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/wizards/wizard-newbadmin
-		bash ./wizard-newbadmin
+		source ./wizard-newbadmin
         ;;
         2) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/menus/nwb-ostweaks
 		source ./nwb-ostweaks
         ;;
         3) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/menus/nwb-security
 		source ./nwb-security
-		;;
-		4) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/menus/nwb-networking
+	;;
+	4) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/menus/nwb-networking
 		source ./nwb-networking
-		;;
-		5) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/menus/nwb-apps
+	;;
+	5) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/menus/nwb-apps
 		source ./nwb-apps
-		;;
+	;;
         99) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-cleanup
-		bash ./nwb-cleanup
-		exit
+		source ./nwb-cleanup
+	exit
 	;;
 esac

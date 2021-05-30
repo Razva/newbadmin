@@ -3,26 +3,27 @@
 # Header
 header=nwb-header
 if [ ! -f "$header" ]; then
-	curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+  curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
 fi
 source ./nwb-header
 
 # Install Docker
-h1 'Install Docker? [Y/n] ' ; read -r docker
+h1 'Install Docker? [Y/n] '
+read -r docker
 case ${docker,,} in
-	[yY][eE][sS]|[yY]|"")
-		h2 $'Installing Docker\n'
-			curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh &&
-			systemctl start docker &&
-			systemctl enable docker &&
-			rm -rf get-docker.sh
-                h2 $'Done - Installing Docker\n\n'
-                ;;
-*) h1 $'Skipping - Install Docker\n\n';
+[yY][eE][sS] | [yY] | "")
+  h2 $'Installing Docker\n'
+  curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh &&
+    systemctl start docker &&
+    systemctl enable docker &&
+    rm -rf get-docker.sh
+  h2 $'Done - Installing Docker\n\n'
+  ;;
+*) h1 $'Skipping - Install Docker\n\n' ;;
 esac
 
 # Check if run by Wizard
 wizard=wizard-newbadmin
 if [ ! -f "$wizard" ]; then
-	bash ./nwb-apps
+  bash ./nwb-apps
 fi

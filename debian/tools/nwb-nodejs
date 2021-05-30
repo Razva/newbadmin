@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Header
+header=nwb-header
+if [ ! -f "$header" ]; then
+	curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+fi
+source ./nwb-header
+
+# Install NodeJS
+h1 'Install NodeJS? [Y/n] ' ; read -r mariadb
+case ${mariadb,,} in
+	[yY][eE][sS]|[yY]|"")
+		h2 $'Installing NodeJS\n'
+			h3 $'NodeJS Version (current, lts, 12, 14, 15, 16): ' ; read -r nodeversion
+			curl -fsSL https://deb.nodesource.com/setup_$nodeversion.x | bash -
+			apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove &&
+			apt-get -qq -y install gcc g++ make &&
+			apt-get -qq -y install nodejs &&
+			curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null &&
+			echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list &&
+			apt-get -qq -y update &&
+			apt-get -qq -y install yarn
+		h2 $'Done - Installing NodeJS \n\n'
+		;;
+	*) h1 $'Skipping - Install NodeJS\n\n';
+esac
+
+# Check if run by Wizard
+wizard=wizard-newbadmin
+if [ ! -f "$wizard" ]; then
+	bash ./nwb-apps
+fi

@@ -72,6 +72,10 @@ source ./nwb-dockercompose
 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-git
 source ./nwb-git
 
+# Install NodeJS
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-nodejs
+source ./nwb-nodejs
+
 # Install Zabbix
 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-zabbix
 source ./nwb-zabbix

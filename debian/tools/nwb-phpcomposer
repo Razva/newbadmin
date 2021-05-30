@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Header
+header=nwb-header
+if [ ! -f "$header" ]; then
+	curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+fi
+source ./nwb-header
+
+# Install PHP Composer
+h1 'Install PHP Composer? Make sure that you already have PHP installed! [Y/n] ' ; read -r composer
+case ${composer,,} in
+	[yY][eE][sS]|[yY]|"")
+		h2 $'Installing NGINX\n'
+			php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
+			php composer-setup.php &&
+			mv composer.phar /usr/local/bin/composer &&
+			php -r "unlink('composer-setup.php');"
+		h2 $'Done - Installing PHP Composer\n\n'
+                ;;
+*) h1 $'Skipping - Install PHP Composer\n\n';
+esac
+
+# Check if run by Wizard
+wizard=wizard-newbadmin
+if [ ! -f "$wizard" ]; then
+	bash ./nwb-apps
+fi

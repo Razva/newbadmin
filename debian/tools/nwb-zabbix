@@ -8,8 +8,8 @@ fi
 source ./nwb-header
 
 # Install Zabbix
-h1 'Install Zabbix? This will remove all existing Zabbix configs! [Y/n] ' ; read -r utils
-case ${utils,,} in
+h1 'Install Zabbix? [Y/n] ' ; read -r zabbix
+case ${zabbix,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing Zabbix\n'
 					h3 $'Zabbix Version (https://www.zabbix.com/download): ' ; read -r zversion

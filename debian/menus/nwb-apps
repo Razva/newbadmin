@@ -8,12 +8,13 @@ title="Applications"
 options=(1 "Install NGINX"
 		2 "Install Certbot"
 		3 "Install Modern PHP"
-		4 "Install MariaDB"
-		5 "Install Docker"
-		6 "Install Docker Compose"
-		7 "Install Git"
-		8 "Install NodeJS"
-		9 "Install Zabbix"
+		4 "Install PHP Composer"
+		5 "Install MariaDB"
+		6 "Install Docker"
+		7 "Install Docker Compose"
+		8 "Install Git"
+		9 "Install NodeJS"
+		10 "Install Zabbix"
 		98 "Back to Main Menu"
 		99 "Exit")
 
@@ -36,22 +37,25 @@ case $choice in
         3) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-php
 		bash ./nwb-php
         ;;
-        4) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-mariadb
+	4) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-phpcomposer
+		bash ./nwb-phpcomposer
+        ;;
+        5) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-mariadb
 		bash ./nwb-mariadb
         ;;
-        5) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-docker
+        6) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-docker
 		bash ./nwb-docker
         ;;
-        6) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-dockercompose
+        7) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-dockercompose
 		bash ./nwb-dockercompose
         ;;
-        7) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-git
+        8) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-git
 		bash ./nwb-git
         ;;
-	8) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-nodejs
+	9) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-nodejs
 		bash ./nwb-nodejs
         ;;
-	9) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-zabbix
+	10) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-zabbix
 		bash ./nwb-zabbix
         ;;
 	98) bash newbadmin-debian10

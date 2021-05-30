@@ -23,7 +23,7 @@ case ${nodejs,,} in
 			apt-get -qq -y install yarn
 		h2 $'Done - Installing NodeJS \n\n'
 		;;
-	*) h1 $'Skipping - Install NodeJS\n\n';
+*) h1 $'Skipping - Install NodeJS\n\n';
 esac
 
 # Check if run by Wizard

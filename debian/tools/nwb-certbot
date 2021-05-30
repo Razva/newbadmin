@@ -3,31 +3,31 @@
 # Header
 header=nwb-header
 if [ ! -f "$header" ]; then
-    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
+	curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/deps/nwb-header
 fi
 source ./nwb-header
 
 # Install Certbot
 h1 'Install Certbot? [Y/n] ' ; read -r certbot
 case ${certbot,,} in
-        [yY][eE][sS]|[yY]|"")
-                h2 $'Installing Certbot\n'
-			apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove
-			apt-get -qq -y remove certbot
-			apt-get -qq -y install snapd
-			snap install core
-			sudo sysctl kernel.unprivileged_userns_clone=1
-			snap install core; sudo snap refresh core
-			snap install --classic certbot
-			ln -s /snap/bin/certbot /usr/bin/certbot
+	[yY][eE][sS]|[yY]|"")
+		h2 $'Installing Certbot\n'
+			apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove &&
+			apt-get -qq -y remove certbot &&
+			apt-get -qq -y install snapd &&
+			snap install core &&
+			sudo sysctl kernel.unprivileged_userns_clone=1 &&
+			snap install core; sudo snap refresh core &&
+			snap install --classic certbot &&
+			ln -s /snap/bin/certbot /usr/bin/certbot &&
 			h3 $'\n= Issue with "certbot certonly"\n\n'
 		h2 $'Done - Installing Certbot\n\n'
                 ;;
-        *) h1 $'Skipping - Install Certbot\n\n';
+*) h1 $'Skipping - Install Certbot\n\n';
 esac
 
 # Check if run by Wizard
 wizard=wizard-newbadmin
 if [ ! -f "$wizard" ]; then
-    bash ./nwb-apps
+	bash ./nwb-apps
 fi

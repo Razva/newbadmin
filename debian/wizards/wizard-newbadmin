@@ -44,6 +44,10 @@ source ./nwb-autoupdate
 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-php
 source ./nwb-php
 
+# Install PHP Composer
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-phpcomposer
+source ./nwb-phpcomposer
+
 # Install NGINX
 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/tools/nwb-nginx
 source ./nwb-nginx

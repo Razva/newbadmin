@@ -12,6 +12,10 @@ date=$(date +'%y-%m-%d_%H-%M-%S')
 vmfile="vzdump-qemu-$vm-$date.vma.zst"
 
 # Script
+
+ssh -t root@$host "mkdir $rstorage" >/dev/null 2>/dev/null &&
+mkdir $lstorage >/dev/null 2>/dev/null &&
+
 echo ""
 echo -e "========== ${green} $(date +'%H:%M:%S') | $(date +'%d.%m.%Y') ${reset} =========="
 

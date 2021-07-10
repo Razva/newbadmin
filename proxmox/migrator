@@ -56,34 +56,3 @@ echo -e "Migration ${green}finished${reset} for ${green}VM $vm ${reset}"
 echo ""
 echo -e "========== ${green} $(date +'%H:%M:%S') | $(date +'%d.%m.%Y') ${reset} =========="
 echo ""
-
-#logfile=logs/log-migration-$date.log
-# Silent - add: &>>$logfile &&
-#echo ""
-#echo -e "Logfile: ${green}$logfile${reset}"
-
-#echo ""
-#echo -e "${green}[!]${reset} Start VM $vm? [Y/n] "; read -r startvm
-#case ${startvm,,} in
-#        [yY][eE][sS]|[yY]|"")
-#                qm start "$vm" &&
-#                echo ""
-#                echo -e "${green}[!]${reset} VM $vm Started"
-#                ;;
-#*) echo ""
-#echo -e "${green}[!]${reset} VM $vm Stopped";
-#esac
-
-#echo ""
-#echo -e "${green}[!]${reset} Cleanup? [Y/n] "; read -r cleanup
-#case ${cleanup,,} in
-#        [yY][eE][sS]|[yY]|"")
-#                rm -rf $lstorage/*.vma.zst &&
-#		ssh -t root@$host "rm -rf $rstorage/*.vma.zst" &&
-#		ssh -t root@$host "rm -rf $rstorage/*.log" &&
-#		echo ""
-#		echo -e "${green}[!]${reset} Cleanup successful"
-#                ;;
-#*) echo ""
-#echo -e "{green}[!]${reset} Cleanup skipped ...";
-#esac

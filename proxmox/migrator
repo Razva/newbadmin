@@ -25,12 +25,12 @@ ssh -t root@$host "qm shutdown $vm" >/dev/null 2>/dev/null &&
 echo ""
 echo -e "${green}[!]${reset} Backing up ... "
 echo ""
-ssh -t root@$host "vzdump $vm --dumpdir $rstorage --mode stop --compress zstd --stdout > /$rstorage/$vmfile" &&
+ssh -t root@$host "vzdump $vm --dumpdir $rstorage --mode stop --compress zstd --stdout > $rstorage/$vmfile" &&
 
 echo ""
 echo -e "${green}[!]${reset} Copying ... "
 echo ""
-rsync -av --partial --inplace --append --progress root@"$host":/"$rstorage"/"$vmfile" /"$lstorage"/"$vmfile" &&
+rsync -av --partial --inplace --append --progress root@"$host":"$rstorage"/"$vmfile" "$lstorage"/"$vmfile" &&
 
 echo ""
 echo -e "${green}[!]${reset} Restoring ... "

@@ -2,7 +2,7 @@
 
 # Variables & Colors
 
-usage() { echo "Usage: $0 [-h <remote_hostname>] [-s <local_storage>] [-r <remote_workdir>] [-l <local_workdir>] [-i <vm_id>]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-h <remote_hostname>] [-s <local_storage>] [-r <remote_workdir_full_path>] [-l </local_workdir_full_path>] [-i <vm_id>]" 1>&2; exit 1; }
 
 while getopts ":h:s:r:l:i:" o; do
   case "${o}" in

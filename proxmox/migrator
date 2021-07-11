@@ -11,6 +11,37 @@ reset="\e[0m"
 date=$(date +'%y-%m-%d_%H-%M-%S')
 vmfile="vzdump-qemu-$vm-$date.vma.zst"
 
+
+usage() { echo "Usage: $0 [-h <remote_hostname>] [-s <local_storage>] [-r <remote_workdir>] [-l <local_workdir>] [-i <vm_id>]" 1>&2; exit 1; }
+
+while getopts ":h:s:r:l:i:" o; do
+  case "${o}" in
+        h)
+           h=${OPTARG}
+            ;;
+        s)
+            s=${OPTARG}
+            ;;
+        r)
+            r=${OPTARG}
+            ;;
+        l)
+            l=${OPTARG}
+            ;;
+        i)
+            i=${OPTARG}
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [ -z "${h}" ] || [ -z "${s}" ] || [ -z "${r}" ] || [ -z "${l}" ] || [ -z "${i}" ]; then
+    usage
+fi
+
 # Script
 
 ssh -t root@$host "mkdir $rstorage" >/dev/null 2>/dev/null &&

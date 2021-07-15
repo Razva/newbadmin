@@ -11,7 +11,7 @@ vmid=$v
 green="\e[1;32m"
 reset="\e[0m"
 
-usage() { echo""; echo -e "Usage: ${green}-i${reset} <image.qcow> ${green}-r${reset} <ram> ${green}-b${reset} <bridge> ${green}-m${reset} <mtu> ${green}-s${reset} <storage> ${green}-n${reset} <vm_name> ${green}-v${reset} <vm_id>"; echo "" 1>&2; exit 1; }
+usage() { echo""; echo -e "${green}[!]${reset} Usage: ${green}-i${reset} <image.qcow> ${green}-r${reset} <ram> ${green}-b${reset} <bridge> ${green}-m${reset} <mtu> ${green}-s${reset} <storage> ${green}-n${reset} <vm_name> ${green}-v${reset} <vm_id>"; echo "" 1>&2; exit 1; }
 
 while getopts ":i:r:b:m:s:n:v:" o; do
   case "${o}" in

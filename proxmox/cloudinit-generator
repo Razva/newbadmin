@@ -52,31 +52,31 @@ reset="\e[0m"
 
 echo ""
 echo -e "${green}[!]${reset} Creating VM ..."
-qm create $vmid --memory $memory --net0 virtio,bridge=$bridge,firewall=1,mtu=$mtu --name=$name --ostype=l26 --numa=1 --onboot=1 --agent enabled=1,fstrim_cloned_disks=1
+qm create "$vmid" --memory "$memory" --net0 virtio,bridge="$bridge",firewall=1,mtu="$mtu" --name="$name" --ostype=l26 --numa=1 --onboot=1 --agent enabled=1,fstrim_cloned_disks=1
 
 echo ""
 echo -e "${green}[!]${reset} Importing disk ..."
-qm importdisk $vmid $img $storage
+qm importdisk "$vmid" "$img" "$storage"
 
 echo ""
 echo -e "${green}[!]${reset} Attaching disk ..."
-qm set $vmid --scsihw virtio-scsi-pci --scsi0 $storage:vm-$vmid-disk-0,discard=on,backup=1,ssd=1
+qm set "$vmid" --scsihw virtio-scsi-pci --scsi0 "$storage":vm-"$vmid"-disk-0,discard=on,backup=1,ssd=1
 
 echo ""
 echo -e "${green}[!]${reset} Creating Cloud-init drive ..."
-qm set $vmid --ide2 $storage:cloudinit
+qm set "$vmid" --ide2 "$storage":cloudinit
 
 echo ""
 echo -e "${green}[!]${reset} Setting Cloud-init drive as bootable ..."
-qm set $vmid --boot c --bootdisk scsi0
+qm set "$vmid" --boot c --bootdisk scsi0
 
 echo ""
 echo -e "${green}[!]${reset} Attaching serial console ..."
-qm set $vmid --serial0 socket --vga serial0
+qm set "$vmid" --serial0 socket --vga serial0
 
 echo ""
 echo -e "${green}[!]${reset} Generating template ..."
-qm template $vmid
+qm template "$vmid"
 
 echo ""
 echo -e "${green}[!]${reset} Finished!"

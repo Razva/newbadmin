@@ -2,9 +2,9 @@
 
 # Variables & Colors
 
-usage() { echo "Usage: $0 [-i <image_name.qcow/qcow2/img/raw>] [-r <ram_memory>] [-b <bridge>] [-m <mtu>] [-s <storage>] [-n <vm_name>] [-v <vm_id>]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-i <image_name.qcow/qcow2/img/raw>] [-r <ram>] [-b <bridge>] [-m <mtu>] [-s <storage>] [-n <vm_name>] [-v <vm_id>]" 1>&2; exit 1; }
 
-while getopts ":i:m:b:s:v:" o; do
+while getopts ":i:r:b:m:s:n:v:" o; do
   case "${o}" in
     i)
       i=${OPTARG}

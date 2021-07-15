@@ -43,7 +43,7 @@ reset="\e[0m"
 # Script
 
 echo ""
-echo -e "${green}[!]${reset} Creating VM with ID: ${green}$vmid${reset}, RAM: ${green}$memory${reset}, Bridge: ${green}$bridge${reset}, Storage: ${green}$storage${reset} ..."
+echo -e "${green}[!]${reset} Creating VM with ID: ${green}$vmid${reset}, RAM: ${green}$memory${reset}, Bridge: ${green}$bridge${reset}, Storage: ${green}$storage${reset}.
 qm create $vmid --memory $memory --net0 virtio,bridge=$bridge
 
 echo ""

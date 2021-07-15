@@ -2,21 +2,27 @@
 
 # Variables & Colors
 
-usage() { echo "Usage: $0 [-i <image_name.img>] [-m <memory>] [-b <bridge>] [-s <storage>] [-v <vm_id>]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-i <image_name.img>] [-r <ram_memory>] [-b <bridge>] [-m <mtu>] [-s <storage>] [-n <vm_name>] [-v <vm_id>]" 1>&2; exit 1; }
 
 while getopts ":i:m:b:s:v:" o; do
   case "${o}" in
     i)
       i=${OPTARG}
       ;;
-    m)
-      m=${OPTARG}
+    r)
+      r=${OPTARG}
       ;;
     b)
       b=${OPTARG}
       ;;
+    m)
+      m=${OPTARG}
+      ;;
     s)
       s=${OPTARG}
+      ;;
+    n)
+      n=${OPTARG}
       ;;
     v)
       v=${OPTARG}
@@ -28,14 +34,16 @@ while getopts ":i:m:b:s:v:" o; do
 done
 shift $((OPTIND-1))
 
-if [ -z "${i}" ] || [ -z "${m}" ] || [ -z "${b}" ] || [ -z "${s}" ] || [ -z "${v}" ]; then
+if [ -z "${i}" ] || [ -z "${r}" ] || [ -z "${b}" ] || [ -z "${m}" ] || [ -z "${s}" ] || [ -z "${n}" ] || [ -z "${v}" ]; then
   usage
 fi
 
 img=$i
-memory=$m
+memory=$r
 bridge=$b
+mtu=$m
 storage=$s
+name=$n
 vmid=$v
 green="\e[1;32m"
 reset="\e[0m"
@@ -43,8 +51,8 @@ reset="\e[0m"
 # Script
 
 echo ""
-echo -e "${green}[!]${reset} Creating VM with ID: ${green}$vmid${reset}, RAM: ${green}$memory${reset}, Bridge: ${green}$bridge${reset}, Storage: ${green}$storage${reset}.
-qm create $vmid --memory $memory --net0 virtio,bridge=$bridge
+echo -e "${green}[!]${reset} Creating VM ${green}$name${reset} with ID: ${green}$vmid${reset}, RAM: ${green}$memory${reset}, Bridge: ${green}$bridge${reset}, Storage: ${green}$storage${reset}.
+qm create $vmid --memory $memory --net0 virtio,bridge=$bridge,,firewall=1,mtu=$mtu --name=$name --ostype=l26 --numa=1 --onboot=1 --agent enabled=1,fstrim_cloned_disks=1
 
 echo ""
 echo -e "${green}[!]${reset} Importing disk ..."
@@ -52,7 +60,7 @@ qm importdisk $vmid $img $storage
 
 echo ""
 echo -e "${green}[!]${reset} Attaching disk ..."
-qm set $vmid --scsihw virtio-scsi-pci --scsi0 $storage:vm-$vmid-disk-0
+qm set $vmid --scsihw virtio-scsi-pci --scsi0 $storage:vm-$vmid-disk-0,discard=on,backup=1,ssd=1
 
 echo ""
 echo -e "${green}[!]${reset} Creating Cloud-init drive ..."

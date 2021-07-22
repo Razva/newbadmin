@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Header
+header=nwb-header
+if [ ! -f "$header" ]; then
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/deps/nwb-header
+fi
+source ./nwb-header
+
+# Install fstrim cron
+h1 'Install fstrim cron? [Y/n] ' ; read -r fstrimcron
+case ${fstrimcron,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Installing fstrim cron\n'
+			crontab -l > fstrim
+			echo "*/30 * * * * fstrim --all >/dev/null 2>&1" >> fstrim
+			crontab fstrim
+			rm -rf fstrim
+                h2 $'Done - Installing fstrim cron\n\n'
+                ;;
+        *) h1 $'Skipping - Install fstrim cron\n\n'
+esac
+
+# Check if run by Wizard
+wizard=wizard-newbadmin
+if [ ! -f "$wizard" ]; then
+    bash ./nwb-ostweaks
+fi

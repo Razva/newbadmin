@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Header
+header=nwb-header
+if [ ! -f "$header" ]; then
+	curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/deps/nwb-header
+fi
+source ./nwb-header
+
+h1 $'Domain name: \n\n' ; read -r domain
+
+# Check if run by Wizard
+wizard=wizard-nginx
+if [ ! -f "$wizard" ]; then
+	bash ./nwb-ostweaks
+fi

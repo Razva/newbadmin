@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Header
+header=nwb-header
+if [ ! -f "$header" ]; then
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/deps/nwb-header
+fi
+source ./nwb-header
+
+# Install NGINX
+h1 'Install NGINX? [Y/n] ' ; read -r nginx
+case ${nginx,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Installing NGINX\n'
+			systemctl disable --now apache2 > /dev/null
+			apt-get -qq -y install curl gnupg2 ca-certificates lsb-release
+			echo "deb http://nginx.org/packages/debian `lsb_release -cs` nginx" \ | sudo tee /etc/apt/sources.list.d/nginx.list
+			echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \ | sudo tee /etc/apt/preferences.d/99nginx
+			curl -o /etc/apt/trusted.gpg.d/nginx_signing.asc https://nginx.org/keys/nginx_signing.key > /dev/null
+			apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove && apt-get -qq -y install nginx
+			systemctl enable nginx
+			systemctl start nginx
+			dpkg-query -l | grep nginx
+		h2 $'Done - Installing NGINX\n\n'
+                ;;
+        *) h1 $'Skipping - Install NGINX\n\n';
+esac
+
+# Check if run by Wizard
+wizard=wizard-newbadmin
+if [ ! -f "$wizard" ]; then
+    bash ./nwb-apps
+fi

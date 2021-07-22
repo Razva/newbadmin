@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Header
+header=nwb-header
+if [ ! -f "$header" ]; then
+	curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/deps/nwb-header
+fi
+source ./nwb-header
+
+# Disable IPv6
+h1 'Disable IPv6? [Y/n] ' ; read -r disipv6
+case ${disipv6,,} in
+	[yY][eE][sS]|[yY]|"")
+		h2 $'Disabling IPv6\n'
+			echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf &&
+			sysctl -p
+                h2 $'Done - Disabling IPv6\n\n'
+                ;;
+*) h1 $'Skipping - Disable IPv6\n\n'
+esac
+
+# Check if run by Wizard
+wizard=wizard-newbadmin
+if [ ! -f "$wizard" ]; then
+	bash ./nwb-networking
+fi

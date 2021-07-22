@@ -1,0 +1,98 @@
+#!/bin/bash
+apt-get -qq -y install wget curl
+clear
+
+filename="${BASH_SOURCE[0]}"
+mv -f $filename wizard-newbadmin 2>/dev/null
+
+# Apply OS Updates
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-update
+source ./nwb-update
+
+# Disable IPv6
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-disableipv6
+source ./nwb-disableipv6
+
+# Add fstrim cron
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-fstrim
+source ./nwb-fstrim
+
+# Secure SSH
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-ssh
+source ./nwb-ssh
+
+# Set Hostname
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-hostname
+source ./nwb-hostname
+
+# Set Time
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-time
+source ./nwb-time
+
+# Useradd Bash Fix
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-useraddfix
+source ./nwb-useraddfix
+
+# Install Utilities
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-utils
+source ./nwb-utils
+
+# Enable Auto Updates
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-autoupdate
+source ./nwb-autoupdate
+
+# Install Modern PHP
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-php
+source ./nwb-php
+
+# Install PHP Composer
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-phpcomposer
+source ./nwb-phpcomposer
+
+# Install NGINX
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-nginx
+source ./nwb-nginx
+
+# Create Self-Signed Certificate
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-selfssl
+source ./nwb-selfssl
+
+# Install Certbot
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-certbot
+source ./nwb-certbot
+
+# Install MariaDB
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-mariadb
+source ./nwb-mariadb
+
+# Install Docker
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-docker
+source ./nwb-docker
+
+# Install Docker Compose
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-dockercompose
+source ./nwb-dockercompose
+
+# Install Git
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-git
+source ./nwb-git
+
+# Install NodeJS
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-nodejs
+source ./nwb-nodejs
+
+# Install Zabbix
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian10/tools/nwb-zabbix
+source ./nwb-zabbix
+
+# Cleanup
+rm -rf nwb-*
+
+# Back to index
+index=newbadmin-debian10
+if [ -f "$index" ]; then
+	rm -rf wizard-newbadmin
+    bash newbadmin-debian10
+else
+    exit
+fi

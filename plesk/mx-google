@@ -5,10 +5,16 @@ green="\e[1;32m"
 reset="\e[0m"
 
 # Variables
-usage() { echo""; echo -e "${green}[!]${reset} Usage: ${green}-d${reset} domain.tld"; echo "" 1>&2; exit 1; }
+usage() { echo""; echo -e "${green}[!]${reset} Usage: ${green}-i${reset} ip.ad.dr.ess ${green}-p${reset} plesk.hostname ${green}-d${reset} domain.tld"; echo "" 1>&2; exit 1; }
 
-while getopts ":d:" o; do
+while getopts ":i:p:d:" o; do
   case "${o}" in
+    i)
+      i=${OPTARG}
+      ;;
+    p)
+      p=${OPTARG}
+      ;;
     d)
       d=${OPTARG}
       ;;
@@ -19,19 +25,27 @@ while getopts ":d:" o; do
 done
 shift $((OPTIND-1))
 
-if [ -z "${d}" ]; then
+if [ -z "${i}" ] || [ -z "${p}" ] || [ -z "${d}" ]; then
   usage
 fi
 
+ip=$i
+plesk=$p
 domain=$d
 
 # Script
 echo ""
-echo -e "${green}[!]${reset} Setting Google MX for $domain ..."
-plesk bin dns --del "$domain" -mx '' -mailexchanger mail."$domain"
+echo -e "${green}[!]${reset} Setting ${green}Zoho MX${reset} for $domain ..."
+plesk bin dns --del "$domain" -a webmail -ip "$ip"
+plesk bin dns --del "$domain" -a mail -ip "$ip"
+plesk bin dns --del "$domain" -txt "v=spf1 +a +mx +a:$plesk -all" -domain ''
+plesk bin dns --del "$domain" -srv '' -srv-service imaps -srv-target-host '' -srv-protocol TCP -srv-port 993 -srv-priority 0 -srv-weight 0
+plesk bin dns --del "$domain" -srv '' -srv-service pop3s -srv-target-host '' -srv-protocol TCP -srv-port 995 -srv-priority 0 -srv-weight 0
+plesk bin dns --del "$domain" -srv '' -srv-service smtps -srv-target-host '' -srv-protocol TCP -srv-port 465 -srv-priority 0 -srv-weight 0
 plesk bin dns --add "$domain" -mx '' -mailexchanger aspmx.l.google.com -priority 1
 plesk bin dns --add "$domain" -mx '' -mailexchanger alt1.aspmx.l.google.com -priority 5
 plesk bin dns --add "$domain" -mx '' -mailexchanger alt2.aspmx.l.google.com -priority 5
 plesk bin dns --add "$domain" -mx '' -mailexchanger alt3.aspmx.l.google.com -priority 10
 plesk bin dns --add "$domain" -mx '' -mailexchanger alt4.aspmx.l.google.com -priority 10
+plesk bin dns --add "$domain" -txt "v=spf1 include:_spf.google.com ~all" -domain ''
 echo ""

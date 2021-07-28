@@ -35,7 +35,7 @@ domain=$d
 
 # Script
 echo ""
-echo -e "${green}[!]${reset} Setting ${green}Zoho MX${reset} for $domain ..."
+echo -e "${green}[!]${reset} Setting ${green}Google MX${reset} for $domain ..."
 plesk bin dns --del "$domain" -a webmail -ip "$ip"
 plesk bin dns --del "$domain" -a mail -ip "$ip"
 plesk bin dns --del "$domain" -txt "v=spf1 +a +mx +a:$plesk -all" -domain ''

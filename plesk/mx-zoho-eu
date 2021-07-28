@@ -13,7 +13,7 @@ while getopts ":i:p:d:" o; do
       i=${OPTARG}
       ;;
     p)
-      i=${OPTARG}
+      p=${OPTARG}
       ;;
     d)
       d=${OPTARG}

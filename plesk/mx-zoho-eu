@@ -27,7 +27,7 @@ domain=$d
 
 # Script
 echo ""
-echo -e "${green}[!]${reset} Setting Google MX for $domain ..."
+echo -e "${green}[!]${reset} Setting Zoho MX for $domain ..."
 plesk bin dns --del "$domain" -mx '' -mailexchanger mail."$domain"
 plesk bin dns --add "$domain" -mx '' -mailexchanger mx.zoho.eu -priority 10
 plesk bin dns --add "$domain" -mx '' -mailexchanger mx2.zoho.eu -priority 20

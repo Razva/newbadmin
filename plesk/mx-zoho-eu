@@ -39,6 +39,9 @@ echo -e "${green}[!]${reset} Setting ${green}Zoho MX${reset} for $domain ..."
 plesk bin dns --del "$domain" -a webmail -ip "$ip"
 plesk bin dns --del "$domain" -a mail -ip "$ip"
 plesk bin dns --del "$domain" -txt "v=spf1 +a +mx +a:$plesk -all" -domain ''
+plesk bin dns --del "$domain" -srv '' -srv-service imaps -srv-target-host '' -srv-protocol TCP -srv-port 993 -srv-priority 0 -srv-weight 0
+plesk bin dns --del "$domain" -srv '' -srv-service pop3s -srv-target-host '' -srv-protocol TCP -srv-port 995 -srv-priority 0 -srv-weight 0
+plesk bin dns --del "$domain" -srv '' -srv-service smtps -srv-target-host '' -srv-protocol TCP -srv-port 465 -srv-priority 0 -srv-weight 0
 plesk bin dns --del "$domain" -mx '' -mailexchanger mail."$domain"
 plesk bin dns --add "$domain" -mx '' -mailexchanger mx.zoho.eu -priority 10
 plesk bin dns --add "$domain" -mx '' -mailexchanger mx2.zoho.eu -priority 20

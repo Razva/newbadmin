@@ -30,8 +30,8 @@ echo ""
 echo -e "${green}[!]${reset} Setting Google MX for $domain ..."
 plesk bin dns --del "$domain" -mx '' -mailexchanger mail."$domain"
 plesk bin dns --add "$domain" -mx '' -mailexchanger aspmx.l.google.com -priority 1
-plesk bin dns --add "$domain" -mx '' -mailexchanger alt1.aspmx.l.google.com 5
-plesk bin dns --add "$domain" -mx '' -mailexchanger alt2.aspmx.l.google.com 5
-plesk bin dns --add "$domain" -mx '' -mailexchanger alt3.aspmx.l.google.com 10
-plesk bin dns --add "$domain" -mx '' -mailexchanger alt4.aspmx.l.google.com 10
+plesk bin dns --add "$domain" -mx '' -mailexchanger alt1.aspmx.l.google.com -priority 5
+plesk bin dns --add "$domain" -mx '' -mailexchanger alt2.aspmx.l.google.com -priority 5
+plesk bin dns --add "$domain" -mx '' -mailexchanger alt3.aspmx.l.google.com -priority 10
+plesk bin dns --add "$domain" -mx '' -mailexchanger alt4.aspmx.l.google.com -priority 10
 echo ""

@@ -1,0 +1,42 @@
+#!/bin/bash
+apt-get -qq -y install dialog 2>/dev/null
+clear
+
+height=30
+width=40
+choice_height=20
+backtitle="Newb Admin"
+title="Plesk Tools"
+
+options=(1 "Domains - Export all domains"
+	2 "MX - Export all MX Records"
+	3 "MX - Export external MX Records"
+	4 "A - Export external A Records"
+	5 "CNAME - Export all CNAME Records"
+	6 "Tools - Reset all DNS Records"
+	99 "Exit")
+
+choice=$(dialog --clear \
+	--backtitle "$backtitle" \
+	--title "$title" \
+	--menu "" \
+	$height $width $choice_height \
+	"${options[@]}" \
+	2>&1 >/dev/tty)
+
+clear
+case $choice in
+	1) MYSQL_PWD=`cat /etc/psa/.psa.shadow` mysql -uadmin psa -BNe "select name from domains" > export-domains.txt
+	;;
+	2) plesk db "select type,displayHost,val from dns_recs where type='MX'" > export-mx.txt
+	;;
+	3) plesk db "select type,displayHost,val from dns_recs where type='MX' and val not like 'mail.%'" > export-mx-external.txt
+	;;
+	4) plesk db "select type,displayHost,val from dns_recs where type='A' and displayHost not like 'ns1.%' and displayHost not like 'ns2.%' and displayHost not like 'ns3.%' and displayHost not like 'ns4.%' and displayHost not like 'ftp.%' and displayHost not like 'mail.%' and displayHost not like 'webmail.%' and displayHost not like 'ipv4.%' and displayHost not like 'ipv6.%'" > export-a.txt
+	;;
+	5) plesk db "select type,displayHost,val from dns_recs where type='CNAME'" > export-cname.txt
+	;;
+	6) 
+	99) exit
+	;;
+esac

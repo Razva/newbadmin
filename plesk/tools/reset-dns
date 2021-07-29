@@ -1,0 +1,5 @@
+#!/bin/bash
+echo ""
+read -p 'Domains new IP: ' ip;
+read -p 'File that contains all domains: ' domains;
+while read line;do plesk bin dns --reset $line -ip "$ip"; done < "$domains"

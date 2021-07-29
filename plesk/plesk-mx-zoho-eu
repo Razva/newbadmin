@@ -46,5 +46,5 @@ plesk bin dns --del "$domain" -mx '' -mailexchanger mail."$domain"
 plesk bin dns --add "$domain" -mx '' -mailexchanger mx.zoho.eu -priority 10
 plesk bin dns --add "$domain" -mx '' -mailexchanger mx2.zoho.eu -priority 20
 plesk bin dns --add "$domain" -mx '' -mailexchanger mx3.zoho.eu -priority 50
-plesk bin dns --add "$domain" -txt "v=spf1 include:zoho.eu -all" -domain ''
+plesk bin dns --add "$domain" -txt "v=spf1 include:zoho.eu include:zoho.com ~all" -domain ''
 echo ""

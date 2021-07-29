@@ -14,6 +14,7 @@ options=(1 "Domains - Export all domains"
 	4 "A - Export external A Records"
 	5 "CNAME - Export all CNAME Records"
 	6 "Tools - Reset all DNS Records"
+	98 "Export everything"
 	99 "Exit")
 
 choice=$(dialog --clear \
@@ -36,7 +37,11 @@ case $choice in
 	;;
 	5) plesk db "select type,displayHost,val from dns_recs where type='CNAME'" > export-cname.txt
 	;;
-	6) 
+	6) curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/plesk/tools/dns-reset
+	source ./dns-reset
+	;;
+	98) plesk db "select type,displayHost,val from dns_recs" > export-everything.txt 
+	;;
 	99) exit
 	;;
 esac

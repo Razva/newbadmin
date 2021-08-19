@@ -41,6 +41,18 @@ source ./nwb-utils
 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-autoupdate
 source ./nwb-autoupdate
 
+# Create Self-Signed Certificate
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-selfssl
+source ./nwb-selfssl
+
+# Install Certbot
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-certbot
+source ./nwb-certbot
+
+# Install NGINX
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-nginx
+source ./nwb-nginx
+
 # Install Modern PHP
 #curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-php
 #source ./nwb-php
@@ -49,17 +61,7 @@ source ./nwb-autoupdate
 #curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-phpcomposer
 #source ./nwb-phpcomposer
 
-# Install NGINX
-#curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-nginx
-#source ./nwb-nginx
 
-# Create Self-Signed Certificate
-curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-selfssl
-source ./nwb-selfssl
-
-# Install Certbot
-#curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-certbot
-#source ./nwb-certbot
 
 # Install MariaDB
 #curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-mariadb

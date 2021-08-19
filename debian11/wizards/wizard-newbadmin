@@ -49,39 +49,37 @@ source ./nwb-selfssl
 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-certbot
 source ./nwb-certbot
 
+# Install Git
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-git
+source ./nwb-git
+
 # Install NGINX
 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-nginx
 source ./nwb-nginx
 
 # Install Modern PHP
-#curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-php
-#source ./nwb-php
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-php
+source ./nwb-php
 
 # Install PHP Composer
-#curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-phpcomposer
-#source ./nwb-phpcomposer
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-phpcomposer
+source ./nwb-phpcomposer
 
+# Install Docker
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-docker
+source ./nwb-docker
 
+# Install Docker Compose
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-dockercompose
+source ./nwb-dockercompose
+
+# Install NodeJS
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-nodejs
+source ./nwb-nodejs
 
 # Install MariaDB
 #curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-mariadb
 #source ./nwb-mariadb
-
-# Install Docker
-#curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-docker
-#source ./nwb-docker
-
-# Install Docker Compose
-#curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-dockercompose
-#source ./nwb-dockercompose
-
-# Install Git
-#curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-git
-#source ./nwb-git
-
-# Install NodeJS
-#curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-nodejs
-#source ./nwb-nodejs
 
 # Install Zabbix
 #curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-zabbix

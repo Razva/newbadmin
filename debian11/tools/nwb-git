@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Header
+header=nwb-header
+if [ ! -f "$header" ]; then
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/deps/nwb-header
+fi
+source ./nwb-header
+
+# Install Git
+h1 'Install Git? [Y/n] ' ; read -r git
+case ${git,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Installing Git\n'
+					apt-get -qq -y install git
+                h2 $'Done - Installing Git\n\n'
+                ;;
+        *) h1 $'Skipping - Install Git\n\n';	
+esac
+
+# Check if run by Wizard
+wizard=wizard-newbadmin
+if [ ! -f "$wizard" ]; then
+    bash ./nwb-apps
+fi

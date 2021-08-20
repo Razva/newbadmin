@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Header
+header=nwb-header
+if [ ! -f "$header" ]; then
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/deps/nwb-header
+fi
+source ./nwb-header
+
+# Install Docker phpMyAdmin
+h1 'Install Docker phpMyAdmin? [Y/n] ' ; read -r php
+case ${php,,} in
+        [yY][eE][sS]|[yY]|"")
+		h2 $'Installing Docker phpMyAdmin\n'
+			curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh && systemctl enable docker && systemctl start docker &&
+			ip=$(hostname --ip-address) &&
+			docker run --name pma -d -e PMA_HOST=$ip -p 8181:80 phpmyadmin &&
+			echo ""
+			echo "Reverse proxy to port$green 8181$normal. phpMyAdmin is looking for an SQL server on$green $ip$normal."
+			echo ""
+			read -p $'Press ENTER to continue\n'
+		h2 $'Done - Installing Docker phpMyAdmin\n\n'
+                ;;
+        *) h1 $'Skipping - Install Docker phpMyAdmin\n\n';
+esac
+
+# Check if run by Wizard
+wizard=wizard-newbadmin
+if [ ! -f "$wizard" ]; then
+    bash ./nwb-apps
+fi

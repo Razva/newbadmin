@@ -13,7 +13,7 @@ case ${nodejs,,} in
 	[yY][eE][sS]|[yY]|"")
 		h2 $'Installing NodeJS\n'
 			h3 $'NodeJS Version (current, lts, 12, 14, 15, 16): ' ; read -r nodeversion
-			curl -fsSL https://deb.nodesource.com/setup_$nodeversion.x | bash -
+			curl -fsSL https://deb.nodesource.com/setup_$nodeversion.x | bash - &&
 			apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove &&
 			apt-get -qq -y install gcc g++ make &&
 			apt-get -qq -y install nodejs &&

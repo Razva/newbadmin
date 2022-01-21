@@ -1,4 +1,4 @@
 #!/bin/bash
 echo "Cleaning up..."
-sleep 1 &&
+sleep 1
 rm -rf nwb-*

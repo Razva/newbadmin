@@ -12,7 +12,7 @@ h1 'Install Utilities? [Y/n] ' ; read -r utils
 case ${utils,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing Utilities\n'
-                	apt-get -qq -y install nano wget sudo curl screen tar unzip qemu-guest-agent acpid rsync software-properties-common &&
+                	apt-get -qq -y install nano wget sudo curl screen tar unzip qemu-guest-agent acpid rsync software-properties-common
                 h2 $'Done - Installing Utilities\n\n'
                 ;;
         *) h1 $'Skipping - Install Utilities\n\n'

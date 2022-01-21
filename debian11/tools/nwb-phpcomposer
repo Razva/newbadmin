@@ -12,9 +12,9 @@ h1 'Install PHP Composer? Make sure that you already have PHP-CLI installed! [Y/
 case ${composer,,} in
 	[yY][eE][sS]|[yY]|"")
 		h2 $'Installing NGINX\n'
-			php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
-			php composer-setup.php &&
-			mv composer.phar /usr/local/bin/composer &&
+			php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+			php composer-setup.php
+			mv composer.phar /usr/local/bin/composer
 			php -r "unlink('composer-setup.php');"
 		h2 $'Done - Installing PHP Composer\n\n'
                 ;;

@@ -12,8 +12,9 @@ h1 'Install Self-Signed Certificate? [Y/n] ' ; read -r selfssl
 case ${selfssl,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing Self-Signed Certificate\n'
-			mkdir /etc/ssl/private && chmod 700 /etc/ssl/private &&
-			openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt &&
+			mkdir /etc/ssl/private
+			chmod 700 /etc/ssl/private
+			openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
 			h3 $'\n= Public Key: /etc/ssl/certs/nginx-selfsigned.crt\n'
 			h3 $'Private Key: /etc/ssl/private/nginx-selfsigned.key\n'
 		h2 $'Done - Installing Self-Signed Certificate\n\n'

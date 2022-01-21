@@ -12,9 +12,9 @@ h1 'Install Docker phpMyAdmin? [Y/n] ' ; read -r php
 case ${php,,} in
         [yY][eE][sS]|[yY]|"")
 		h2 $'Installing Docker phpMyAdmin\n'
-			curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh && systemctl enable docker && systemctl start docker &&
-			ip=$(hostname --ip-address) &&
-			docker run --name pma -d -e PMA_HOST=$ip -p 8181:80 phpmyadmin &&
+			curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh && systemctl enable docker && systemctl start docker
+			ip=$(hostname --ip-address)
+			docker run --name pma -d -e PMA_HOST=$ip -p 8181:80 phpmyadmin
 			echo ""
 			echo "Reverse proxy to port$green 8181$normal. phpMyAdmin is looking for an SQL server on$green $ip$normal."
 			echo ""

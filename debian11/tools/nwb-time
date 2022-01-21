@@ -13,10 +13,10 @@ case ${settime,,} in
         [yY][eE][sS]|[yY]|"")
 		h2 $'Setting Time\n'
 			h3 $'Timezone: ' ; read -r timezone
-				timedatectl set-timezone "$timezone" &&
-			apt-get -qq -y install chrony &&
-			systemctl enable chrony &&
-			systemctl start chrony &&
+				timedatectl set-timezone "$timezone"
+			apt-get -qq -y install chrony
+			systemctl enable chrony
+			systemctl start chrony
 		h2 $'Done - Setting Time\n\n'
                 ;;
         *) h1 $'Skipping - Set Time\n\n';

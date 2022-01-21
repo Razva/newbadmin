@@ -12,15 +12,15 @@ h1 'Install NGINX? [Y/n] ' ; read -r nginx
 case ${nginx,,} in
         [yY][eE][sS]|[yY]|"")
                 h2 $'Installing NGINX\n'
-			systemctl disable --now apache2 > /dev/null &&
-			apt-get -qq -y install curl gnupg2 ca-certificates lsb-release debian-archive-keyring &&
-			curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null &&
-			echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/debian `lsb_release -cs` nginx" | sudo tee /etc/apt/sources.list.d/nginx.list &&
-			echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" | sudo tee /etc/apt/preferences.d/99nginx &&
-			apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove && apt-get -qq -y install nginx &&
-			systemctl enable nginx &&
-			systemctl start nginx &&
-			dpkg-query -l | grep nginx &&
+			systemctl disable --now apache2 > /dev/null
+			apt-get -qq -y install curl gnupg2 ca-certificates lsb-release debian-archive-keyring
+			curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+			echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/debian `lsb_release -cs` nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
+			echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" | sudo tee /etc/apt/preferences.d/99nginx
+			apt-get -qq -y update && apt-get -qq -y dist-upgrade && apt-get -qq -y autoremove && apt-get -qq -y install nginx
+			systemctl enable nginx
+			systemctl start nginx
+			dpkg-query -l | grep nginx
 		h2 $'Done - Installing NGINX\n\n'
                 ;;
         *) h1 $'Skipping - Install NGINX\n\n';

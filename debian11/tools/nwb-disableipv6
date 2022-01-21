@@ -12,7 +12,7 @@ h1 'Disable IPv6? [Y/n] ' ; read -r disipv6
 case ${disipv6,,} in
 	[yY][eE][sS]|[yY]|"")
 		h2 $'Disabling IPv6\n'
-			echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf &&
+			echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
 			sysctl -p
                 h2 $'Done - Disabling IPv6\n\n'
                 ;;

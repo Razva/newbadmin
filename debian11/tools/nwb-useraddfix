@@ -12,7 +12,7 @@ h1 'Apply useradd bash fix? [Y/n] ' ; read -r useraddfix
 case ${useraddfix,,} in
         [yY][eE][sS]|[yY]|"")
 		h2 $'Applying ueradd bash fix\n'
-			sed -i 's|SHELL=/bin/sh|SHELL=/bin/bash|g' /etc/default/useradd &&
+			sed -i 's|SHELL=/bin/sh|SHELL=/bin/bash|g' /etc/default/useradd
 		h2 $'Done - Applying ueradd bash fix\n\n'
                 ;;
         *) h1 $'Skipping - Apply useradd bash fix\n\n';

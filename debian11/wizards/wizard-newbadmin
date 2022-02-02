@@ -57,6 +57,10 @@ source ./nwb-git
 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-nginx
 source ./nwb-nginx
 
+# Install MariaDB
+curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-mariadb
+source ./nwb-mariadb
+
 # Install Modern PHP
 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-php
 source ./nwb-php

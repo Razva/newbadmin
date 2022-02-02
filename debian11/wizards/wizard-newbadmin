@@ -81,10 +81,6 @@ source ./nwb-dockercompose
 curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-nodejs
 source ./nwb-nodejs
 
-# Install MariaDB
-#curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-mariadb
-#source ./nwb-mariadb
-
 # Install Zabbix
 #curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/tools/nwb-zabbix
 #source ./nwb-zabbix

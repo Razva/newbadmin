@@ -24,9 +24,9 @@ case ${zabbix,,} in
 					case ${zcncted,,} in
 						[yY][eE][sS]|[yY]|"")
 							h2 $'Applying Zabbix CNCTED Settings\n'
-								sed -i 's/^Server=127.0.0.1$/Server=monitoring.cncted.net/g' /etc/zabbix/zabbix_agentd.conf &&
-								sed -i "s/^Hostname=Zabbix server$/Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agentd.conf &&
-								sed -i "s/^ServerActive=127.0.0.1/#ServerActive=127.0.0.1/g" /etc/zabbix/zabbix_agentd.conf &&
+								sed -i 's/^Server=127.0.0.1$/Server=monitoring.cncted.net/g' /etc/zabbix/zabbix_agentd.conf
+								sed -i "s/^Hostname=Zabbix server$/Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agentd.conf
+								sed -i "s/^ServerActive=127.0.0.1/#ServerActive=127.0.0.1/g" /etc/zabbix/zabbix_agentd.conf
 								systemctl restart zabbix-agent
 								
 								printf "\n${yellow}Public IP:${green} "

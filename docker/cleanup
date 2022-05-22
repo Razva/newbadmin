@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Style
+green="$(tput setaf 2)"
+yellow="$(tput setaf 3)"
+normal="$(tput sgr0)"
+
+h1() { printf '%s=== %s%s' "$green" "$1" "$normal"; }
+ye() { printf '%s' "$yellow" "$1" "$normal"; }
+
+h1 $'Pruning all stopped containers, unused networks/volumes/images and cache ...\n\n'
+docker system prune --volumes --all -f
+ye $'\n=== Done!\n\n'
+
+h1 'Clearing logs ... '
+truncate -s 0 /var/lib/docker/containers/*/*-json.log
+ye $'done!\n\n'

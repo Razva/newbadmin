@@ -3,7 +3,7 @@
 # Header
 header=nwb-header
 if [ ! -f "$header" ]; then
-	curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian11/deps/nwb-header
+    curl -Os https://raw.githubusercontent.com/Razva/newbadmin/master/debian/debian12/deps/nwb-header
 fi
 source ./nwb-header
 

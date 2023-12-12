@@ -1,10 +1,11 @@
 #!/bin/bash
+# This script should be run on the DESTINATION (new node) not on the TARGET (old node)
 
 # Variables & Colors
 
 usage() { echo "Usage: $0 [-h <remote_hostname>] [-s <local_storage>] [-r <remote_workdir_full_path>] [-l <local_workdir_full_path>] [-v <vm_id>]" 1>&2; exit 1; }
 
-while getopts ":h:s:r:l:i:" o; do
+while getopts ":h:s:r:l:v:" o; do
   case "${o}" in
     h)
       h=${OPTARG}
@@ -28,7 +29,7 @@ while getopts ":h:s:r:l:i:" o; do
 done
 shift $((OPTIND-1))
 
-if [ -z "${h}" ] || [ -z "${s}" ] || [ -z "${r}" ] || [ -z "${l}" ] || [ -z "${i}" ]; then
+if [ -z "${h}" ] || [ -z "${s}" ] || [ -z "${r}" ] || [ -z "${l}" ] || [ -z "${v}" ]; then
   usage
 fi
 

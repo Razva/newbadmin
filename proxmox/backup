@@ -1,0 +1,50 @@
+#!/bin/bash
+# This script should be run on the Proxmox host
+
+# Variables & Colors
+
+usage() { echo "Usage: $0 [-s <storage_dir>] [-v <vm_id>] [-n <archive_name>]" 1>&2; exit 1; }
+
+while getopts ":s:v:n:" o; do
+  case "${o}" in
+    s)
+      s=${OPTARG}
+      ;;
+    v)
+      v=${OPTARG}
+      ;;
+    n)
+      n=${OPTARG}
+      ;;
+    *)
+      usage
+      ;;
+  esac
+done
+shift $((OPTIND-1))
+
+if [ -z "${s}" ] || [ -z "${v}" ] || [ -z "${n}" ]; then
+  usage
+fi
+
+storage=$s
+vm=$v
+name=$n
+green="\e[1;32m"
+reset="\e[0m"
+
+# Script
+
+echo ""
+echo -e "${green}[!]${reset} Backing up ${green}$vm${reset} to ${green}$storage/$name.vma.zst${reset} ..."
+echo ""
+
+vzdump $vm --dumpdir $storage --mode stop --compress zstd --stdout > $storage/$name.vma.zst &&
+
+echo ""
+echo -e "${green}[!]${reset} Cleanup ... "
+rm -rf $storage/*.log >>/dev/null 2>/dev/null &&
+
+echo ""
+echo -e "========== ${green} Done! ${reset} =========="
+echo ""

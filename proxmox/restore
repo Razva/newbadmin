@@ -1,0 +1,50 @@
+#!/bin/bash
+# This script should be run on the Proxmox host. At "-f" please use the full path to the file that you would like to restore.
+
+# Variables & Colors
+
+usage() { echo "Usage: $0 [-f <file_to_restore>] [-v <new_vm_id>] [-s <storage>]" 1>&2; exit 1; }
+
+while getopts ":f:v:s:" o; do
+  case "${o}" in
+    f)
+      f=${OPTARG}
+      ;;
+    v)
+      v=${OPTARG}
+      ;;
+    s)
+      s=${OPTARG}
+      ;;
+    *)
+      usage
+      ;;
+  esac
+done
+shift $((OPTIND-1))
+
+if [ -z "${f}" ] || [ -z "${v}" ] || [ -z "${s}" ]; then
+  usage
+fi
+
+file=$f
+vm=$v
+storage=$s
+green="\e[1;32m"
+reset="\e[0m"
+
+# Script
+
+echo ""
+echo -e "${green}[!]${reset} Restoring ${green}$file${reset} to ${green}VM $vm${reset} on ${green}$storage${reset} ..."
+echo ""
+
+qmrestore $file $vm --storage $storage &&
+
+#echo ""
+#echo -e "${green}[!]${reset} Starting ... "
+#qm start "$vm" >/dev/null 2>/dev/null &&
+
+echo ""
+echo -e "========== ${green} Done! ${reset} =========="
+echo ""

@@ -36,10 +36,10 @@ reset="\e[0m"
 # Script
 
 echo ""
-echo -e "${green}[!]${reset} Backing up ${green}$vm${reset} to ${green}$storage/$name.vma.zst${reset} ..."
+echo -e "${green}[!]${reset} Backing up ${green}$vm${reset} to ${green}$storage/vzdump-qemu-$name.vma.zst${reset} ..."
 echo ""
 
-vzdump $vm --dumpdir $storage --mode stop --compress zstd --stdout > $storage/$name.vma.zst &&
+vzdump $vm --dumpdir $storage --mode stop --compress zstd --stdout > $storage/vzdump-qemu-$name.vma.zst &&
 
 echo ""
 echo -e "${green}[!]${reset} Cleanup ... "

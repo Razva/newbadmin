@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Style
+green="$(tput setaf 2)"
+yellow="$(tput setaf 3)"
+cyan="$(tput setaf 6)"
+normal="$(tput sgr0)"
+
+h1() { printf '%s=== %s%s' "$green" "$1" "$normal"; }
+h2() { printf '%s== %s%s' "$yellow" "$1" "$normal"; }
+h3() { printf '%s= %s%s' "$cyan" "$1" "$normal"; }
+ye() { printf '%s' "$yellow" "$1" "$normal"; }
+cy() { printf '%s' "$cyan" "$1" "$normal"; }
+
+# Set Hostname
+h1 'Set Hostname? [Y/n] ' ; read -r sethostname
+case ${sethostname,,} in
+        [yY][eE][sS]|[yY]|"")
+                h2 $'Setting Hostname\n'
+			h3 'New hostname: ' ; read -r hostname
+				hostnamectl set-hostname "$hostname" --static
+                h2 $'Done - Setting Hostname\n\n'
+                ;;
+        *) h1 $'Skipping - Set Hostname\n\n';
+esac

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Style
+green="$(tput setaf 2)"
+yellow="$(tput setaf 3)"
+cyan="$(tput setaf 6)"
+normal="$(tput sgr0)"
+
+h1() { printf '%s=== %s%s' "$green" "$1" "$normal"; }
+h2() { printf '%s== %s%s' "$yellow" "$1" "$normal"; }
+h3() { printf '%s= %s%s' "$cyan" "$1" "$normal"; }
+ye() { printf '%s' "$yellow" "$1" "$normal"; }
+cy() { printf '%s' "$cyan" "$1" "$normal"; }
+
+# Set Time
+h1 'Set Time? [Y/n] ' ; read -r settime
+case ${settime,,} in
+        [yY][eE][sS]|[yY]|"")
+		h2 $'Setting Time\n'
+			h3 $'Timezone: ' ; read -r timezone
+				timedatectl set-timezone "$timezone"
+		h2 $'Done - Setting Time\n\n'
+                ;;
+        *) h1 $'Skipping - Set Time\n\n';
+esac
